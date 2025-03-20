@@ -1,0 +1,1 @@
+{"name":"Local: CF-1023C","url":"/home/value0/algorithm/practice/CF-1023C.cpp","tests":[{"id":1742469605045,"input":"6 4\n()(())\n","output":""},{"id":1742469639973,"input":"8 8\n(()(()))\n","output":"(()(()))\n"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/value0/algorithm/practice/CF-1023C.cpp","group":"local","local":true}
