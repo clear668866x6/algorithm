@@ -1,0 +1,1 @@
+{"name":"Local: abc133f","url":"/home/value0/algorithm/practice/abc133f.cpp","tests":[{"id":1742621538743,"input":"5 3\n1 2 1 10\n1 3 2 20\n2 4 4 30\n5 2 1 40\n1 100 1 4\n1 100 1 5\n3 1000 3 4\n","output":"130\n200\n60\n"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/value0/algorithm/practice/abc133f.cpp","group":"local","local":true}
