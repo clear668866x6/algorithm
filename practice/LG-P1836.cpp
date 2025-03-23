@@ -186,18 +186,15 @@ int __FAST_IO__ = [](){
     return 0;
 }();
 
-int l,r;
-int f[20][350][2];
-int num[20],cnt,cur;
+int n;
+int f[20][350][2],num[20],cnt;
 
 int dfs(int u,int sum,bool limit){
     if(!u)return sum;
-
     if(~f[u][sum][limit])return f[u][sum][limit];
     int res=0;
-
-    for(int i=0;i<=(limit?num[u]:9);i++){
-        res=(res+dfs(u-1,sum+i%mod,limit&&(i==num[u])))%mod;
+    FOR(i,0,(limit?num[u]:9)){
+        res+=dfs(u-1,sum+i,(limit&&i==num[u]));
     }
     return f[u][sum][limit]=res;
 }
@@ -205,24 +202,19 @@ int dfs(int u,int sum,bool limit){
 int work(int x){
     memset(f,-1,sizeof f);
     cnt=0;
-    while(x){
-        num[++cnt]=x%10;
-        x/=10;
-    }
-
-    return dfs(cnt,0,1)%mod;
-
+    while(x) num[++cnt]=x%10,x/=10;
+    return dfs(cnt,0,1);
 }
 
 void solve() {
-    cin>>l>>r;
+    cin>>n;
 
-    cout<<(work(r)-work(l-1)+mod)%mod<<endl;
+    cout<<work(n);
 }
 
 signed main() {
     int Task = 1;
-    for (cin >> Task; Task; Task--) {
+    for (; Task; Task--) {
         solve();
     }
     return 0;

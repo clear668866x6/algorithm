@@ -100,7 +100,7 @@ namespace WIDA {
         }
         return r;
     }
-    const int N = 2e5 + 10;
+    const int N = 2e3 + 10;
     const int INF = numeric_limits<int>::max();
     const int mod = 1e9 + 7;
 } // namespace WIDA
@@ -186,43 +186,53 @@ int __FAST_IO__ = [](){
     return 0;
 }();
 
-int l,r;
-int f[20][350][2];
-int num[20],cnt,cur;
+string s;
+int k;
+int num[N],cnt;
+int f[N][N][2];
+int t[N];
 
-int dfs(int u,int sum,bool limit){
-    if(!u)return sum;
-
-    if(~f[u][sum][limit])return f[u][sum][limit];
+int dfs(int u,int s,bool lim){
+    if(!u)return t[s]+1==k;
+    if(~f[u][s][lim])return f[u][s][lim];
     int res=0;
-
-    for(int i=0;i<=(limit?num[u]:9);i++){
-        res=(res+dfs(u-1,sum+i%mod,limit&&(i==num[u])))%mod;
+    FOR(i,0,lim?num[u]:1){
+        res=(res+dfs(u-1,s+(i==1),lim&&i==num[u]))%mod;
     }
-    return f[u][sum][limit]=res;
+    return f[u][s][lim]=res;
 }
 
-int work(int x){
-    memset(f,-1,sizeof f);
-    cnt=0;
-    while(x){
-        num[++cnt]=x%10;
-        x/=10;
+int work(){
+    reverse(s.begin(),s.end());
+    for(auto x:s){
+        num[++cnt]=x-'0';
     }
 
+    FOR(i,2,1000){
+        t[i]=t[__builtin_popcount(i)]+1;
+    }
+ 
+    memset(f,-1,sizeof f);
     return dfs(cnt,0,1)%mod;
-
 }
 
 void solve() {
-    cin>>l>>r;
+    cin>>s>>k;
+    if(!k){
+        cout<<1;
+        return;
+    }
+    if(k==1){
+        cout<<s.sz-1;
+        RE;
+    }
 
-    cout<<(work(r)-work(l-1)+mod)%mod<<endl;
+    cout<<work()<<endl;
 }
 
 signed main() {
     int Task = 1;
-    for (cin >> Task; Task; Task--) {
+    for (; Task; Task--) {
         solve();
     }
     return 0;

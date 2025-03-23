@@ -186,43 +186,49 @@ int __FAST_IO__ = [](){
     return 0;
 }();
 
-int l,r;
-int f[20][350][2];
-int num[20],cnt,cur;
+int n,w[N];
+int d[30];
 
-int dfs(int u,int sum,bool limit){
-    if(!u)return sum;
+int get_d(int x){
+    int pow2=1<<x;
+    int ans=0;
 
-    if(~f[u][sum][limit])return f[u][sum][limit];
-    int res=0;
+    unordered_map<int,int>group_size,group_sum;
 
-    for(int i=0;i<=(limit?num[u]:9);i++){
-        res=(res+dfs(u-1,sum+i%mod,limit&&(i==num[u])))%mod;
+    FOR(i,1,n){
+        if(w[i]%pow2==0){
+            ans+=w[i];
+        }
+        int t=(-w[i]%pow2+pow2)%pow2;
+        ans+=w[i]*group_size[t]+group_sum[t];
+        group_size[w[i]%pow2]++;
+        group_sum[w[i]%pow2]+=w[i];
     }
-    return f[u][sum][limit]=res;
-}
-
-int work(int x){
-    memset(f,-1,sizeof f);
-    cnt=0;
-    while(x){
-        num[++cnt]=x%10;
-        x/=10;
-    }
-
-    return dfs(cnt,0,1)%mod;
-
+    return ans;
 }
 
 void solve() {
-    cin>>l>>r;
+    cin>>n;
 
-    cout<<(work(r)-work(l-1)+mod)%mod<<endl;
+    FOR(i,1,n)cin>>w[i];
+
+    FOR(i,0,28){
+        d[i]=get_d(i);
+    }
+
+    int ans=0;
+
+    FOR(i,0,27){
+        ans+=(d[i]-d[i+1])>>i;
+    }
+
+    cout<<ans;
+
 }
 
 signed main() {
     int Task = 1;
-    for (cin >> Task; Task; Task--) {
+    for (; Task; Task--) {
         solve();
     }
     return 0;

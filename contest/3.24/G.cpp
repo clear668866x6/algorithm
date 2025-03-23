@@ -186,43 +186,107 @@ int __FAST_IO__ = [](){
     return 0;
 }();
 
-int l,r;
-int f[20][350][2];
-int num[20],cnt,cur;
+//得发现：f(x,y) 可以转移到 f(x+1,y),f(x-1,y),f(x,y+1),f(x,y-1)上
+//以f(x+1,y)为例，f(x+1,y)=f(x,y)+(f(x+1,y)-f(x,y))
+//f(x+1,y)=f(x,y)+sum_{j=1}^{y}|A_{x+1}-B_{j}|
 
-int dfs(int u,int sum,bool limit){
-    if(!u)return sum;
+//这里就得拆绝对值了
 
-    if(~f[u][sum][limit])return f[u][sum][limit];
-    int res=0;
+struct BIT {
+    int tr[N];
 
-    for(int i=0;i<=(limit?num[u]:9);i++){
-        res=(res+dfs(u-1,sum+i%mod,limit&&(i==num[u])))%mod;
+    void add(int x,int c){
+        for(int i=x;i<N;i+=lowbit(i))tr[i]+=c;
     }
-    return f[u][sum][limit]=res;
+
+    int query(int x){
+        int res=0;
+        for(int i=x;i;i-=lowbit(i))res+=tr[i];
+        return res;
+    }
+
+    int query(int l,int r){
+        return query(r)-query(l-1);
+    }
+
+}A,AC,B,BC;
+
+int n,k;
+int a[N],b[N];
+int va[N],vb[N];
+int cnt,c[N*2];
+int len=1000;
+int ans[N],res;
+
+int get(int x){
+    return x/len;
 }
 
-int work(int x){
-    memset(f,-1,sizeof f);
-    cnt=0;
-    while(x){
-        num[++cnt]=x%10;
-        x/=10;
-    }
+struct Q{
+    int l,r,id;
+}q[N];
 
-    return dfs(cnt,0,1)%mod;
+bool cmp(Q a,Q b){
+    if(get(a.l)!=get(b.l))return a.l<b.l;
+    return ((get(a.l)&1)?a.r<b.r:a.r>b.r);
+}
 
+void addx(int x,int c){
+    res+=c*(BC.query(1,a[x])*va[x]-B.query(1,a[x]));
+    res+=c*(B.query(a[x]+1,cnt)-BC.query(a[x]+1,cnt)*va[x]);
+    A.add(a[x],c*va[x]);
+    AC.add(a[x],c);
+}
+
+void addy(int x,int c){
+    res+=c*(AC.query(1,b[x])*vb[x]-A.query(1,b[x]));
+    res+=c*(A.query(b[x]+1,cnt)-AC.query(b[x]+1,cnt)*vb[x]);
+    B.add(b[x],c*vb[x]);
+    BC.add(b[x],c);
 }
 
 void solve() {
-    cin>>l>>r;
+    cin>>n;
 
-    cout<<(work(r)-work(l-1)+mod)%mod<<endl;
+    FOR(i,1,n)cin>>a[i],va[i]=a[i],c[++cnt]=a[i];
+    FOR(i,1,n)cin>>b[i],vb[i]=b[i],c[++cnt]=b[i];
+
+    sort(c+1,c+cnt+1);
+
+    FOR(i,1,n){
+        a[i]=lower_bound(c+1,c+cnt+1,a[i])-c;
+        b[i]=lower_bound(c+1,c+cnt+1,b[i])-c;
+    }
+
+    cin>>k;
+
+    FOR(i,1,k){
+        int l,r;
+        cin>>l>>r;
+        q[i]={l,r,i};
+    }
+
+    sort(q+1,q+k+1,cmp);
+
+    int l=0,r=0;
+
+    FOR(i,1,k){
+        while(l>q[i].l)addx(l--,-1);
+        while(r>q[i].r)addy(r--,-1);
+        while(l<q[i].l)addx(++l,1);
+        while(r<q[i].r)addy(++r,1);
+        ans[q[i].id]=res;
+    }
+
+    FOR(i,1,k){
+        cout<<ans[i]<<endl;
+    }
+
 }
 
 signed main() {
     int Task = 1;
-    for (cin >> Task; Task; Task--) {
+    for (; Task; Task--) {
         solve();
     }
     return 0;

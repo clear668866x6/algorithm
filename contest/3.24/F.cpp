@@ -100,7 +100,7 @@ namespace WIDA {
         }
         return r;
     }
-    const int N = 2e5 + 10;
+    const int N = 2e5 + 10 , M = 5e7+10;
     const int INF = numeric_limits<int>::max();
     const int mod = 1e9 + 7;
 } // namespace WIDA
@@ -186,43 +186,50 @@ int __FAST_IO__ = [](){
     return 0;
 }();
 
-int l,r;
-int f[20][350][2];
-int num[20],cnt,cur;
-
-int dfs(int u,int sum,bool limit){
-    if(!u)return sum;
-
-    if(~f[u][sum][limit])return f[u][sum][limit];
-    int res=0;
-
-    for(int i=0;i<=(limit?num[u]:9);i++){
-        res=(res+dfs(u-1,sum+i%mod,limit&&(i==num[u])))%mod;
-    }
-    return f[u][sum][limit]=res;
-}
-
-int work(int x){
-    memset(f,-1,sizeof f);
-    cnt=0;
-    while(x){
-        num[++cnt]=x%10;
-        x/=10;
-    }
-
-    return dfs(cnt,0,1)%mod;
-
-}
+int n,w[N];
+int d[M],ct[M],f[N];
 
 void solve() {
-    cin>>l>>r;
+    cin>>n;
 
-    cout<<(work(r)-work(l-1)+mod)%mod<<endl;
+    FOR(i,1,n)cin>>w[i];
+
+    FOR(i,0,24){
+        memset(d,0,sizeof d);
+        memset(ct,0,sizeof ct);
+
+        int mod=1<<i;
+
+        FORD(j,1,n){
+            int t=(-w[j]%mod+mod)%mod;
+            f[i]+=ct[t]*w[j]+d[t];
+
+            ct[w[j]%mod]++;
+            d[w[j]%mod]+=w[j];
+        }
+    }
+
+    int ans=0;
+
+    FOR(i,0,24){
+        ans+=(f[i]-f[i+1])/(1<<i);
+    }
+
+    FOR(i,1,n){
+        int x=w[i];
+        while(x%2==0){
+            x/=2;
+        }
+        ans+=x;
+    }
+
+    cout<<ans<<endl;
+
 }
 
 signed main() {
     int Task = 1;
-    for (cin >> Task; Task; Task--) {
+    for (; Task; Task--) {
         solve();
     }
     return 0;

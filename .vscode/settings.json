@@ -59,7 +59,8 @@
   "files.associations": {
     "iomanip": "cpp",
     "map": "cpp",
-    "format": "cpp"
+    "format": "cpp",
+    "iosfwd": "cpp"
   },
   "C_Cpp.errorSquiggles": "disabled"
 }

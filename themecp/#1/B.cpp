@@ -186,38 +186,39 @@ int __FAST_IO__ = [](){
     return 0;
 }();
 
-int l,r;
-int f[20][350][2];
-int num[20],cnt,cur;
-
-int dfs(int u,int sum,bool limit){
-    if(!u)return sum;
-
-    if(~f[u][sum][limit])return f[u][sum][limit];
-    int res=0;
-
-    for(int i=0;i<=(limit?num[u]:9);i++){
-        res=(res+dfs(u-1,sum+i%mod,limit&&(i==num[u])))%mod;
-    }
-    return f[u][sum][limit]=res;
-}
-
-int work(int x){
-    memset(f,-1,sizeof f);
-    cnt=0;
-    while(x){
-        num[++cnt]=x%10;
-        x/=10;
-    }
-
-    return dfs(cnt,0,1)%mod;
-
-}
+int n,k,w[N];
 
 void solve() {
-    cin>>l>>r;
+    cin>>n>>k;
 
-    cout<<(work(r)-work(l-1)+mod)%mod<<endl;
+    FOR(i,1,n)cin>>w[i];
+
+    if(k!=4){
+        int ans=1e18;
+
+        FOR(i,1,n){
+            ans=min(ans,abs(w[i]-(w[i]+k-1)/k*k));
+        }
+        cout<<ans<<endl;
+    }else{
+        int ans=1e18;
+        int t1=1e18,t2=1e18;
+        FOR(i,1,n){
+            int t=abs(w[i]-((w[i]+2-1)/2*2));
+            if(t<t1){
+                t2=t1,t1=t;
+            }else if(t<=t2){
+                t2=t;
+            }
+        }
+        ans=min(ans,t1+t2);
+
+        FOR(i,1,n){
+            ans=min(ans,abs(w[i]-(w[i]+4-1)/4*4));
+        }
+
+        cout<<ans<<endl;
+    }
 }
 
 signed main() {

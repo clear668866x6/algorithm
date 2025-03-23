@@ -186,43 +186,53 @@ int __FAST_IO__ = [](){
     return 0;
 }();
 
-int l,r;
-int f[20][350][2];
-int num[20],cnt,cur;
-
-int dfs(int u,int sum,bool limit){
-    if(!u)return sum;
-
-    if(~f[u][sum][limit])return f[u][sum][limit];
-    int res=0;
-
-    for(int i=0;i<=(limit?num[u]:9);i++){
-        res=(res+dfs(u-1,sum+i%mod,limit&&(i==num[u])))%mod;
+int w[6];
+struct E{
+    int s;
+    string se;
+    bool operator<(const E &t) const {
+        if(s==t.s){
+            if(se.sz!=t.se.sz)return se.sz<t.se.sz;
+            return se>t.se;
+        }
+        return s<t.s;
     }
-    return f[u][sum][limit]=res;
-}
+};
+vector<E>ans;
+bool vis[6];
 
-int work(int x){
-    memset(f,-1,sizeof f);
-    cnt=0;
-    while(x){
-        num[++cnt]=x%10;
-        x/=10;
+void dfs(int u,int s){
+    if(u==6){
+        string p;
+        FOR(i,1,5){
+            if(vis[i]){
+                p+=(i+'A'-1);
+            }
+        }
+        ans.pb({s,p});
+        return;
     }
-
-    return dfs(cnt,0,1)%mod;
-
+    vis[u]=1;
+    dfs(u+1,s+w[u]);
+    vis[u]=0;
+    dfs(u+1,s);
 }
 
 void solve() {
-    cin>>l>>r;
+    FOR(i,1,5)cin>>w[i];
 
-    cout<<(work(r)-work(l-1)+mod)%mod<<endl;
+    dfs(1,0);
+
+    sort(ALL(ans));
+    reverse(ALL(ans));
+    for(auto x:ans){
+        cout<<x.se<<endl;
+    }
 }
 
 signed main() {
     int Task = 1;
-    for (cin >> Task; Task; Task--) {
+    for (; Task; Task--) {
         solve();
     }
     return 0;

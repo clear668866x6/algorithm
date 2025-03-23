@@ -100,7 +100,7 @@ namespace WIDA {
         }
         return r;
     }
-    const int N = 2e5 + 10;
+    const int N = 500 + 10;
     const int INF = numeric_limits<int>::max();
     const int mod = 1e9 + 7;
 } // namespace WIDA
@@ -186,43 +186,56 @@ int __FAST_IO__ = [](){
     return 0;
 }();
 
-int l,r;
-int f[20][350][2];
-int num[20],cnt,cur;
-
-int dfs(int u,int sum,bool limit){
-    if(!u)return sum;
-
-    if(~f[u][sum][limit])return f[u][sum][limit];
-    int res=0;
-
-    for(int i=0;i<=(limit?num[u]:9);i++){
-        res=(res+dfs(u-1,sum+i%mod,limit&&(i==num[u])))%mod;
+int dx[]={-1,0,1,0},dy[]={0,1,0,-1};
+int w[N][N];
+int n,m,X;
+int s,t;
+struct E{
+    int x,y,w;
+    bool operator<(const E&e)const{
+        return w>e.w;
     }
-    return f[u][sum][limit]=res;
-}
-
-int work(int x){
-    memset(f,-1,sizeof f);
-    cnt=0;
-    while(x){
-        num[++cnt]=x%10;
-        x/=10;
-    }
-
-    return dfs(cnt,0,1)%mod;
-
-}
+};
+priority_queue<E>q;
+bool vis[N][N];
+int cur;
 
 void solve() {
-    cin>>l>>r;
+    cin>>n>>m>>X>>s>>t;
 
-    cout<<(work(r)-work(l-1)+mod)%mod<<endl;
+    FOR(i,1,n){
+        FOR(j,1,m){
+            cin>>w[i][j];
+        }
+    }
+    vis[s][t]=1;
+    q.push({s,t,w[s][t]});
+    cur=0;
+    bool f=false;
+
+    while(q.sz){
+        auto [x,y,t]=q.top();
+        q.pop();
+        
+        if(f&&(__int128)t*X>=(__int128)cur)break;
+        f=1;
+        cur+=t;
+        
+        FOR(i,0,3){
+            int a=dx[i]+x,b=dy[i]+y;
+            if(a<1||b<1||a>n||b>m||vis[a][b])continue;
+            vis[a][b]=1;
+            q.push({a,b,w[a][b]});
+        }
+    }
+
+    cout<<cur;
+
 }
 
 signed main() {
     int Task = 1;
-    for (cin >> Task; Task; Task--) {
+    for (; Task; Task--) {
         solve();
     }
     return 0;
