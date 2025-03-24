@@ -1,0 +1,1 @@
+{"name":"Local: abc197c","url":"/home/value0/algorithm/practice/abc197c.cpp","tests":[{"id":1742794885108,"input":"3\n1 5 7\n","output":""},{"id":1742795093859,"input":"3\n10 10 10\n","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/value0/algorithm/practice/abc197c.cpp","group":"local","local":true}
