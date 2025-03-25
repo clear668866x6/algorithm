@@ -60,7 +60,9 @@
     "iomanip": "cpp",
     "map": "cpp",
     "format": "cpp",
-    "iosfwd": "cpp"
+    "iosfwd": "cpp",
+    "iostream": "cpp",
+    "chrono": "cpp"
   },
   "C_Cpp.errorSquiggles": "disabled"
 }
