@@ -1,0 +1,1 @@
+{"name":"Local: abc245d","url":"/home/value0/algorithm/practice/abc245d.cpp","tests":[{"id":1743264546752,"input":"1 2\n2 1\n12 14 8 2\n","output":""},{"id":1743264562560,"input":"1 1\n100 1\n10000 0 -1\n","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/value0/algorithm/practice/abc245d.cpp","group":"local","local":true}
