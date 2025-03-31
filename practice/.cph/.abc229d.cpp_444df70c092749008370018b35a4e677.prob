@@ -1,0 +1,1 @@
+{"name":"Local: abc229d","url":"/home/value0/algorithm/practice/abc229d.cpp","tests":[{"id":1743316669979,"input":"XX...X.X.X.\n2\n","output":""},{"id":1743316681497,"input":"XXXX\n200000\n","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/value0/algorithm/practice/abc229d.cpp","group":"local","local":true}

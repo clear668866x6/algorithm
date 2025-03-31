@@ -1,0 +1,1 @@
+{"name":"Local: cf-2050f","url":"/home/value0/algorithm/practice/cf-2050f.cpp","tests":[{"id":1743425744111,"input":"3\n5 5\n5 14 2 6 3\n4 5\n1 4\n2 4\n3 5\n1 1\n1 1\n7\n1 1\n3 2\n1 7 8\n2 3\n1 2\n","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/value0/algorithm/practice/cf-2050f.cpp","group":"local","local":true}
