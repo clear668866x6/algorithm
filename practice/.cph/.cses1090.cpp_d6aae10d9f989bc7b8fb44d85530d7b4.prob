@@ -1,0 +1,1 @@
+{"name":"Local: cses1090","url":"/home/value0/algorithm/practice/cses1090.cpp","tests":[{"id":1743519273627,"input":"4 10\n7 2 3 9\n","output":""},{"id":1743519278865,"input":"6 6\n1 2 3 3 4 4","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/value0/algorithm/practice/cses1090.cpp","group":"local","local":true}
