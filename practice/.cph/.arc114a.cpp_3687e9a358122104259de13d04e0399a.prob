@@ -1,0 +1,1 @@
+{"name":"Local: arc114a","url":"/home/value0/algorithm/practice/arc114a.cpp","tests":[{"id":1743611230105,"input":"2\n4 3\n","output":""},{"id":1743611258427,"input":"7\n3 4 6 7 8 9 10\n","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/value0/algorithm/practice/arc114a.cpp","group":"local","local":true}

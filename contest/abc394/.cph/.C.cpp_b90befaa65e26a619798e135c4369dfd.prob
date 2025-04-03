@@ -1,0 +1,1 @@
+{"name":"Local: C","url":"/home/value0/algorithm/contest/abc394/C.cpp","tests":[{"id":1743678323368,"input":"WACWA\n","output":""},{"id":1743678329643,"input":"WWWWW\n","output":""},{"id":1743678334340,"input":"WWA\n","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/value0/algorithm/contest/abc394/C.cpp","group":"local","local":true}

@@ -1,0 +1,1 @@
+{"name":"Local: CF-1809c","url":"/home/value0/algorithm/practice/CF-1809c.cpp","tests":[{"id":1743607791600,"input":"4\n3 2\n2 0\n2 2\n4 6\n","output":"-1 200 -400\n-400 -1\n-400 1000\n-1 200 -400 1000\n"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/value0/algorithm/practice/CF-1809c.cpp","group":"local","local":true}

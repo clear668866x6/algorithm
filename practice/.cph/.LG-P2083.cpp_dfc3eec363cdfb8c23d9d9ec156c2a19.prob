@@ -1,0 +1,1 @@
+{"name":"Local: LG-P2083","url":"/home/value0/algorithm/practice/LG-P2083.cpp","tests":[{"id":1743566916406,"input":"3 3 2 2 3\n1 3 3 3 2 1\n2 3 1 1 2 3\n1 1 1 2 2 3\n","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/value0/algorithm/practice/LG-P2083.cpp","group":"local","local":true}
