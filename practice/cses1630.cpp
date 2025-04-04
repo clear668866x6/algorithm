@@ -38,36 +38,40 @@ int __FAST_IO__ = [](){
     return 0;
 }();
 
-//把总问题分解成子问题：此时n要比较小的时候才行
-
-int n,k;
-int w[N];
-
-void work(int n,int k){
-    if(!n)return;
-
-    if(k<n){
-        if(k>0)w[k-1]=200;
-        w[k]=-400;
-    }else{
-        work(n-1,k-n);
-        w[n-1]=1000;
+int n;
+struct E{
+    int a,d;
+    bool operator<(const E& t)const{
+        if(a==t.a)return d<t.d;
+        return a<t.a;
     }
-}
+}w[N];
 
 void solve() {
-    cin>>n>>k;
+    cin>>n;
 
-    FOR(i,0,n-1)w[i]=-1;
+    FOR(i,1,n){
+        int a,d;
+        cin>>a>>d;
+        w[i]={a,d};
+    }
 
-    work(n,k);
+    sort(w+1,w+1+n);
+    
+    int ans=0,t=0;
 
-    FOR(i,0,n-1)cout<<w[i]<<" \n"[i==n-1];
+    FOR(i,1,n){
+        t+=w[i].a;
+        ans+=w[i].d-t;
+    }
+
+    cout<<ans;
+
 }
 
 signed main() {
     int Task = 1;
-    for (cin >> Task; Task; Task--) {
+    for (; Task; Task--) {
         solve();
     }
     return 0;

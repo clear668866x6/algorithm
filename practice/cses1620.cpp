@@ -38,36 +38,39 @@ int __FAST_IO__ = [](){
     return 0;
 }();
 
-//把总问题分解成子问题：此时n要比较小的时候才行
-
-int n,k;
+int n,t;
 int w[N];
 
-void work(int n,int k){
-    if(!n)return;
+bool check(int x){
+    int cnt=0;
 
-    if(k<n){
-        if(k>0)w[k-1]=200;
-        w[k]=-400;
-    }else{
-        work(n-1,k-n);
-        w[n-1]=1000;
+    FOR(i,1,n){
+        cnt+=x/w[i];
+        if(cnt>=t)return 1;
     }
+    return cnt>=t;
 }
 
 void solve() {
-    cin>>n>>k;
+    cin>>n>>t;
 
-    FOR(i,0,n-1)w[i]=-1;
+    FOR(i,1,n)cin>>w[i];
 
-    work(n,k);
+    sort(w+1,w+1+n);
 
-    FOR(i,0,n-1)cout<<w[i]<<" \n"[i==n-1];
+    int l=0,r=2e18;
+
+    while(l+1!=r){
+        int mid=l+r>>1;
+        if(check(mid))r=mid;
+        else l=mid;
+    }
+    cout<<r;
 }
 
 signed main() {
     int Task = 1;
-    for (cin >> Task; Task; Task--) {
+    for (; Task; Task--) {
         solve();
     }
     return 0;

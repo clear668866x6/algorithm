@@ -28,7 +28,7 @@ using TII = tuple<int, int, int>;
 #define fi first
 #define se second
 #define sz size()
-constexpr int N = 2e5 + 10;
+constexpr int N = 5e5 + 10;
 constexpr int mod = 998244353;
 
 int __FAST_IO__ = [](){
@@ -38,36 +38,50 @@ int __FAST_IO__ = [](){
     return 0;
 }();
 
-//把总问题分解成子问题：此时n要比较小的时候才行
+int f[N][30];
+int k;
+string a,b;
+int na,nb;
 
-int n,k;
-int w[N];
-
-void work(int n,int k){
-    if(!n)return;
-
-    if(k<n){
-        if(k>0)w[k-1]=200;
-        w[k]=-400;
-    }else{
-        work(n-1,k-n);
-        w[n-1]=1000;
-    }
+int& get(int x,int y){
+    return f[x][x-y+22];
 }
 
 void solve() {
-    cin>>n>>k;
+    cin>>k>>a>>b;
 
-    FOR(i,0,n-1)w[i]=-1;
+    int n1=a.sz,n2=b.sz;
 
-    work(n,k);
+    a=' '+a,b=' '+b;
 
-    FOR(i,0,n-1)cout<<w[i]<<" \n"[i==n-1];
+    if(abs(n1-n2)>k){
+        No;
+        RE;
+    }
+
+    memset(f,0x3f,sizeof f);
+
+    FOR(i,0,k){
+        get(i,0)=get(0,i)=i;
+    }
+
+    FOR(i,1,n1){
+        FOR(j,max<int>(1,i-k),min<int>(n2,i+k)){
+            get(i,j)=min({get(i,j),get(i-1,j)+1,get(i,j-1)+1,get(i-1,j-1)+(a[i]!=b[j])});
+        }
+    }
+
+    if(get(n1,n2)<=k){
+        Yes;
+    }else{
+        No;
+    }
+
 }
 
 signed main() {
     int Task = 1;
-    for (cin >> Task; Task; Task--) {
+    for (; Task; Task--) {
         solve();
     }
     return 0;

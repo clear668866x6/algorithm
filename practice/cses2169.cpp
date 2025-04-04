@@ -28,7 +28,7 @@ using TII = tuple<int, int, int>;
 #define fi first
 #define se second
 #define sz size()
-constexpr int N = 2e5 + 10;
+constexpr int N = 5e5 + 10;
 constexpr int mod = 998244353;
 
 int __FAST_IO__ = [](){
@@ -38,36 +38,71 @@ int __FAST_IO__ = [](){
     return 0;
 }();
 
-//把总问题分解成子问题：此时n要比较小的时候才行
-
-int n,k;
-int w[N];
-
-void work(int n,int k){
-    if(!n)return;
-
-    if(k<n){
-        if(k>0)w[k-1]=200;
-        w[k]=-400;
-    }else{
-        work(n-1,k-n);
-        w[n-1]=1000;
+int n;
+int a1[N],a2[N];
+struct E{
+    int l,r,id;
+    bool operator<(const E& t)const{
+        if(l==t.l)return r>t.r;
+        return l<t.l;
     }
+}w[N];
+int b[N],cnt;
+int tr[N];
+
+void add(int x,int c){
+    for(int i=x;i<N;i+=lowbit(i))tr[i]+=c;
+}
+
+int query(int x){
+    int res=0;
+    for(int i=x;i;i-=lowbit(i))res+=tr[i];
+    return res;
 }
 
 void solve() {
-    cin>>n>>k;
+    cin>>n;
 
-    FOR(i,0,n-1)w[i]=-1;
+    set<int>s;
+    map<int,int>b;
+    
+    FOR(i,1,n){
+        int x,y;
+        cin>>x>>y;
+        w[i]={x,y,i};
+        s.insert(x),s.insert(y);
+    }
 
-    work(n,k);
+    s.insert(0);
+    s.insert(1e18);
 
-    FOR(i,0,n-1)cout<<w[i]<<" \n"[i==n-1];
+    for(auto x:s)b[x]=++cnt;
+    
+    FOR(i,1,n){
+        w[i].l=b[w[i].l];
+        w[i].r=b[w[i].r];
+    }
+
+    sort(w+1,w+1+n);
+    
+    FOR(i,1,n){
+        a1[w[i].id]=query(cnt)-query(w[i].r-1);
+        add(w[i].r,1);
+    }
+
+    FOR(i,1,n){
+        add(w[i].r,-1);
+        a2[w[i].id]=query(w[i].r)-query(w[i].l);
+    }
+
+    FOR(i,1,n)cout<<a2[i]<<" \n"[i==n];
+    FOR(i,1,n)cout<<a1[i]<<" \n"[i==n];
+
 }
 
 signed main() {
     int Task = 1;
-    for (cin >> Task; Task; Task--) {
+    for (; Task; Task--) {
         solve();
     }
     return 0;

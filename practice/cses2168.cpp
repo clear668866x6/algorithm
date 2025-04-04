@@ -38,36 +38,53 @@ int __FAST_IO__ = [](){
     return 0;
 }();
 
-//把总问题分解成子问题：此时n要比较小的时候才行
-
-int n,k;
-int w[N];
-
-void work(int n,int k){
-    if(!n)return;
-
-    if(k<n){
-        if(k>0)w[k-1]=200;
-        w[k]=-400;
-    }else{
-        work(n-1,k-n);
-        w[n-1]=1000;
+int n;
+struct E{
+    int l,r,id;
+    bool operator<(const E& t)const{
+        if(l==t.l)return r>t.r;
+        return l<t.l;
     }
-}
+}w[N];
+int ans1[N],ans2[N];
 
 void solve() {
-    cin>>n>>k;
+    cin>>n;
 
-    FOR(i,0,n-1)w[i]=-1;
+    FOR(i,1,n){
+        int x,y;
+        cin>>x>>y;
+        w[i]={x,y,i};
+    }
 
-    work(n,k);
+    sort(w+1,w+1+n);
 
-    FOR(i,0,n-1)cout<<w[i]<<" \n"[i==n-1];
+    int lmx=1e18;
+
+    FORD(i,1,n){
+        if(lmx<=w[i].r){
+            ans1[w[i].id]=1;
+        }
+        lmx=min(lmx,w[i].r);
+    }
+
+    int rmn=0;
+
+    FOR(i,1,n){
+        if(rmn>=w[i].r){
+            ans2[w[i].id]=1;
+        }
+        rmn=max(rmn,w[i].r);
+    }
+
+    FOR(i,1,n)cout<<ans1[i]<<" \n"[i==n];
+    FOR(i,1,n)cout<<ans2[i]<<" \n"[i==n];
+
 }
 
 signed main() {
     int Task = 1;
-    for (cin >> Task; Task; Task--) {
+    for (; Task; Task--) {
         solve();
     }
     return 0;

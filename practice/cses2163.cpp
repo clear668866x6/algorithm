@@ -38,36 +38,47 @@ int __FAST_IO__ = [](){
     return 0;
 }();
 
-//把总问题分解成子问题：此时n要比较小的时候才行
+int n,k,tr[N];
 
-int n,k;
-int w[N];
+void add(int x,int c){for(int i=x;i<N;i+=lowbit(i))tr[i]+=c;}
 
-void work(int n,int k){
-    if(!n)return;
+int ask(int x){int res=0;for(int i=x;i;i-=lowbit(i))res+=tr[i];return res;
+}
 
-    if(k<n){
-        if(k>0)w[k-1]=200;
-        w[k]=-400;
-    }else{
-        work(n-1,k-n);
-        w[n-1]=1000;
+int query(int x){
+    int l=0,r=n+1;
+
+    while(l+1!=r){
+        int mid=l+r>>1;
+        if(ask(mid)>=x)r=mid;
+        else l=mid;
     }
+    return r;
 }
 
 void solve() {
     cin>>n>>k;
 
-    FOR(i,0,n-1)w[i]=-1;
+    FOR(i,1,n){
+        add(i,1);
+    }
 
-    work(n,k);
+    k++;
 
-    FOR(i,0,n-1)cout<<w[i]<<" \n"[i==n-1];
+    int t=1;
+
+    FOR(i,1,n){
+        t=(t+k-2)%(n-i+1)+1;
+        int p=query(t);
+        cout<<p<<' ';
+        add(p,-1);
+    }
+
 }
 
 signed main() {
     int Task = 1;
-    for (cin >> Task; Task; Task--) {
+    for (; Task; Task--) {
         solve();
     }
     return 0;

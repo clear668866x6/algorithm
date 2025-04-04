@@ -38,36 +38,47 @@ int __FAST_IO__ = [](){
     return 0;
 }();
 
-//把总问题分解成子问题：此时n要比较小的时候才行
-
+VI res;
 int n,k;
 int w[N];
+int ans;
+bool vis[N];
 
-void work(int n,int k){
-    if(!n)return;
-
-    if(k<n){
-        if(k>0)w[k-1]=200;
-        w[k]=-400;
-    }else{
-        work(n-1,k-n);
-        w[n-1]=1000;
+bool check(int x){
+    if(x==1)return false;
+    FOR(i,2,x/i){
+        if(x%i==0){
+            return false;
+        }
     }
+    return true;
+}
+
+void dfs(int u,int tot,int gp){
+    if(gp>k)RE;
+    if(u>n+1)RE;
+    if(gp==k){
+        if(check(tot))ans++;
+        RE;
+    }
+
+    dfs(u+1,tot+w[u],gp+1);
+    dfs(u+1,tot,gp);
 }
 
 void solve() {
     cin>>n>>k;
 
-    FOR(i,0,n-1)w[i]=-1;
+    FOR(i,1,n)cin>>w[i];
 
-    work(n,k);
+    dfs(1,0,0);
 
-    FOR(i,0,n-1)cout<<w[i]<<" \n"[i==n-1];
+    cout<<ans;
 }
 
 signed main() {
     int Task = 1;
-    for (cin >> Task; Task; Task--) {
+    for (; Task; Task--) {
         solve();
     }
     return 0;

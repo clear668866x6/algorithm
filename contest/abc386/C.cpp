@@ -38,36 +38,80 @@ int __FAST_IO__ = [](){
     return 0;
 }();
 
-//把总问题分解成子问题：此时n要比较小的时候才行
-
-int n,k;
-int w[N];
-
-void work(int n,int k){
-    if(!n)return;
-
-    if(k<n){
-        if(k>0)w[k-1]=200;
-        w[k]=-400;
-    }else{
-        work(n-1,k-n);
-        w[n-1]=1000;
-    }
-}
+int k;
+string a,b;
 
 void solve() {
-    cin>>n>>k;
+    cin>>k>>a>>b;
 
-    FOR(i,0,n-1)w[i]=-1;
+    if(a==b){
+        Yes;
+        RE;
+    }
 
-    work(n,k);
+    if(a.sz>b.sz){
+        if(a.sz==b.sz+1){
+            int cnt=0;
+            int j=0;
+            FOR(i,0,a.sz-1){
+                if(a[i]==b[j]){
+                    j++;
+                }else{
+                    cnt++;
+                }
+            }
+            if(cnt>1){
+                No;
+            }else{
+                Yes;
+            }
+            RE;
+        }
+        No;
+        RE;
+    }
 
-    FOR(i,0,n-1)cout<<w[i]<<" \n"[i==n-1];
+    if(a.sz<b.sz){
+        if(a.sz==b.sz-1){
+            int cnt=0;
+            int j=0;
+            FOR(i,0,b.sz-1){
+                if(b[i]==a[j]){
+                    j++;
+                }else{
+                    cnt++;
+                }
+            }
+            if(cnt>1){
+                No;
+            }else{
+                Yes;
+            }
+            RE;
+        }
+        No;
+        RE;
+    }
+
+    if(a.sz==b.sz){
+        int t=0;
+        FOR(i,0,a.sz-1){
+            if(a[i]!=b[i]){
+                t++;
+            }
+        }
+        if(t>1){
+            No;
+            RE;
+        }
+        Yes;
+    }
+
 }
 
 signed main() {
     int Task = 1;
-    for (cin >> Task; Task; Task--) {
+    for (; Task; Task--) {
         solve();
     }
     return 0;

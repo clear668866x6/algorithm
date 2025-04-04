@@ -28,7 +28,7 @@ using TII = tuple<int, int, int>;
 #define fi first
 #define se second
 #define sz size()
-constexpr int N = 2e5 + 10;
+constexpr int N = 3e5 + 10;
 constexpr int mod = 998244353;
 
 int __FAST_IO__ = [](){
@@ -38,36 +38,24 @@ int __FAST_IO__ = [](){
     return 0;
 }();
 
-//把总问题分解成子问题：此时n要比较小的时候才行
-
-int n,k;
-int w[N];
-
-void work(int n,int k){
-    if(!n)return;
-
-    if(k<n){
-        if(k>0)w[k-1]=200;
-        w[k]=-400;
-    }else{
-        work(n-1,k-n);
-        w[n-1]=1000;
-    }
-}
+int n,w[N],s[N],t[N];
 
 void solve() {
-    cin>>n>>k;
+    cin>>n;
 
-    FOR(i,0,n-1)w[i]=-1;
+    FOR(i,1,n)cin>>w[i],s[i]=s[i-1]+w[i],t[i]=t[i-1]+w[i]*w[i];
 
-    work(n,k);
+    int ans=0;
 
-    FOR(i,0,n-1)cout<<w[i]<<" \n"[i==n-1];
+    FOR(i,1,n-1){
+        ans+=(t[n]-t[i])+(n-i)*w[i]*w[i]-2*w[i]*(s[n]-s[i]);
+    }
+    cout<<ans;
 }
 
 signed main() {
     int Task = 1;
-    for (cin >> Task; Task; Task--) {
+    for (; Task; Task--) {
         solve();
     }
     return 0;

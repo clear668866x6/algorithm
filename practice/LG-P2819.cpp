@@ -28,7 +28,7 @@ using TII = tuple<int, int, int>;
 #define fi first
 #define se second
 #define sz size()
-constexpr int N = 2e5 + 10;
+constexpr int N = 100 + 10;
 constexpr int mod = 998244353;
 
 int __FAST_IO__ = [](){
@@ -38,36 +38,54 @@ int __FAST_IO__ = [](){
     return 0;
 }();
 
-//把总问题分解成子问题：此时n要比较小的时候才行
+int n,m,k;
+int cl[N];
+int g[N][N];
+int ans;
+//通过枚举每个点来做的，没想到
 
-int n,k;
-int w[N];
+void dfs(int u){
+    if(u==n+1){
+        ans++;
+        RE;
+    }
 
-void work(int n,int k){
-    if(!n)return;
+    bool f=false;
 
-    if(k<n){
-        if(k>0)w[k-1]=200;
-        w[k]=-400;
-    }else{
-        work(n-1,k-n);
-        w[n-1]=1000;
+    FOR(i,1,k){
+        cl[u]=i;
+        FOR(j,1,u){
+            if(g[u][j]&&cl[u]==cl[j]){
+                f=1;
+                break;
+            }
+        }
+        if(f){
+            f=0;
+        }else{
+            dfs(u+1);
+        }
     }
 }
 
 void solve() {
-    cin>>n>>k;
+    cin>>n>>m>>k;
 
-    FOR(i,0,n-1)w[i]=-1;
+    FOR(i,1,m){
+        int a,b;
+        cin>>a>>b;
+        g[a][b]=g[b][a]=1;
+    }
 
-    work(n,k);
+    dfs(1);
 
-    FOR(i,0,n-1)cout<<w[i]<<" \n"[i==n-1];
+    cout<<ans;
+
 }
 
 signed main() {
     int Task = 1;
-    for (cin >> Task; Task; Task--) {
+    for (; Task; Task--) {
         solve();
     }
     return 0;
