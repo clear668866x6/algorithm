@@ -68,7 +68,19 @@
     "deque": "cpp",
     "vector": "cpp",
     "bitset": "cpp",
-    "typeinfo": "cpp"
+    "typeinfo": "cpp",
+    "array": "cpp",
+    "forward_list": "cpp",
+    "list": "cpp",
+    "unordered_map": "cpp",
+    "unordered_set": "cpp",
+    "string_view": "cpp",
+    "initializer_list": "cpp",
+    "ranges": "cpp",
+    "span": "cpp",
+    "stacktrace": "cpp",
+    "regex": "cpp",
+    "valarray": "cpp"
   },
   "C_Cpp.errorSquiggles": "disabled"
 }
