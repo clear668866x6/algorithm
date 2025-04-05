@@ -1,0 +1,1 @@
+{"name":"Local: cses1635","url":"/home/value0/algorithm/practice/cses1635.cpp","tests":[{"id":1743858692783,"input":"1 1\n1","output":""},{"id":1743859232488,"input":"3 9\n2 3 5\n","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/value0/algorithm/practice/cses1635.cpp","group":"local","local":true}
