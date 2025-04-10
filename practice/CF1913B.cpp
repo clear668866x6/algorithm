@@ -38,64 +38,32 @@ int __FAST_IO__ = [](){
     return 0;
 }();
 
-int n,q;
-int w[N],f[N][32];
-int dep[N];
-bool vis[N];
-
-void dfs(int u){
-    if(vis[u])return;
-    vis[u]=1;
-    dfs(f[u][0]);
-    dep[u]=dep[f[u][0]]+1;
-}
-
-int query(int x,int k){
-    if(k<=0)return x;
-    FOR(i,0,30){
-        if((k>>i)&1){
-            x=f[x][i];
-        }
-    }
-    return x;
-}
+string s;//暴力填即可
 
 void solve() {
-    cin>>n>>q;
+    cin>>s;
 
-    FOR(i,1,n)cin>>w[i];
+    int s0=0,s1=0;
 
-    FOR(i,1,n)f[i][0]=w[i];
-
-    FOR(j,1,30){
-        FOR(i,1,n){
-            f[i][j]=f[f[i][j-1]][j-1];
-        }
+    for(auto x:s){
+        s0+=(x=='0');
+        s1+=(x=='1');
     }
 
-    FOR(i,1,n){
-        if(!vis[i]){
-            dfs(i);
+    FOR(i,0,s.sz-1){
+        if(s[i]=='1')s0--;
+        if(s[i]=='0')s1--;
+        if(s0<0||s1<0){
+            cout<<s.sz-i<<endl;
+            RE;
         }
     }
-
-    while(q--){
-        int a,b;
-        cin>>a>>b;
-        int rt=query(a,dep[a]);
-        if(query(a,dep[a]-dep[b])==b){
-            cout<<dep[a]-dep[b]<<endl;
-        }else if(query(rt,dep[rt]-dep[b])==b){
-            cout<<dep[a]+dep[rt]-dep[b]<<endl;
-        }else{
-            cout<<-1<<endl;
-        }
-    }
+    cout<<0<<endl;
 }
 
 signed main() {
     int Task = 1;
-    for (; Task; Task--) {
+    for (cin >> Task; Task; Task--) {
         solve();
     }
     return 0;

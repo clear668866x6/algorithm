@@ -38,64 +38,44 @@ int __FAST_IO__ = [](){
     return 0;
 }();
 
-int n,q;
-int w[N],f[N][32];
-int dep[N];
-bool vis[N];
-
-void dfs(int u){
-    if(vis[u])return;
-    vis[u]=1;
-    dfs(f[u][0]);
-    dep[u]=dep[f[u][0]]+1;
-}
-
-int query(int x,int k){
-    if(k<=0)return x;
-    FOR(i,0,30){
-        if((k>>i)&1){
-            x=f[x][i];
-        }
-    }
-    return x;
-}
+int a,b;
 
 void solve() {
-    cin>>n>>q;
+    int x1,y1,x2,y2;
+    cin>>a>>b>>x1>>y1>>x2>>y2;
 
-    FOR(i,1,n)cin>>w[i];
+    VI dx(8,0),dy(8,0);
 
-    FOR(i,1,n)f[i][0]=w[i];
+    dx[0]=a,dy[0]=b;
+    dx[1]=-a,dy[1]=b;
+    dx[2]=a,dy[2]=-b;
+    dx[3]=-a,dy[3]=-b;
+    dx[4]=b,dy[4]=a;
+    dx[5]=-b,dy[5]=a;
+    dx[6]=b,dy[6]=-a;
+    dx[7]=-b,dy[7]=-a;
 
-    FOR(j,1,30){
-        FOR(i,1,n){
-            f[i][j]=f[f[i][j-1]][j-1];
+    int ans=0;
+
+    map<PII,int>vis;
+
+    FOR(i,0,7){
+        int x=x1+dx[i],y=y1+dy[i];
+        FOR(j,0,7){
+            if(x+dx[j]==x2&&y+dy[j]==y2){
+                if(vis[{x,y}])continue;
+                vis[{x,y}]=1;
+                ans++;
+            }
         }
     }
 
-    FOR(i,1,n){
-        if(!vis[i]){
-            dfs(i);
-        }
-    }
-
-    while(q--){
-        int a,b;
-        cin>>a>>b;
-        int rt=query(a,dep[a]);
-        if(query(a,dep[a]-dep[b])==b){
-            cout<<dep[a]-dep[b]<<endl;
-        }else if(query(rt,dep[rt]-dep[b])==b){
-            cout<<dep[a]+dep[rt]-dep[b]<<endl;
-        }else{
-            cout<<-1<<endl;
-        }
-    }
+    cout<<ans<<endl;
 }
 
 signed main() {
     int Task = 1;
-    for (; Task; Task--) {
+    for (cin >> Task; Task; Task--) {
         solve();
     }
     return 0;

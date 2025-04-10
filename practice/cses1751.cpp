@@ -38,59 +38,51 @@ int __FAST_IO__ = [](){
     return 0;
 }();
 
-int n,q;
-int w[N],f[N][32];
-int dep[N];
-bool vis[N];
+int n;
+/// @brief 跳2^20步肯定到环上
+int vis[N];
+int f[N][30];
+int ans[N];
 
-void dfs(int u){
-    if(vis[u])return;
-    vis[u]=1;
-    dfs(f[u][0]);
-    dep[u]=dep[f[u][0]]+1;
-}
-
-int query(int x,int k){
-    if(k<=0)return x;
-    FOR(i,0,30){
-        if((k>>i)&1){
-            x=f[x][i];
-        }
+int calc(int x){
+    if(ans[x]){
+        return ans[x];
     }
-    return x;
+    return ans[x]=calc(f[x][0])+1;
 }
 
 void solve() {
-    cin>>n>>q;
+    cin>>n;
 
-    FOR(i,1,n)cin>>w[i];
+    FOR(i,1,n){
+        cin>>f[i][0];
+    }
 
-    FOR(i,1,n)f[i][0]=w[i];
-
-    FOR(j,1,30){
+    FOR(j,1,20){
         FOR(i,1,n){
             f[i][j]=f[f[i][j-1]][j-1];
         }
     }
 
     FOR(i,1,n){
-        if(!vis[i]){
-            dfs(i);
+        int x=f[i][19],y=f[x][0];
+        if(ans[x])continue;
+        ans[x]=1;
+        while(y!=x)y=f[y][0],ans[x]++;
+        y=f[y][0];
+        while(y!=x)ans[y]=ans[x],y=f[y][0];
+    }
+
+    FOR(i,1,n){
+        if(!ans[i]){
+            ans[i]=calc(i);
         }
     }
 
-    while(q--){
-        int a,b;
-        cin>>a>>b;
-        int rt=query(a,dep[a]);
-        if(query(a,dep[a]-dep[b])==b){
-            cout<<dep[a]-dep[b]<<endl;
-        }else if(query(rt,dep[rt]-dep[b])==b){
-            cout<<dep[a]+dep[rt]-dep[b]<<endl;
-        }else{
-            cout<<-1<<endl;
-        }
+    FOR(i,1,n){
+        cout<<ans[i]<<' ';
     }
+
 }
 
 signed main() {

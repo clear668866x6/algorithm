@@ -28,7 +28,7 @@ using TII = tuple<int, int, int>;
 #define fi first
 #define se second
 #define sz size()
-constexpr int N = 2e5 + 10;
+constexpr int N = 3e5 + 10;
 constexpr int mod = 998244353;
 
 int __FAST_IO__ = [](){
@@ -38,64 +38,49 @@ int __FAST_IO__ = [](){
     return 0;
 }();
 
-int n,q;
-int w[N],f[N][32];
-int dep[N];
-bool vis[N];
-
-void dfs(int u){
-    if(vis[u])return;
-    vis[u]=1;
-    dfs(f[u][0]);
-    dep[u]=dep[f[u][0]]+1;
-}
-
-int query(int x,int k){
-    if(k<=0)return x;
-    FOR(i,0,30){
-        if((k>>i)&1){
-            x=f[x][i];
-        }
-    }
-    return x;
-}
+int n,m,k;
+int a[N],q[N];
 
 void solve() {
-    cin>>n>>q;
+    cin>>n>>m>>k;
 
-    FOR(i,1,n)cin>>w[i];
+    FOR(i,1,m)cin>>a[i];
 
-    FOR(i,1,n)f[i][0]=w[i];
+    FOR(i,1,k)cin>>q[i];
 
-    FOR(j,1,30){
-        FOR(i,1,n){
-            f[i][j]=f[f[i][j-1]][j-1];
-        }
+    if((n==k)){
+        FOR(i,1,m)cout<<1;
+        cout<<endl;
+        RE;
+    }
+    
+    if(k<n-1){
+        FOR(i,1,m)cout<<0;
+        cout<<endl;
+        RE;
+    }
+
+
+    VI ans(n+1,0),vis(n+1,0);
+
+    FOR(i,1,k){
+        vis[q[i]]=1;
     }
 
     FOR(i,1,n){
         if(!vis[i]){
-            dfs(i);
+            ans[i]=1;
         }
     }
 
-    while(q--){
-        int a,b;
-        cin>>a>>b;
-        int rt=query(a,dep[a]);
-        if(query(a,dep[a]-dep[b])==b){
-            cout<<dep[a]-dep[b]<<endl;
-        }else if(query(rt,dep[rt]-dep[b])==b){
-            cout<<dep[a]+dep[rt]-dep[b]<<endl;
-        }else{
-            cout<<-1<<endl;
-        }
-    }
+    FOR(i,1,m)cout<<ans[a[i]];
+    cout<<endl;
+
 }
 
 signed main() {
     int Task = 1;
-    for (; Task; Task--) {
+    for (cin >> Task; Task; Task--) {
         solve();
     }
     return 0;

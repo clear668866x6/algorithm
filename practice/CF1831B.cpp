@@ -38,64 +38,50 @@ int __FAST_IO__ = [](){
     return 0;
 }();
 
-int n,q;
-int w[N],f[N][32];
-int dep[N];
-bool vis[N];
-
-void dfs(int u){
-    if(vis[u])return;
-    vis[u]=1;
-    dfs(f[u][0]);
-    dep[u]=dep[f[u][0]]+1;
-}
-
-int query(int x,int k){
-    if(k<=0)return x;
-    FOR(i,0,30){
-        if((k>>i)&1){
-            x=f[x][i];
-        }
-    }
-    return x;
-}
+int n,a[N],b[N];
 
 void solve() {
-    cin>>n>>q;
+    cin>>n;
 
-    FOR(i,1,n)cin>>w[i];
+    FOR(i,1,n)cin>>a[i];
+    FOR(i,1,n)cin>>b[i];
 
-    FOR(i,1,n)f[i][0]=w[i];
+    VI acnt(n*2+1,0),bcnt(n*2+1,0);
 
-    FOR(j,1,30){
-        FOR(i,1,n){
-            f[i][j]=f[f[i][j-1]][j-1];
-        }
-    }
+    int sum=1;
 
     FOR(i,1,n){
-        if(!vis[i]){
-            dfs(i);
+        if(a[i]==a[i-1])sum++;
+        else{
+            acnt[a[i-1]]=max(acnt[a[i-1]],sum);
+            sum=1;
         }
     }
+    acnt[a[n]]=max(acnt[a[n]],sum);
+    
+    sum=1;
 
-    while(q--){
-        int a,b;
-        cin>>a>>b;
-        int rt=query(a,dep[a]);
-        if(query(a,dep[a]-dep[b])==b){
-            cout<<dep[a]-dep[b]<<endl;
-        }else if(query(rt,dep[rt]-dep[b])==b){
-            cout<<dep[a]+dep[rt]-dep[b]<<endl;
-        }else{
-            cout<<-1<<endl;
+    FOR(i,1,n){
+        if(b[i]==b[i-1])sum++;
+        else{
+            bcnt[b[i-1]]=max(bcnt[b[i-1]],sum);
+            sum=1;
         }
     }
+    bcnt[b[n]]=max(bcnt[b[n]],sum);
+
+    int ans=0;
+
+    FOR(i,1,n){
+        ans=max({ans,acnt[a[i]]+bcnt[a[i]],acnt[b[i]]+bcnt[b[i]]});
+    }
+    cout<<ans<<endl;
+
 }
 
 signed main() {
     int Task = 1;
-    for (; Task; Task--) {
+    for (cin >> Task; Task; Task--) {
         solve();
     }
     return 0;
