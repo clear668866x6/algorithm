@@ -1,0 +1,1 @@
+{"name":"Local: CF1891C","url":"/home/value0/algorithm/practice/CF1891C.cpp","tests":[{"id":1744386337777,"input":"4\n4\n1 3 1 1\n4\n1 2 1 1\n6\n3 2 1 5 2 4\n2\n1 6\n","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/value0/algorithm/practice/CF1891C.cpp","group":"local","local":true}
