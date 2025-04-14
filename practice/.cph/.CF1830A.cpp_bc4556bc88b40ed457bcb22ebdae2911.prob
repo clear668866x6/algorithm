@@ -1,0 +1,1 @@
+{"name":"Local: CF1830A","url":"/home/value/algorithm/practice/CF1830A.cpp","tests":[{"id":1744634939715,"input":"2\n6\n4 5\n1 3\n1 2\n3 4\n1 6\n7\n5 6\n2 4\n2 7\n1 3\n1 2\n4 5\n","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/value/algorithm/practice/CF1830A.cpp","group":"local","local":true}

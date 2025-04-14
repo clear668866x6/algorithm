@@ -1,0 +1,1 @@
+{"name":"Local: CF1516B","url":"/home/value/algorithm/practice/CF1516B.cpp","tests":[{"id":1744642200924,"input":"2\n3\n0 2 2\n4\n2 3 1 10\n","output":""},{"id":1744642585602,"input":"1\n5\n1 8 7 7 1","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/value/algorithm/practice/CF1516B.cpp","group":"local","local":true}

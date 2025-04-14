@@ -1,0 +1,1 @@
+{"name":"Local: CF1734C","url":"/home/value/algorithm/practice/CF1734C.cpp","tests":[{"id":1744621770498,"input":"6\n6\n111111\n7\n1101001\n4\n0000\n4\n0010\n8\n10010101\n15\n110011100101100\n","output":"0\n11\n4\n4\n17\n60\n"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/value/algorithm/practice/CF1734C.cpp","group":"local","local":true}

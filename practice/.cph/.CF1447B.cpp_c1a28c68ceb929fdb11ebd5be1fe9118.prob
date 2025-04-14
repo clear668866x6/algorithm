@@ -1,0 +1,1 @@
+{"name":"Local: CF1447B","url":"/home/value/algorithm/practice/CF1447B.cpp","tests":[{"id":1744606929001,"input":"2\n2 2\n-1 1\n1 1\n3 4\n0 -1 -2 -3\n-1 -2 -3 -4\n-2 -3 -4 -5\n","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/value/algorithm/practice/CF1447B.cpp","group":"local","local":true}
