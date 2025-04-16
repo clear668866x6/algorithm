@@ -1,0 +1,1 @@
+{"name":"Local: L1-048","url":"/home/value/algorithm/practice/L1-048.cpp","tests":[{"id":1744807745542,"input":"2 3\n1 2 3\n4 5 6\n3 4\n7 8 9 0\n-1 -2 -3 -4\n5 6 7 8","output":"2 4\n20 22 24 16\n53 58 63 28"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/value/algorithm/practice/L1-048.cpp","group":"local","local":true}

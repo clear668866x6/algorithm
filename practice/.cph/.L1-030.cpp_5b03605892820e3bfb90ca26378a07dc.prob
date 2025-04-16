@@ -1,0 +1,1 @@
+{"name":"Local: L1-030","url":"/home/value/algorithm/practice/L1-030.cpp","tests":[{"id":1744802926222,"input":"8\n0 Amy\n1 Tom\n1 Bill\n0 Cindy\n0 Maya\n1 John\n1 Jack\n0 Linda","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/value/algorithm/practice/L1-030.cpp","group":"local","local":true}
