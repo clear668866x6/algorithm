@@ -82,7 +82,9 @@
     "regex": "cpp",
     "valarray": "cpp",
     "numeric": "cpp",
-    "type_traits": "cpp"
+    "type_traits": "cpp",
+    "ratio": "cpp",
+    "ostream": "cpp"
   },
   "C_Cpp.errorSquiggles": "disabled"
 }
