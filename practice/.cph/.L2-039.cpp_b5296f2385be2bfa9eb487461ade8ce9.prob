@@ -1,0 +1,1 @@
+{"name":"Local: L2-039","url":"/home/value/algorithm/practice/L2-039.cpp","tests":[{"id":1744947275392,"input":"7 3\n35 28 74\n-1 -1 22\n28 74 35\n-1 -1 22\n11 66 0\n35 28 74\n35 28 74","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/value/algorithm/practice/L2-039.cpp","group":"local","local":true}
