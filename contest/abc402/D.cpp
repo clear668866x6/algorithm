@@ -48,7 +48,7 @@ void solve() {
     FOR(i,1,m){
         int a,b;
         cin>>a>>b;
-        mp[a]++,mp[b]++;
+        mp[(a+b)%n]++;
     }
 
     int cnt=0;
@@ -59,7 +59,7 @@ void solve() {
         }
     }
 
-    cout<<((m-1)*m/2);
+    cout<<((m-1)*m/2-(cnt-1)*cnt/2);
 
 }
 
