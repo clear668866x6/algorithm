@@ -39,25 +39,57 @@ int __FAST_IO__ = [](){
 }();
 
 int n,m;
+VI g[N];
+int stk[N],top,cnt;
+bool in_stk[N];
+int tmd,dfn[N],low[N];
+int w[N];
+
+void targin(int u){
+    dfn[u]=low[u]=++tmd;
+    stk[++top]=u,in_stk[u]=1;
+
+    for(auto& j:g[u]){
+        if(!dfn[j]){
+            targin(j);
+            low[u]=min(low[u],low[j]);
+        }else if(in_stk[j]){
+            low[u]=min(low[u],dfn[j]);
+        }
+    }
+
+    if(dfn[u]==low[u]){
+        int y;
+        cnt++;
+        do{
+            y=stk[top--];
+            in_stk[y]=false;
+            w[y]=cnt;
+        }while(y!=u);
+    }
+
+}
 
 void solve() {
     cin>>n>>m;
 
-    map<int,int>mp;
-
     FOR(i,1,m){
         int a,b;
         cin>>a>>b;
-        mp[(a+b)%n]++;
+        g[a].emplace_back(b);
     }
 
-    int cnt=0;
-
-    for(auto [x,y]:mp){//平行的没有算上
-        cnt+=y*(y-1)/2;
+    FOR(i,1,n){
+        if(!dfn[i]){
+            targin(i);
+        }
     }
 
-    cout<<((m-1)*m/2-cnt);
+    cout<<cnt<<endl;
+
+    FOR(i,1,n){
+        cout<<w[i]<<" \n"[i==n];
+    }
 
 }
 

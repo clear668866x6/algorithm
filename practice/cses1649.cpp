@@ -39,26 +39,68 @@ int __FAST_IO__ = [](){
 }();
 
 int n,m;
+int w[N];
+
+struct E{
+    int l,r;
+    int mn;
+}tr[N<<2];
+
+void pushup(int u){
+    tr[u].mn=min(tr[u<<1].mn,tr[u<<1|1].mn);
+}
+
+void build(int u,int l,int r){
+    tr[u]={l,r,(int)1e18};
+    if(l==r){
+        tr[u]={l,r,w[l]};
+        RE;
+    }
+
+    int mid=l+r>>1;
+
+    build(u<<1,l,mid),build(u<<1|1,mid+1,r);
+    pushup(u);
+}
+
+void modify(int u,int x,int v){
+    if(tr[u].l==tr[u].r){
+        tr[u].mn=v;
+        RE;
+    }
+
+    int mid=tr[u].l+tr[u].r>>1;
+
+    if(x<=mid)modify(u<<1,x,v);
+    else modify(u<<1|1,x,v);
+    pushup(u);
+}
+
+int query(int u,int l,int r){
+    if(tr[u].l>r||tr[u].r<l)return 1e18;
+    if(tr[u].l>=l&&tr[u].r<=r){
+        return tr[u].mn;
+    }
+
+    return min(query(u<<1,l,r),query(u<<1|1,l,r));
+}
 
 void solve() {
     cin>>n>>m;
 
-    map<int,int>mp;
+    FOR(i,1,n)cin>>w[i];
 
-    FOR(i,1,m){
-        int a,b;
-        cin>>a>>b;
-        mp[(a+b)%n]++;
+    build(1,1,n);
+
+    while(m--){
+        int op,a,b;
+        cin>>op>>a>>b;
+        if(op==1){
+            modify(1,a,b);
+        }else{
+            cout<<query(1,a,b)<<endl;
+        }
     }
-
-    int cnt=0;
-
-    for(auto [x,y]:mp){//平行的没有算上
-        cnt+=y*(y-1)/2;
-    }
-
-    cout<<((m-1)*m/2-cnt);
-
 }
 
 signed main() {

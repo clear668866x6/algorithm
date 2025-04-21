@@ -38,27 +38,35 @@ int __FAST_IO__ = [](){
     return 0;
 }();
 
-int n,m;
+int tr[N];
+int n,m,w[N];
+
+void add(int x,int c){
+    for(int i=x;i<N;i+=lowbit(i))tr[i]+=c;
+}
+
+int query(int x){
+    int res=0;
+    for(int i=x;i;i-=lowbit(i))res+=tr[i];
+    return res;
+}
 
 void solve() {
     cin>>n>>m;
 
-    map<int,int>mp;
+    FOR(i,1,n)cin>>w[i],add(i,w[i]);
 
-    FOR(i,1,m){
-        int a,b;
-        cin>>a>>b;
-        mp[(a+b)%n]++;
+    while(m--){
+        int op,l,r;
+        cin>>op>>l>>r;
+        if(op==1){
+            add(l,-w[l]);
+            add(l,r);
+            w[l]=r;
+        }else{
+            cout<<(query(r)-query(l-1))<<endl;
+        }
     }
-
-    int cnt=0;
-
-    for(auto [x,y]:mp){//平行的没有算上
-        cnt+=y*(y-1)/2;
-    }
-
-    cout<<((m-1)*m/2-cnt);
-
 }
 
 signed main() {

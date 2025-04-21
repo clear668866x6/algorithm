@@ -28,7 +28,7 @@ using TII = tuple<int, int, int>;
 #define fi first
 #define se second
 #define sz size()
-constexpr int N = 2e5 + 10;
+constexpr int N = 1000 + 10;
 constexpr int mod = 998244353;
 
 int __FAST_IO__ = [](){
@@ -38,26 +38,34 @@ int __FAST_IO__ = [](){
     return 0;
 }();
 
-int n,m;
+int n,q;
+char w[N][N];
+int s[N][N];
+
+int query(int x1,int y1,int x2,int y2){
+    return s[x2][y2]-s[x1-1][y2]-s[x2][y1-1]+s[x1-1][y1-1];
+}
 
 void solve() {
-    cin>>n>>m;
+    cin>>n>>q;
 
-    map<int,int>mp;
-
-    FOR(i,1,m){
-        int a,b;
-        cin>>a>>b;
-        mp[(a+b)%n]++;
+    FOR(i,1,n){
+        FOR(j,1,n){
+            cin>>w[i][j];
+        }
     }
 
-    int cnt=0;
-
-    for(auto [x,y]:mp){//平行的没有算上
-        cnt+=y*(y-1)/2;
+    FOR(i,1,n){
+        FOR(j,1,n){
+            s[i][j]=s[i-1][j]+s[i][j-1]-s[i-1][j-1]+(w[i][j]=='*');
+        }
     }
 
-    cout<<((m-1)*m/2-cnt);
+    while(q--){
+        int x1,y1,x2,y2;
+        cin>>x1>>y1>>x2>>y2;
+        cout<<query(x1,y1,x2,y2)<<endl;
+    }
 
 }
 

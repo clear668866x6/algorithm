@@ -39,26 +39,73 @@ int __FAST_IO__ = [](){
 }();
 
 int n,m;
+struct E{
+    int l,r;
+    int mx;
+}tr[N<<2];
+int w[N];
+
+void pushup(int u){
+    tr[u].mx=max(tr[u<<1].mx,tr[u<<1|1].mx);
+}
+
+void build(int u,int l,int r){
+    tr[u]={l,r,0};
+    if(l==r){
+        tr[u]={l,r,w[l]};
+        RE;
+    }
+
+    int mid=l+r>>1;
+
+    build(u<<1,l,mid),build(u<<1|1,mid+1,r);
+    pushup(u);
+}
+
+void modify(int u,int l,int r,int v){
+    if(tr[u].l>r||tr[u].r<l)RE;
+    if(tr[u].l>=l&&tr[u].r<=r){
+        tr[u].mx-=v;
+        RE;
+    }
+
+    modify(u<<1,l,r,v);
+    modify(u<<1|1,l,r,v);
+    pushup(u);
+}
+
+int getans(int u,int l,int r,int v){
+    if(l==r){
+        if(tr[u].mx>=v)return l;
+        return -1;
+    }
+
+    int mid=l+r>>1;
+    if(tr[u<<1].mx>=v)return getans(u<<1,l,mid,v);
+    if(tr[u<<1|1].mx>=v)return getans(u<<1|1,mid+1,r,v);
+    return -1;
+}
+//线段树维护下标最小的并且大于等于x的
 
 void solve() {
     cin>>n>>m;
 
-    map<int,int>mp;
+    FOR(i,1,n)cin>>w[i];
 
-    FOR(i,1,m){
-        int a,b;
-        cin>>a>>b;
-        mp[(a+b)%n]++;
+    build(1,1,n);
+
+    while(m--){
+        int x;
+        cin>>x;
+        if(tr[1].mx<x){
+            cout<<0<<' ';
+        }else{
+            int idx=getans(1,1,n,x);
+            if(idx==-1)idx=0;
+            cout<<idx<<' ';
+            if(idx>0)modify(1,idx,idx,x);
+        }
     }
-
-    int cnt=0;
-
-    for(auto [x,y]:mp){//平行的没有算上
-        cnt+=y*(y-1)/2;
-    }
-
-    cout<<((m-1)*m/2-cnt);
-
 }
 
 signed main() {

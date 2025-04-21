@@ -38,26 +38,29 @@ int __FAST_IO__ = [](){
     return 0;
 }();
 
-int n,m;
+int n;
+int x[N],y[N];
 
 void solve() {
-    cin>>n>>m;
+    cin>>n;
 
-    map<int,int>mp;
-
-    FOR(i,1,m){
-        int a,b;
-        cin>>a>>b;
-        mp[(a+b)%n]++;
+    FOR(i,1,n){
+        cin>>x[i]>>y[i];
     }
 
-    int cnt=0;
+    int ans=0;
+    set<PII>s;
 
-    for(auto [x,y]:mp){//平行的没有算上
-        cnt+=y*(y-1)/2;
+    FOR(i,1,n){
+        FOR(j,1,n){
+            if(i==j)continue;
+            int t1=x[i]-x[j],t2=y[i]-y[j];
+            int t=abs(__gcd(t1,t2));
+            s.insert({t1/t,t2/t});
+        }
     }
 
-    cout<<((m-1)*m/2-cnt);
+    cout<<(s.sz);
 
 }
 

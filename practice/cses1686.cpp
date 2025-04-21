@@ -38,26 +38,85 @@ int __FAST_IO__ = [](){
     return 0;
 }();
 
+//在一个强连通分量中，所有的金币能收集到
+//缩点+dp
+
 int n,m;
+int w[N];
+VI g[N],g2[N];
+int dfn[N],low[N],tmd;
+bool instk[N];
+int top,stk[N];
+int f[N];
+int cnt;
+int nw[N],id[N];
+
+void targin(int u){
+    low[u]=dfn[u]=++tmd;
+    instk[u]=1;stk[++top]=u;
+
+    for(auto& j:g[u]){
+        if(!dfn[j]){
+            targin(j);
+            low[u]=min(low[u],low[j]);
+        }else if(instk[j]){
+            low[u]=min(low[u],dfn[j]);
+        }
+    }
+
+    if(low[u]==dfn[u]){
+        int y;
+        cnt++;
+        do{
+            y=stk[top--];
+            instk[y]=false;
+            nw[cnt]+=w[y];
+            id[y]=cnt;
+        }while(y!=u);
+    }
+}
+
+int dp(int u){
+    if(f[u])return f[u];
+    int res=0;
+
+    for(auto& j:g2[u]){
+        res=max(res,dp(j));
+    }
+    return f[u]=res+nw[u];
+}
 
 void solve() {
     cin>>n>>m;
 
-    map<int,int>mp;
+    FOR(i,1,n)cin>>w[i];
 
     FOR(i,1,m){
         int a,b;
         cin>>a>>b;
-        mp[(a+b)%n]++;
+        g[a].emplace_back(b);
     }
 
-    int cnt=0;
-
-    for(auto [x,y]:mp){//平行的没有算上
-        cnt+=y*(y-1)/2;
+    FOR(i,1,n){
+        if(!dfn[i]){
+            targin(i);
+        }
     }
 
-    cout<<((m-1)*m/2-cnt);
+    FOR(i,1,n){
+        for(auto& j:g[i]){
+            if(id[j]!=id[i]){
+                g2[id[i]].emplace_back(id[j]);
+            }
+        }
+    }
+
+    int ans=0;
+
+    FOR(i,1,n){
+        ans=max(ans,dp(i));
+    }
+    cout<<ans;
 
 }
 

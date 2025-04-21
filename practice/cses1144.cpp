@@ -1,10 +1,14 @@
 #include <bits/stdc++.h>
+#include <ext/pb_ds/assoc_container.hpp>
 using namespace std;
+using namespace __gnu_pbds;
 
 #define int int64_t
 #define endl "\n"
 using PII = pair<int, int>;
 using TII = tuple<int, int, int>;
+template <class T>
+using Tree = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
 #define FOR(i, a, b) for (int i = (int)(a); i <= (int)(b); i++)
 #define FOR2(i, a, b, c) for (int i = (int)(a); i <= (int)(b); i += c)
 #define FORD(i, b, a) for (int i = (int)(a); i >= (int)(b); i--)
@@ -38,27 +42,30 @@ int __FAST_IO__ = [](){
     return 0;
 }();
 
-int n,m;
+//第一次用pbds
+int n,q,w[N];
+Tree<PII>o;
 
 void solve() {
-    cin>>n>>m;
+    cin>>n>>q;
+    
+    FOR(i,1,n)cin>>w[i],o.insert({w[i],i});
 
-    map<int,int>mp;
-
-    FOR(i,1,m){
-        int a,b;
-        cin>>a>>b;
-        mp[(a+b)%n]++;
+    while(q--){
+        char c;
+        cin>>c;
+        if(c=='!'){
+            int l,r;
+            cin>>l>>r;
+            o.erase({w[l],l});
+            w[l]=r;
+            o.insert({w[l],l});
+        }else{
+            int l,r;
+            cin>>l>>r;
+            cout<<(o.order_of_key({r,mod})-o.order_of_key({l-1,mod}))<<endl;
+        }
     }
-
-    int cnt=0;
-
-    for(auto [x,y]:mp){//平行的没有算上
-        cnt+=y*(y-1)/2;
-    }
-
-    cout<<((m-1)*m/2-cnt);
-
 }
 
 signed main() {

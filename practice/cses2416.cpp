@@ -38,26 +38,49 @@ int __FAST_IO__ = [](){
     return 0;
 }();
 
-int n,m;
+int n,m,w[N],q;
+int f[N][24];
+int g[N][24];
+int s[N];
+int stk[N],top;
+//倍增求让数组非严格单调递增的题目
 
 void solve() {
     cin>>n>>m;
 
-    map<int,int>mp;
+    FOR(i,1,n)cin>>w[i],s[i]=s[i-1]+w[i];
 
-    FOR(i,1,m){
-        int a,b;
-        cin>>a>>b;
-        mp[(a+b)%n]++;
+    stk[++top]=n+1;
+    w[n+1]=1e18;
+
+    FORD(i,1,n){
+        while(top&&w[i]>=w[stk[top]])top--;
+        f[i][0]=stk[top];
+        g[i][0]=(f[i][0]-i)*w[i];
+        stk[++top]=i;
     }
 
-    int cnt=0;
-
-    for(auto [x,y]:mp){//平行的没有算上
-        cnt+=y*(y-1)/2;
+    FOR(j,1,23){
+        FORD(i,1,n){
+            f[i][j]=f[f[i][j-1]][j-1];
+            g[i][j]=g[i][j-1]+g[f[i][j-1]][j-1];
+        }
     }
 
-    cout<<((m-1)*m/2-cnt);
+    while(m--){
+        int l,r;
+        cin>>l>>r;
+        int ans=-(s[r]-s[l-1]);
+        int k=l;
+        FORD(j,0,23){
+            if(f[k][j]&&f[k][j]<=r+1){
+                ans+=g[k][j];
+                k=f[k][j];
+            }
+        }
+        ans+=(r-k+1)*w[k];
+        cout<<ans<<endl;
+    }
 
 }
 

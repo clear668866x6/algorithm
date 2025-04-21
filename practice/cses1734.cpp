@@ -39,26 +39,44 @@ int __FAST_IO__ = [](){
 }();
 
 int n,m;
+int w[N];
+//线段树求解区间种类数
+int tr[N];
+vector<PII> g[N];
+map<int,int>mp;
+int ans[N];
+
+void add(int x,int c){
+    for(int i=x;i<N;i+=lowbit(i))tr[i]+=c;
+}
+
+int query(int x){
+    int res=0;
+    for(int i=x;i;i-=lowbit(i))res+=tr[i];
+    return res;
+}
 
 void solve() {
     cin>>n>>m;
 
-    map<int,int>mp;
+    FOR(i,1,n)cin>>w[i];
 
     FOR(i,1,m){
         int a,b;
         cin>>a>>b;
-        mp[(a+b)%n]++;
+        g[b].emplace_back(a,i);
     }
 
-    int cnt=0;
-
-    for(auto [x,y]:mp){//平行的没有算上
-        cnt+=y*(y-1)/2;
+    FOR(i,1,n){
+        if(mp[w[i]])add(mp[w[i]],-1);
+        add(i,1);
+        mp[w[i]]=i;
+        for(auto& [j,id]:g[i]){
+            ans[id]=query(i)-query(j-1);
+        }
     }
 
-    cout<<((m-1)*m/2-cnt);
-
+    FOR(i,1,m)cout<<ans[i]<<endl;
 }
 
 signed main() {

@@ -84,7 +84,20 @@
     "numeric": "cpp",
     "type_traits": "cpp",
     "ratio": "cpp",
-    "ostream": "cpp"
+    "ostream": "cpp",
+    "cctype": "cpp",
+    "cfenv": "cpp",
+    "cinttypes": "cpp",
+    "cmath": "cpp",
+    "complex": "cpp",
+    "cstdint": "cpp",
+    "cstdio": "cpp",
+    "cstdlib": "cpp",
+    "cwchar": "cpp",
+    "cwctype": "cpp",
+    "functional": "cpp",
+    "tuple": "cpp",
+    "utility": "cpp"
   },
   "C_Cpp.errorSquiggles": "disabled"
 }

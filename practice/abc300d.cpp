@@ -28,7 +28,7 @@ using TII = tuple<int, int, int>;
 #define fi first
 #define se second
 #define sz size()
-constexpr int N = 2e5 + 10;
+constexpr int N = 2e6 + 10;
 constexpr int mod = 998244353;
 
 int __FAST_IO__ = [](){
@@ -38,26 +38,40 @@ int __FAST_IO__ = [](){
     return 0;
 }();
 
-int n,m;
+int n;
+int primes[N],cnt;
+bool vis[N];
+
+void init(int x){
+    for(int i=2;i<=x;i++){
+        if(!vis[i])primes[cnt++]=i;
+        for(int j=0;i*primes[j]<=x;j++){
+            vis[i*primes[j]]=1;
+            if(i%primes[j]==0)break;
+        }
+    }
+}
 
 void solve() {
-    cin>>n>>m;
+    cin>>n;
 
-    map<int,int>mp;
+    init(N-10);
 
-    FOR(i,1,m){
-        int a,b;
-        cin>>a>>b;
-        mp[(a+b)%n]++;
+    int ans=0;
+
+    FOR(a,0,cnt-1){
+        if(primes[a]*primes[a]*primes[a]*primes[a]*primes[a]>n)break;
+        FOR(b,a+1,cnt-1){
+            if(primes[a]*primes[a]*primes[b]*primes[b]*primes[b]>n)break;
+            FOR(c,b+1,cnt-1){
+                int t=primes[a]*primes[a]*primes[b]*primes[c]*primes[c];
+                if(t>n)break;
+                ans++;
+            }
+        }
     }
 
-    int cnt=0;
-
-    for(auto [x,y]:mp){//平行的没有算上
-        cnt+=y*(y-1)/2;
-    }
-
-    cout<<((m-1)*m/2-cnt);
+    cout<<ans;
 
 }
 

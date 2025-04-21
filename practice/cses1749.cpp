@@ -38,26 +38,48 @@ int __FAST_IO__ = [](){
     return 0;
 }();
 
-int n,m;
+int tr[N];
+int n;
+int w[N];
+//类似约瑟夫环的树状数组优化，用二分+树状数组
+
+void add(int x,int c){
+    for(int i=x;i<N;i+=lowbit(i))tr[i]+=c;
+}
+
+int query(int x){
+    int res=0;
+    for(int i=x;i;i-=lowbit(i))res+=tr[i];
+    return res;
+}
+
+int getans(int u){
+    int l=0,r=n+1;
+
+    while(l+1!=r){
+        int mid=l+r>>1;
+        if(query(mid)>=u)r=mid;
+        else l=mid;
+    }
+    return r;
+}
 
 void solve() {
-    cin>>n>>m;
+    cin>>n;
 
-    map<int,int>mp;
+    FOR(i,1,n)cin>>w[i];
 
-    FOR(i,1,m){
-        int a,b;
-        cin>>a>>b;
-        mp[(a+b)%n]++;
+    FOR(i,1,n){
+        add(i,1);
     }
 
-    int cnt=0;
-
-    for(auto [x,y]:mp){//平行的没有算上
-        cnt+=y*(y-1)/2;
+    FOR(i,1,n){
+        int x;
+        cin>>x;
+        int id=getans(x);
+        cout<<w[id]<<' ';
+        add(id,-1);
     }
-
-    cout<<((m-1)*m/2-cnt);
 
 }
 

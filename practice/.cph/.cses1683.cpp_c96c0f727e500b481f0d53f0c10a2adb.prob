@@ -1,0 +1,1 @@
+{"name":"Local: cses1683","url":"/home/value0/algorithm/practice/cses1683.cpp","tests":[{"id":1745126598652,"input":"5 6\n1 2\n2 3\n3 1\n3 4\n4 5\n5 4\n","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/value0/algorithm/practice/cses1683.cpp","group":"local","local":true}

@@ -38,27 +38,38 @@ int __FAST_IO__ = [](){
     return 0;
 }();
 
-int n,m;
+int n,w[N],s[N];
+int q;
 
 void solve() {
-    cin>>n>>m;
+    cin>>n;
 
-    map<int,int>mp;
+    FOR(i,1,n)cin>>w[i];
 
-    FOR(i,1,m){
-        int a,b;
-        cin>>a>>b;
-        mp[(a+b)%n]++;
+    FOR(i,1,n){
+        if(i&1){
+            s[i]=s[i-1]+w[i]-w[i-1];
+        }else{
+            s[i]=s[i-1];
+        }
     }
 
-    int cnt=0;
+    cin>>q;
 
-    for(auto [x,y]:mp){//平行的没有算上
-        cnt+=y*(y-1)/2;
+    while(q--){
+        int l,r;
+        cin>>l>>r;
+        int L=lower_bound(w+1,w+1+n,l)-w;
+        int R=lower_bound(w+1,w+1+n,r)-w;
+        int ans=s[R]-s[L];
+        if(L&1){
+            ans+=w[L]-l;
+        }
+        if(R&1){
+            ans+=r-w[R];
+        }
+        cout<<ans<<endl;
     }
-
-    cout<<((m-1)*m/2-cnt);
-
 }
 
 signed main() {

@@ -38,26 +38,38 @@ int __FAST_IO__ = [](){
     return 0;
 }();
 
-int n,m;
+int n;
+VI g[N];
+int mx1[N],mx2[N];
+
+void dfs(int u,int fa){
+    mx1[u]=u;
+    mx2[u]=0;
+    for(auto& j:g[u]){
+        if(j==fa)continue;
+        dfs(j,u);
+        if(mx2[j]+1>mx2[u]){
+            mx2[u]=mx2[j]+1;
+            mx1[u]=mx1[j];
+        }
+    }
+}
 
 void solve() {
-    cin>>n>>m;
+    cin>>n;
 
-    map<int,int>mp;
-
-    FOR(i,1,m){
+    FOR(i,1,n-1){
         int a,b;
         cin>>a>>b;
-        mp[(a+b)%n]++;
+        g[a].emplace_back(b);
+        g[b].emplace_back(a);
     }
 
-    int cnt=0;
+    dfs(1,0);
 
-    for(auto [x,y]:mp){//平行的没有算上
-        cnt+=y*(y-1)/2;
-    }
-
-    cout<<((m-1)*m/2-cnt);
+    int rt=mx1[1];
+    dfs(rt,0);
+    cout<<mx2[rt];
 
 }
 

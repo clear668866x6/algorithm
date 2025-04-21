@@ -37,28 +37,48 @@ int __FAST_IO__ = [](){
     cout << fixed << setprecision(12);
     return 0;
 }();
-
+//求欧拉回路模板
 int n,m;
+set<int> g[N];
+VI ans;
+
+void dfs(int u){
+    while(g[u].sz){
+        int now=*g[u].begin();
+        g[now].erase(u);
+        g[u].erase(now);
+        dfs(now);
+    }
+    ans.pb(u);
+}
 
 void solve() {
     cin>>n>>m;
 
-    map<int,int>mp;
-
     FOR(i,1,m){
         int a,b;
         cin>>a>>b;
-        mp[(a+b)%n]++;
+        g[a].insert(b);
+        g[b].insert(a);
     }
 
-    int cnt=0;
-
-    for(auto [x,y]:mp){//平行的没有算上
-        cnt+=y*(y-1)/2;
+    FOR(i,1,n){
+        if(g[i].sz%2){
+            cout<<"IMPOSSIBLE"<<endl;
+            RE;
+        }
     }
 
-    cout<<((m-1)*m/2-cnt);
+    dfs(1);
 
+    if(ans.sz!=m+1){
+        cout<<"IMPOSSIBLE"<<endl;
+    }else{
+        reverse(ALL(ans));
+        for(auto x:ans){
+            cout<<x<<" ";
+        }
+    }
 }
 
 signed main() {

@@ -28,7 +28,7 @@ using TII = tuple<int, int, int>;
 #define fi first
 #define se second
 #define sz size()
-constexpr int N = 2e5 + 10;
+constexpr int N = 1e6 + 10;
 constexpr int mod = 998244353;
 
 int __FAST_IO__ = [](){
@@ -38,26 +38,28 @@ int __FAST_IO__ = [](){
     return 0;
 }();
 
-int n,m;
+int n,m,d;
+int a[N],b[N];
 
 void solve() {
-    cin>>n>>m;
+    cin>>n>>m>>d;
 
-    map<int,int>mp;
+    FOR(i,1,n)cin>>a[i];
+    FOR(i,1,m)cin>>b[i];
 
-    FOR(i,1,m){
-        int a,b;
-        cin>>a>>b;
-        mp[(a+b)%n]++;
+    int ans=-1;
+
+    sort(a+1,a+1+n);
+    sort(b+1,b+1+m);
+
+    FOR(i,1,n){
+        int t=lower_bound(b+1,b+1+m,a[i]+d+1)-b-1;
+        if(abs(a[i]-b[t])<=d){
+            ans=max(ans,a[i]+b[t]);
+        }
     }
 
-    int cnt=0;
-
-    for(auto [x,y]:mp){//平行的没有算上
-        cnt+=y*(y-1)/2;
-    }
-
-    cout<<((m-1)*m/2-cnt);
+    cout<<ans;
 
 }
 
