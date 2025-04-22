@@ -38,40 +38,44 @@ int __FAST_IO__ = [](){
     return 0;
 }();
 
-int n;
+int f[N];
 VI g[N];
-int mx1[N],mx2[N];
-//树的直径模板
+int n;
+int siz[N];
+int ans[N];
 
-void dfs(int u,int fa){
-    mx1[u]=u;
-    mx2[u]=0;
+void dfs1(int u,int fa,int dep){
+    ans[1]+=dep;
+    siz[u]=1;
     for(auto& j:g[u]){
         if(j==fa)continue;
-        dfs(j,u);
-        if(mx2[j]+1>mx2[u]){
-            mx2[u]=mx2[j]+1;
-            mx1[u]=mx1[j];
-        }
+        dfs1(j,u,dep+1);
+        siz[u]+=siz[j];
+    }
+}
+
+void dfs2(int u,int fa){
+    for(auto& j:g[u]){
+        if(j==fa)continue;
+        ans[j]=ans[u]+n-2*siz[j];
+        dfs2(j,u);
     }
 }
 
 void solve() {
     cin>>n;
-
-    FOR(i,1,n-1){
+    
+    FOR(i,2,n){
         int a,b;
         cin>>a>>b;
         g[a].emplace_back(b);
         g[b].emplace_back(a);
     }
 
-    dfs(1,0);
+    dfs1(1,0,0);
+    dfs2(1,0);
 
-    int rt=mx1[1];
-    dfs(rt,0);
-    cout<<mx2[rt];
-
+    FOR(i,1,n)cout<<ans[i]<<" ";
 }
 
 signed main() {
