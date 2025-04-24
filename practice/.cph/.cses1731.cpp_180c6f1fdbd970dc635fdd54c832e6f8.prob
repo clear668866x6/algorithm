@@ -1,0 +1,1 @@
+{"name":"Local: cses1731","url":"/home/value/algorithm/practice/cses1731.cpp","tests":[{"id":1745508821015,"input":"ababc\n4\nab\nabab\nc\ncb\n","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/value/algorithm/practice/cses1731.cpp","group":"local","local":true}
