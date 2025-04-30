@@ -1,0 +1,1 @@
+{"name":"Local: cses1110-2","url":"/home/value/algorithm/practice/cses1110-2.cpp","tests":[{"id":1746010883333,"input":"acab\n","output":""},{"id":1746011230889,"input":"aaaaaaaaaa","output":"aaaaaaaaaa"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/value/algorithm/practice/cses1110-2.cpp","group":"local","local":true}

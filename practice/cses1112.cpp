@@ -1,0 +1,94 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+#define int int64_t
+#define endl "\n"
+using PII = pair<int, int>;
+using TII = tuple<int, int, int>;
+#define FOR(i, a, b) for (int i = (int)(a); i <= (int)(b); i++)
+#define FOR2(i, a, b, c) for (int i = (int)(a); i <= (int)(b); i += c)
+#define FORD(i, b, a) for (int i = (int)(a); i >= (int)(b); i--)
+#define FORD2(i, b, a, c) for (int i = (int)(a); i >= (int)(b); i -= c)
+#define BSI basic_string<int>
+#define BSPI basic_string<PII>
+#define ALL(a) a.begin(), a.end()
+#define RALL(a) a.rbegin(), a.rend()
+#define VI vector<int>
+#define VII vector<vector<int>>
+#define VPII vector<PII>
+#define lowbit(x) ((x)&(-x))
+#define RE return;
+#define RET return true;
+#define REF return false;
+#define Yes cout << "Yes" << endl;
+#define YES cout << "YES" << endl;
+#define No cout << "No" << endl;
+#define NO cout << "NO" << endl;
+#define pb push_back
+#define fi first
+#define se second
+#define sz size()
+constexpr int N = 10000 + 10;
+constexpr int mod = 1e9 + 7;
+
+int __FAST_IO__ = [](){
+    ios::sync_with_stdio(0), cin.tie(0);
+    cout.tie(0);
+    cout << fixed << setprecision(12);
+    return 0;
+}();
+
+int n,m;
+string s;
+int len[N][30];
+int f[N][N];//f[i][j] = 长度为 i 且不包含 s 的字符串数且其长度为 j 的后缀等于 s 的前缀
+ 
+void solve() {
+    cin>>n>>s;
+
+    m=s.sz;
+
+    if(m>n){
+        cout<<0<<endl;
+        RE;
+    }
+
+    FOR(i,0,m-1){
+        FOR(j,0,25){
+            string t=s.substr(0,i)+(char)(j+'A');
+            int lent=t.sz;
+            FOR(k,0,lent-1){
+                if(t.substr(k)==s.substr(0,lent-k)){
+                    len[i][j]=lent-k;
+                    break;
+                }
+            }
+        }
+    }
+
+    f[0][0]=1;
+
+    FOR(i,0,n-1){
+        FOR(j,0,m-1){
+            FOR(k,0,25){
+                (f[i+1][len[j][k]]+=f[i][j])%=mod;
+            }
+        }
+    }
+
+    int ans=1;
+
+    FOR(i,0,n-1)ans=(ans*26)%mod;//总的减掉，因为会出现：aaa aaa这种重复计算的情况如果直接26^(n-m)
+
+    FOR(i,0,m-1)ans=(ans-f[n][i]+mod)%mod;
+
+    cout<<ans;
+}
+
+signed main() {
+    int Task = 1;
+    for (; Task; Task--) {
+        solve();
+    }
+    return 0;
+}
