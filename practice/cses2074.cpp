@@ -38,61 +38,61 @@ int __FAST_IO__ = [](){
     return 0;
 }();
 
-//判断线段是否相交
+//线段树支持反转操作
+
+int rev[N];
 struct E{
-    int x,y;
-    E operator-(const E& t)const{
-        return {x-t.x,y-t.y};
+    int l,r,s;
+}tr[N<<2];
+int n,q,w[N];
+
+void puhsup(int u){
+    tr[u].sum=tr[u<<1].sum+tr[u<<1|1].sum;
+}
+
+void build(int u,int l,int r){
+    tr[u]={l,r};
+    if(l==r)return tr[u]={l,r,w[l]},void();
+
+    int mid=l+r>>1;
+
+    build(u<<1,l,mid),build(u<<1|1,mid+1,r);
+
+    pushup(u);
+}
+
+int query(int u,int l,int r,int dep){
+    if(tr[u].l>=l&&tr[u].r<=r){
+        return tr[u].sum;
     }
-}w[5];
-int n=4;
 
-int cross(E a,E b){
-    return a.x*b.y-a.y*b.x;
-}
+    int mid=tr[u].l+tr[u].r>>1,res=0;
 
-int dot(E a,E b){
-    return a.x*b.x+a.y*b.y;
-}
+    if(l<=mid)res+=query(u<<1|rev[dep],l,r,dep-1);
+    if(r>mid)res+=query(u<<1|rev[dep]^1,l,r,dep-1);
+    return res;
 
-int sign(int x){
-    if(x>0)return 1;
-    if(x<0)return -1;
-    return 0;
-}
-
-bool onseg(E a,E b,E c){
-    if(cross(c-a,b-a)!=0)return 0;
-    if(dot(c-a,b-a)>=0&&dot(c-a,b-a)<=dot(b-a,b-a))return 1;
-    return 0;
-}
-
-bool get_line_instersaction(E a,E b,E c,E d){
-    int f1=sign(cross(a-c,d-c))*sign(cross(b-c,d-c));
-    int f2=sign(cross(c-a,b-a))*sign(cross(d-a,b-a));
-    if(f1<0&&f2<0)return 1;
-    if(f1>0||f2>0)return 0;
-    if(onseg(a,b,c))return 1;
-    if(onseg(a,b,d))return 1;
-    if(onseg(c,d,a))return 1;
-    if(onseg(c,d,b))return 1;
-    return 0;
 }
 
 void solve() {
-    FOR(i,1,n)cin>>w[i].x>>w[i].y;
+    cin>>n>>q;
+    
+    FOR(i,1,n)cin>>w[i];
 
-    if(get_line_instersaction(w[1],w[2],w[3],w[4])){
-        YES;
-    }else{
-        NO;
+    build(1,1,n);
+
+    while(q--){
+        int op,l,r;
+        cin>>op>>l>>r;
+        if(op==1){
+            
+        }
     }
-
 }
 
 signed main() {
     int Task = 1;
-    for (cin >> Task; Task; Task--) {
+    for (; Task; Task--) {
         solve();
     }
     return 0;

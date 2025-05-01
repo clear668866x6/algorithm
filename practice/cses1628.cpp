@@ -28,7 +28,7 @@ using TII = tuple<int, int, int>;
 #define fi first
 #define se second
 #define sz size()
-constexpr int N = 2e5 + 10;
+constexpr int N = 40 + 10;
 constexpr int mod = 998244353;
 
 int __FAST_IO__ = [](){
@@ -38,61 +38,51 @@ int __FAST_IO__ = [](){
     return 0;
 }();
 
-//判断线段是否相交
-struct E{
-    int x,y;
-    E operator-(const E& t)const{
-        return {x-t.x,y-t.y};
+int n,x;
+int w[N];
+
+VI calc(int l,int r){
+    int len=r-l+1;
+
+    VI ans;
+    
+    FOR(i,0,(1<<len)-1){
+        int s=0;
+        FOR(j,0,len-1){
+            if(i>>j&1){
+                s+=w[l+j];
+            }
+        }
+        ans.pb(s);
     }
-}w[5];
-int n=4;
-
-int cross(E a,E b){
-    return a.x*b.y-a.y*b.x;
-}
-
-int dot(E a,E b){
-    return a.x*b.x+a.y*b.y;
-}
-
-int sign(int x){
-    if(x>0)return 1;
-    if(x<0)return -1;
-    return 0;
-}
-
-bool onseg(E a,E b,E c){
-    if(cross(c-a,b-a)!=0)return 0;
-    if(dot(c-a,b-a)>=0&&dot(c-a,b-a)<=dot(b-a,b-a))return 1;
-    return 0;
-}
-
-bool get_line_instersaction(E a,E b,E c,E d){
-    int f1=sign(cross(a-c,d-c))*sign(cross(b-c,d-c));
-    int f2=sign(cross(c-a,b-a))*sign(cross(d-a,b-a));
-    if(f1<0&&f2<0)return 1;
-    if(f1>0||f2>0)return 0;
-    if(onseg(a,b,c))return 1;
-    if(onseg(a,b,d))return 1;
-    if(onseg(c,d,a))return 1;
-    if(onseg(c,d,b))return 1;
-    return 0;
+    return ans;
 }
 
 void solve() {
-    FOR(i,1,n)cin>>w[i].x>>w[i].y;
+    cin>>n>>x;
+    
+    FOR(i,0,n-1)cin>>w[i];
 
-    if(get_line_instersaction(w[1],w[2],w[3],w[4])){
-        YES;
-    }else{
-        NO;
+    VI a=calc(0,n/2-1);
+    VI b=calc(n/2,n-1);
+
+    sort(ALL(a));
+    sort(ALL(b));
+
+    int ans=0;
+
+    for(auto p:a){
+        auto l=lower_bound(ALL(b),x-p);
+        auto r=upper_bound(ALL(b),x-p);
+        ans+=r-l;
     }
+    cout<<ans;
 
 }
 
 signed main() {
     int Task = 1;
-    for (cin >> Task; Task; Task--) {
+    for (; Task; Task--) {
         solve();
     }
     return 0;

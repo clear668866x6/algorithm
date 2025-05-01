@@ -1,0 +1,1 @@
+{"name":"Local: cses1707","url":"/home/value/algorithm/practice/cses1707.cpp","tests":[{"id":1746112838638,"input":"5 6\n1 2\n1 3\n2 4\n2 5\n3 4\n4 5\n","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/value/algorithm/practice/cses1707.cpp","group":"local","local":true}

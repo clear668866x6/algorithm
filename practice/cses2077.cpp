@@ -28,7 +28,7 @@ using TII = tuple<int, int, int>;
 #define fi first
 #define se second
 #define sz size()
-constexpr int N = 5e4 + 10;
+constexpr int N = 2e5 + 10;
 constexpr int mod = 998244353;
 
 int __FAST_IO__ = [](){
@@ -38,92 +38,48 @@ int __FAST_IO__ = [](){
     return 0;
 }();
 
-int n,m,q;
-VI g[N],ng[N];
-int low[N],dfn[N],tmd;
-int stk[N],top;
-bool in_stk[N];
-int din[N];
-int id[N],scc_cnt;
-bitset<N>d[N];
+//2077
 
-void targin(int u){
+int n,m;
+VI g[N];
+unordered_set<int>ans;
+int low[N],dfn[N],tmd;
+
+void targin(int u,int fa){
     low[u]=dfn[u]=++tmd;
-    stk[++top]=u,in_stk[u]=true;
+    int child=0;
 
     for(auto& j:g[u]){
+        if(j==fa)continue;
         if(!dfn[j]){
-            targin(j);
+            targin(j,u);
             low[u]=min(low[u],low[j]);
-        }else if(in_stk[j]){
-            low[u]=min(low[u],dfn[j]);
-        }
-    }
-    if(low[u]==dfn[u]){
-        int y;
-        scc_cnt++;
-        do{
-            y=stk[top--];
-            in_stk[y]=false;
-            id[y]=scc_cnt;
-            d[scc_cnt].set(y);
-        }while(y!=u);
-    }
-}
-
-void tops(){
-    queue<int>q;
-
-    FOR(i,1,scc_cnt){
-        if(!din[i])q.push(i);
-    }
-    while(q.sz){
-        int t=q.front();
-        q.pop();
-        sort(ALL(ng[t]));
-
-        for(auto& j:ng[t]){
-            --din[j];
-            d[j]|=d[t];
-            if(!din[j])q.push(j);
-        }
+            if(low[j]>=dfn[u]){
+                child++;
+                if(fa!=0||child>1)ans.insert(u);      
+            }
+        }else low[u]=min(low[u],dfn[j]);
     }
 }
 
 void solve() {
-    cin>>n>>m>>q;
+    cin>>n>>m;
 
     FOR(i,1,m){
         int a,b;
         cin>>a>>b;
         g[a].emplace_back(b);
+        g[b].emplace_back(a);
     }
 
     FOR(i,1,n){
         if(!dfn[i]){
-            targin(i);
+            targin(i,0);
         }
     }
 
-    FOR(i,1,n){
-        for(auto j:g[i]){
-            if(id[j]==id[i])continue;
-            ng[id[j]].emplace_back(id[i]);
-            din[id[i]]++;
-        }
-    }
-
-    tops();
-
-    while(q--){
-        int x,y;
-        cin>>x>>y;
-        if(d[id[x]][y]){
-            YES;
-        }else{
-            NO;
-        }
-    }
+    cout<<ans.sz<<endl;
+    for(auto x:ans)cout<<x<<' ';
 
 }
 

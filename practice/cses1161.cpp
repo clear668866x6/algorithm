@@ -38,61 +38,30 @@ int __FAST_IO__ = [](){
     return 0;
 }();
 
-//判断线段是否相交
-struct E{
-    int x,y;
-    E operator-(const E& t)const{
-        return {x-t.x,y-t.y};
-    }
-}w[5];
-int n=4;
-
-int cross(E a,E b){
-    return a.x*b.y-a.y*b.x;
-}
-
-int dot(E a,E b){
-    return a.x*b.x+a.y*b.y;
-}
-
-int sign(int x){
-    if(x>0)return 1;
-    if(x<0)return -1;
-    return 0;
-}
-
-bool onseg(E a,E b,E c){
-    if(cross(c-a,b-a)!=0)return 0;
-    if(dot(c-a,b-a)>=0&&dot(c-a,b-a)<=dot(b-a,b-a))return 1;
-    return 0;
-}
-
-bool get_line_instersaction(E a,E b,E c,E d){
-    int f1=sign(cross(a-c,d-c))*sign(cross(b-c,d-c));
-    int f2=sign(cross(c-a,b-a))*sign(cross(d-a,b-a));
-    if(f1<0&&f2<0)return 1;
-    if(f1>0||f2>0)return 0;
-    if(onseg(a,b,c))return 1;
-    if(onseg(a,b,d))return 1;
-    if(onseg(c,d,a))return 1;
-    if(onseg(c,d,b))return 1;
-    return 0;
-}
+int x,n;
+int w[N];
 
 void solve() {
-    FOR(i,1,n)cin>>w[i].x>>w[i].y;
+    cin>>x>>n;
 
-    if(get_line_instersaction(w[1],w[2],w[3],w[4])){
-        YES;
-    }else{
-        NO;
+    priority_queue<int,VI,greater<int>>q;
+
+    FOR(i,1,n)cin>>w[i],q.push(w[i]);
+
+    int ans=0;
+
+    while(q.sz>1){
+        int a=q.top();q.pop();
+        int b=q.top();q.pop();
+        q.push(a+b);
+        ans+=a+b;
     }
-
+    cout<<ans;
 }
 
 signed main() {
     int Task = 1;
-    for (cin >> Task; Task; Task--) {
+    for (; Task; Task--) {
         solve();
     }
     return 0;

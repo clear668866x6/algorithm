@@ -38,60 +38,24 @@ int __FAST_IO__ = [](){
     return 0;
 }();
 
-int n,m,q;
-VI g[N],ng[N];
-int low[N],dfn[N],tmd;
-int stk[N],top;
-bool in_stk[N];
-int din[N];
-int id[N],scc_cnt;
-bitset<N>d[N];
+int n,m;
+bitset<N>can[N];
+bool vis[N];
+VI g[N];
 
-void targin(int u){
-    low[u]=dfn[u]=++tmd;
-    stk[++top]=u,in_stk[u]=true;
+void dfs(int u){
+    vis[u]=1;
+
+    can[u][u]=1;
 
     for(auto& j:g[u]){
-        if(!dfn[j]){
-            targin(j);
-            low[u]=min(low[u],low[j]);
-        }else if(in_stk[j]){
-            low[u]=min(low[u],dfn[j]);
-        }
-    }
-    if(low[u]==dfn[u]){
-        int y;
-        scc_cnt++;
-        do{
-            y=stk[top--];
-            in_stk[y]=false;
-            id[y]=scc_cnt;
-            d[scc_cnt].set(y);
-        }while(y!=u);
-    }
-}
-
-void tops(){
-    queue<int>q;
-
-    FOR(i,1,scc_cnt){
-        if(!din[i])q.push(i);
-    }
-    while(q.sz){
-        int t=q.front();
-        q.pop();
-        sort(ALL(ng[t]));
-
-        for(auto& j:ng[t]){
-            --din[j];
-            d[j]|=d[t];
-            if(!din[j])q.push(j);
-        }
+        if(!vis[j])dfs(j);
+        can[u]|=can[j];
     }
 }
 
 void solve() {
-    cin>>n>>m>>q;
+    cin>>n>>m;
 
     FOR(i,1,m){
         int a,b;
@@ -100,29 +64,11 @@ void solve() {
     }
 
     FOR(i,1,n){
-        if(!dfn[i]){
-            targin(i);
-        }
+        if(!vis[i])dfs(i);
     }
 
     FOR(i,1,n){
-        for(auto j:g[i]){
-            if(id[j]==id[i])continue;
-            ng[id[j]].emplace_back(id[i]);
-            din[id[i]]++;
-        }
-    }
-
-    tops();
-
-    while(q--){
-        int x,y;
-        cin>>x>>y;
-        if(d[id[x]][y]){
-            YES;
-        }else{
-            NO;
-        }
+        cout<<can[i].count()<<" ";
     }
 
 }

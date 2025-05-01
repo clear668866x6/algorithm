@@ -38,61 +38,51 @@ int __FAST_IO__ = [](){
     return 0;
 }();
 
-//判断线段是否相交
+int n;
 struct E{
     int x,y;
-    E operator-(const E& t)const{
-        return {x-t.x,y-t.y};
+    bool operator<(const E& t)const{
+        if(x==t.x)return y<t.y;
+        return x<t.x;
     }
-}w[5];
-int n=4;
+}w[N];
+vector<E>hull;
 
-int cross(E a,E b){
-    return a.x*b.y-a.y*b.x;
+bool convex(E a,E b,E c){
+    return (c.x-b.x)*(b.y-a.y)>(c.y-b.y)*(b.x-a.x);
+    //yb-ya/xb-xa>yc-yb/xc-xb
 }
 
-int dot(E a,E b){
-    return a.x*b.x+a.y*b.y;
-}
-
-int sign(int x){
-    if(x>0)return 1;
-    if(x<0)return -1;
-    return 0;
-}
-
-bool onseg(E a,E b,E c){
-    if(cross(c-a,b-a)!=0)return 0;
-    if(dot(c-a,b-a)>=0&&dot(c-a,b-a)<=dot(b-a,b-a))return 1;
-    return 0;
-}
-
-bool get_line_instersaction(E a,E b,E c,E d){
-    int f1=sign(cross(a-c,d-c))*sign(cross(b-c,d-c));
-    int f2=sign(cross(c-a,b-a))*sign(cross(d-a,b-a));
-    if(f1<0&&f2<0)return 1;
-    if(f1>0||f2>0)return 0;
-    if(onseg(a,b,c))return 1;
-    if(onseg(a,b,d))return 1;
-    if(onseg(c,d,a))return 1;
-    if(onseg(c,d,b))return 1;
-    return 0;
+void add(E a){
+    while(hull.sz>1&&convex(hull.end()[-2],hull.back(),a)){
+        hull.pop_back();
+    }
+    hull.pb(a);
 }
 
 void solve() {
+    cin>>n;
+
     FOR(i,1,n)cin>>w[i].x>>w[i].y;
 
-    if(get_line_instersaction(w[1],w[2],w[3],w[4])){
-        YES;
-    }else{
-        NO;
-    }
+    sort(w+1,w+1+n);
 
+    FOR(i,1,n)add(w[i]);
+
+    reverse(w+1,w+1+n);
+
+    FOR(i,2,n)add(w[i]);
+
+    cout<<hull.sz-1<<endl;
+
+    FOR(i,1,hull.sz-1){
+        cout<<hull[i].x<<' '<<hull[i].y<<endl;
+    }
 }
 
 signed main() {
     int Task = 1;
-    for (cin >> Task; Task; Task--) {
+    for (; Task; Task--) {
         solve();
     }
     return 0;

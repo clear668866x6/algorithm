@@ -38,61 +38,52 @@ int __FAST_IO__ = [](){
     return 0;
 }();
 
-//判断线段是否相交
+/*
+边界的格点数
+把每条边当作左开右闭的区间避免重复，一条左开右闭的线段 AB上的格点数为 gcd(Bx−Ax,By−Ay)。
+*/
+
+int n;
 struct E{
     int x,y;
     E operator-(const E& t)const{
         return {x-t.x,y-t.y};
     }
-}w[5];
-int n=4;
+}w[N];
 
 int cross(E a,E b){
     return a.x*b.y-a.y*b.x;
 }
 
-int dot(E a,E b){
-    return a.x*b.x+a.y*b.y;
-}
+int area(){
+    int ans=0;
 
-int sign(int x){
-    if(x>0)return 1;
-    if(x<0)return -1;
-    return 0;
-}
-
-bool onseg(E a,E b,E c){
-    if(cross(c-a,b-a)!=0)return 0;
-    if(dot(c-a,b-a)>=0&&dot(c-a,b-a)<=dot(b-a,b-a))return 1;
-    return 0;
-}
-
-bool get_line_instersaction(E a,E b,E c,E d){
-    int f1=sign(cross(a-c,d-c))*sign(cross(b-c,d-c));
-    int f2=sign(cross(c-a,b-a))*sign(cross(d-a,b-a));
-    if(f1<0&&f2<0)return 1;
-    if(f1>0||f2>0)return 0;
-    if(onseg(a,b,c))return 1;
-    if(onseg(a,b,d))return 1;
-    if(onseg(c,d,a))return 1;
-    if(onseg(c,d,b))return 1;
-    return 0;
+    FOR(i,2,n-1){
+        ans+=cross(w[i]-w[1],w[i+1]-w[i]);
+    }
+    return abs(ans);
 }
 
 void solve() {
+    cin>>n;
+
     FOR(i,1,n)cin>>w[i].x>>w[i].y;
 
-    if(get_line_instersaction(w[1],w[2],w[3],w[4])){
-        YES;
-    }else{
-        NO;
-    }
+    int cnt=0;
 
+    FOR(i,2,n){
+        cnt+=__gcd(abs(w[i].x-w[i-1].x),abs(w[i].y-w[i-1].y));
+    }
+    cnt+=__gcd(abs(w[n].x-w[1].x),abs(w[n].y-w[1].y));
+
+    int a=(area()-cnt+2)/2;
+
+    cout<<a<<' '<<cnt<<endl;
 }
 
 signed main() {
     int Task = 1;
-    for (cin >> Task; Task; Task--) {
+    for (; Task; Task--) {
         solve();
     }
     return 0;
