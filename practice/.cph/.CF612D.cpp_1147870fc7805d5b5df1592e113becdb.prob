@@ -1,0 +1,1 @@
+{"name":"Local: CF612D","url":"/home/value/algorithm/practice/CF612D.cpp","tests":[{"id":1746204305513,"input":"3 2\n0 5\n-3 2\n3 8\n","output":""},{"id":1746204489277,"input":"3 2\n0 5\n-3 3\n3 8\n","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/value/algorithm/practice/CF612D.cpp","group":"local","local":true}

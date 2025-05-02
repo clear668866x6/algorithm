@@ -1,0 +1,1 @@
+{"name":"Local: C","url":"/home/value/algorithm/contest/2093/C.cpp","tests":[{"id":1746195434407,"input":"4\n52 3\n6 7\n7 1\n1 7\n","output":""},{"id":1746195577939,"input":"4\n52 3\n6 7\n7 1\n1 1","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/value/algorithm/contest/2093/C.cpp","group":"local","local":true}

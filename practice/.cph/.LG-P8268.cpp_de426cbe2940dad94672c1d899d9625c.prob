@@ -1,0 +1,1 @@
+{"name":"Local: LG-P8268","url":"/home/value/algorithm/practice/LG-P8268.cpp","tests":[{"id":1746163045035,"input":"5\n2 0 0 1 0\n3\n5 2 3 4\n2 1 1\n3 1 2","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/value/algorithm/practice/LG-P8268.cpp","group":"local","local":true}

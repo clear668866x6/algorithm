@@ -1,0 +1,115 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+#define int int64_t
+#define endl "\n"
+using PII = pair<int, int>;
+using TII = tuple<int, int, int>;
+#define FOR(i, a, b) for (int i = (int)(a); i <= (int)(b); i++)
+#define FOR2(i, a, b, c) for (int i = (int)(a); i <= (int)(b); i += c)
+#define FORD(i, b, a) for (int i = (int)(a); i >= (int)(b); i--)
+#define FORD2(i, b, a, c) for (int i = (int)(a); i >= (int)(b); i -= c)
+#define BSI basic_string<int>
+#define BSPI basic_string<PII>
+#define ALL(a) a.begin(), a.end()
+#define RALL(a) a.rbegin(), a.rend()
+#define VI vector<int>
+#define VII vector<vector<int>>
+#define VPII vector<PII>
+#define lowbit(x) ((x)&(-x))
+#define RE return;
+#define RET return true;
+#define REF return false;
+#define Yes cout << "Yes" << endl;
+#define YES cout << "YES" << endl;
+#define No cout << "No" << endl;
+#define NO cout << "NO" << endl;
+#define pb push_back
+#define fi first
+#define se second
+#define sz size()
+constexpr int N = 2e5 + 10;
+constexpr int mod = 998244353;
+
+int __FAST_IO__ = [](){
+    ios::sync_with_stdio(0), cin.tie(0);
+    cout.tie(0);
+    cout << fixed << setprecision(12);
+    return 0;
+}();
+
+string s;
+
+void solve() {
+    getline(cin,s);
+
+    int a=0,b=0,c=0,t=0;
+    char opa;
+
+    bool ca=0,cb=0,cc=0;
+
+    for(auto x:s){
+        if(x!='+'&&x!='-'&&x!='*'&&x!='/'&&x!='?'&&x!='='&&(x<'0'||x>'9'))continue;
+        if(isdigit(x)||x=='?'){
+            if(x=='?'){
+                continue;
+            }
+            if(t==0){
+                a=a*10+(x-'0');
+                ca=1;
+            }else if(t==1){
+                b=b*10+(x-'0');
+                cb=1;
+            }else if(t==2){
+                c=c*10+(x-'0');
+                cc=1;
+            }
+        }else if(x!='='){
+            opa=x;
+            t++;
+        }else if(x=='='){
+            t++;
+        }
+    }
+    
+    if(!ca){
+        if(opa=='+'){
+            cout<<fixed<<setprecision(2)<<(double)c-b<<endl;
+        }else if(opa=='-'){
+            cout<<fixed<<setprecision(2)<<(double)c+b<<endl;
+        }else if(opa=='*'){
+            cout<<fixed<<setprecision(2)<<(double)c/(double)b<<endl;
+        }else{
+            cout<<fixed<<setprecision(2)<<(double)c*b<<endl;
+        }
+    }else if(!cb){
+        if(opa=='+'){
+            cout<<fixed<<setprecision(2)<<(double)c-a<<endl;
+        }else if(opa=='-'){
+            cout<<fixed<<setprecision(2)<<(double)a-c<<endl;
+        }else if(opa=='*'){
+            cout<<fixed<<setprecision(2)<<(double)c/(double)a<<endl;
+        }else{
+            cout<<fixed<<setprecision(2)<<(double)a/(double)c<<endl;
+        }
+    }else if(!cc){
+        if(opa=='+'){
+            cout<<fixed<<setprecision(2)<<(double)a+b<<endl;
+        }else if(opa=='-'){
+            cout<<fixed<<setprecision(2)<<(double)a-b<<endl;
+        }else if(opa=='*'){
+            cout<<fixed<<setprecision(2)<<(double)a*b<<endl;
+        }else{
+            cout<<fixed<<setprecision(2)<<(double)a/(double)b<<endl;
+        }
+    }
+
+}
+
+signed main() {
+    int Task = 1;
+    for (; Task; Task--) {
+        solve();
+    }
+    return 0;
+}
