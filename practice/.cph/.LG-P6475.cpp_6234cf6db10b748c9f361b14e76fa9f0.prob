@@ -1,0 +1,1 @@
+{"name":"Local: LG-P6475","url":"/home/value/algorithm/practice/LG-P6475.cpp","tests":[{"id":1746274007107,"input":"3 2 1 3","output":""},{"id":1746274078207,"input":"1000 1000 535 1477","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/value/algorithm/practice/LG-P6475.cpp","group":"local","local":true}
