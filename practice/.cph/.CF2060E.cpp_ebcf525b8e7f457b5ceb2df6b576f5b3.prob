@@ -1,0 +1,1 @@
+{"name":"Local: CF2060E","url":"/home/value/algorithm/practice/CF2060E.cpp","tests":[{"id":1746334279472,"input":"5\n3 2 1\n1 2\n2 3\n1 3\n2 1 1\n1 2\n1 2\n3 2 0\n3 2\n1 2\n1 0 0\n3 3 1\n1 2\n1 3\n2 3\n1 2\n","output":"3\n0\n2\n0\n2\n"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/value/algorithm/practice/CF2060E.cpp","group":"local","local":true}
