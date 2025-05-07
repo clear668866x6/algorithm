@@ -38,35 +38,43 @@ int __FAST_IO__ = [](){
     return 0;
 }();
 
-int n,m;
-string a,b;
-int w[N];
-struct E{
-    char c;
-    int t;
-}c[N];
+int n;
 
 void solve() {
-    cin>>n>>m>>a;
-    FOR(i,1,m)cin>>w[i];
-    cin>>b;
+    cin>>n;
 
-    sort(w+1,w+1+m);
-    sort(ALL(b));
+    VI ans(2*n+1,0);
 
-    VI vis(n+1,0);
-    int j=0;
-
-    map<int,int>mp;
-
-    FOR(i,1,m)mp[w[i]]++;
-
-    FOR(i,1,m){
-        if(vis[w[i]])continue;
-        a[w[i]-1]=b[j++];
-        vis[w[i]]=1;
+    FOR(i,1,n){
+        FOR(j,1,n){
+            int x;
+            cin>>x;
+            if(!ans[i+j]){
+                ans[i+j]=x;
+            }
+        }
     }
-    cout<<a<<endl;
+
+    set<int>s;
+
+    FOR(i,1,2*n)s.insert(i);
+
+    FOR(i,1,2*n){
+        if(ans[i]){
+            s.erase(ans[i]);
+        }
+    }
+
+    FOR(i,1,2*n){
+        if(!ans[i]){
+            ans[i]=*s.begin();
+            s.erase(s.begin());
+        }
+    }
+
+    FOR(i,1,n*2)cout<<ans[i]<<' ';
+
+    cout<<endl;
 
 }
 

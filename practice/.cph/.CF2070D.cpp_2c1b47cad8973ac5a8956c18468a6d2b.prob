@@ -1,0 +1,1 @@
+{"name":"Local: CF2070D","url":"/home/value/algorithm/practice/CF2070D.cpp","tests":[{"id":1746423067576,"input":"3\n4\n1 2 1\n3\n1 2\n7\n1 2 2 1 4 5\n","output":"4\n2\n8\n"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/value/algorithm/practice/CF2070D.cpp","group":"local","local":true}

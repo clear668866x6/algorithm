@@ -28,7 +28,7 @@ using TII = tuple<int, int, int>;
 #define fi first
 #define se second
 #define sz size()
-constexpr int N = 2e5 + 10;
+constexpr int N = 1e5 + 10;
 constexpr int mod = 998244353;
 
 int __FAST_IO__ = [](){
@@ -38,40 +38,56 @@ int __FAST_IO__ = [](){
     return 0;
 }();
 
-int n,m;
-string a,b;
+VI bei[N];
+int n,q;
 int w[N];
-struct E{
-    char c;
-    int t;
-}c[N];
+set<int>s[N];
 
 void solve() {
-    cin>>n>>m>>a;
-    FOR(i,1,m)cin>>w[i];
-    cin>>b;
+    cin>>n>>q;
+    
+    FOR(i,1,n)cin>>w[i],s[w[i]].insert(i);
 
-    sort(w+1,w+1+m);
-    sort(ALL(b));
+    
+    while(q--){
+        int k,l,r;
+        cin>>k>>l>>r;
+        VPII ans;
+        for(auto x:bei[k]){
+            auto t=s[x].lower_bound(l);
+            if(t!=s[x].end()&&*t<=r){
+                ans.pb({*t,x});
+            }
+        }
 
-    VI vis(n+1,0);
-    int j=0;
+        sort(ALL(ans));
 
-    map<int,int>mp;
+        int lst=l;
+        int res=0;
 
-    FOR(i,1,m)mp[w[i]]++;
+        for(auto& [x,y]:ans){
+            res+=(x-lst)*k;
+            lst=x;
+            while(k%y==0)k/=y;
+        }
+        res+=(r-lst+1)*k;
 
-    FOR(i,1,m){
-        if(vis[w[i]])continue;
-        a[w[i]-1]=b[j++];
-        vis[w[i]]=1;
+        cout<<res<<endl;
     }
-    cout<<a<<endl;
+
+    FOR(i,1,n)s[w[i]].clear();
 
 }
 
 signed main() {
     int Task = 1;
+ 
+    FOR(i,1,N-10){
+        FOR2(j,i,N-10,i){
+            bei[j].emplace_back(i);
+        }
+    }
+ 
     for (cin >> Task; Task; Task--) {
         solve();
     }

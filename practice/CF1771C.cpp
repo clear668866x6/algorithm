@@ -28,7 +28,7 @@ using TII = tuple<int, int, int>;
 #define fi first
 #define se second
 #define sz size()
-constexpr int N = 2e5 + 10;
+constexpr int N = 1e5 + 10,M = 4e4;
 constexpr int mod = 998244353;
 
 int __FAST_IO__ = [](){
@@ -38,40 +38,60 @@ int __FAST_IO__ = [](){
     return 0;
 }();
 
-int n,m;
-string a,b;
-int w[N];
-struct E{
-    char c;
-    int t;
-}c[N];
+int n,w[N];
+int primes[N],cnt;
+bool vis[N];
+unordered_map<int,int>mp;
+
+void init(int x){
+    FOR(i,2,x){
+        if(!vis[i])primes[cnt++]=i;
+        for(int j=0;i*primes[j]<=x;j++){
+            vis[primes[j]*i]=1;
+            if(i%primes[j]==0)break;
+        }
+    }
+}
 
 void solve() {
-    cin>>n>>m>>a;
-    FOR(i,1,m)cin>>w[i];
-    cin>>b;
+    cin>>n;
+    mp.clear();
 
-    sort(w+1,w+1+m);
-    sort(ALL(b));
+    FOR(i,1,n)cin>>w[i];
 
-    VI vis(n+1,0);
-    int j=0;
-
-    map<int,int>mp;
-
-    FOR(i,1,m)mp[w[i]]++;
-
-    FOR(i,1,m){
-        if(vis[w[i]])continue;
-        a[w[i]-1]=b[j++];
-        vis[w[i]]=1;
+    FOR(i,1,n){
+        int x=w[i];
+        if(x==1)continue;
+        for(int j=0;j<cnt&&primes[j]*primes[j]<=x;j++){
+            int p=primes[j];
+            if(x%p==0){
+                mp[p]++;
+                while(x%p==0)x/=p;  
+            }
+        }
+        if(x>1){
+            if(mp[x]){
+                YES;
+                RE;
+            }
+            mp[x]++;
+        }
     }
-    cout<<a<<endl;
+
+    for(auto [x,y]:mp){
+        if(y>1){
+            YES;
+            RE;
+        }
+    }
+
+    NO;
 
 }
 
 signed main() {
     int Task = 1;
+    init(M);
     for (cin >> Task; Task; Task--) {
         solve();
     }

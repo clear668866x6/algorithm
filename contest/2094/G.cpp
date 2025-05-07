@@ -38,36 +38,49 @@ int __FAST_IO__ = [](){
     return 0;
 }();
 
-int n,m;
-string a,b;
-int w[N];
-struct E{
-    char c;
-    int t;
-}c[N];
+int Q;
 
 void solve() {
-    cin>>n>>m>>a;
-    FOR(i,1,m)cin>>w[i];
-    cin>>b;
+    cin>>Q;
 
-    sort(w+1,w+1+m);
-    sort(ALL(b));
+    deque<int>q;
+    int rev=0;
+    int sum1=0,sum2=0,cnt=0;
+    
+    while(Q--){
+        int op;
+        cin>>op;
+        if(op==1){
+            int t;
+            if(rev){
+                t=q.front();
+                q.pop_front();
+                q.push_back(t);
+            }else{
+                t=q.back();
+                q.pop_back();
+                q.push_front(t);
+            }
 
-    VI vis(n+1,0);
-    int j=0;
+            sum1+=sum2-t*cnt;
 
-    map<int,int>mp;
-
-    FOR(i,1,m)mp[w[i]]++;
-
-    FOR(i,1,m){
-        if(vis[w[i]])continue;
-        a[w[i]-1]=b[j++];
-        vis[w[i]]=1;
+        }else if(op==2){
+            rev^=1;
+            sum1=(cnt+1)*sum2-sum1;
+        }else{
+            int x;
+            cin>>x;
+            if(rev){
+                q.push_front(x);
+            }else{
+                q.push_back(x);
+            }
+            cnt++;
+            sum1+=cnt*x;
+            sum2+=x;
+        }
+        cout<<sum1<<endl;
     }
-    cout<<a<<endl;
-
 }
 
 signed main() {

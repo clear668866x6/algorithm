@@ -38,35 +38,54 @@ int __FAST_IO__ = [](){
     return 0;
 }();
 
-int n,m;
-string a,b;
-int w[N];
-struct E{
-    char c;
-    int t;
-}c[N];
+int n;
 
 void solve() {
-    cin>>n>>m>>a;
-    FOR(i,1,m)cin>>w[i];
-    cin>>b;
+    cin>>n;
 
-    sort(w+1,w+1+m);
-    sort(ALL(b));
+    vector<VPII>g(n+1);
 
-    VI vis(n+1,0);
-    int j=0;
-
-    map<int,int>mp;
-
-    FOR(i,1,m)mp[w[i]]++;
-
-    FOR(i,1,m){
-        if(vis[w[i]])continue;
-        a[w[i]-1]=b[j++];
-        vis[w[i]]=1;
+    FOR(i,2,n){
+        int a,b;
+        cin>>a>>b;
+        g[a].emplace_back(b,i);
+        g[b].emplace_back(a,i);
     }
-    cout<<a<<endl;
+
+    bool f=0;
+    VI ans(n+1,0);
+
+    function<void(int,int,int)>dfs=[&](int u,int fa,int t){
+        if(f)RE;
+        if(u!=1&&g[u].sz>2){
+            f=1;
+            RE;
+        }
+        int cnt=0;
+        for(auto [j,id]:g[u]){
+            if(j==fa)continue;
+            if(t==2) t=3;
+            else t=2;
+            ans[id]=t;
+            dfs(j,u,t);
+        }
+    };
+
+    if(g[1].sz>2){
+        cout<<-1<<endl;
+        RE;
+    }
+
+    dfs(1,0,2);
+    
+    if(f){
+        cout<<-1<<endl;
+    }else{
+        FOR(i,2,n){
+            cout<<ans[i]<<' ';
+        }
+        cout<<endl;
+    }
 
 }
 

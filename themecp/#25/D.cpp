@@ -38,35 +38,45 @@ int __FAST_IO__ = [](){
     return 0;
 }();
 
-int n,m;
-string a,b;
-int w[N];
-struct E{
-    char c;
-    int t;
-}c[N];
+int n,m,a[N],b[N];
 
 void solve() {
-    cin>>n>>m>>a;
-    FOR(i,1,m)cin>>w[i];
-    cin>>b;
+    cin>>n>>m;
 
-    sort(w+1,w+1+m);
-    sort(ALL(b));
+    FOR(i,1,n)cin>>a[i];
+    FOR(i,1,m)cin>>b[i];
 
-    VI vis(n+1,0);
-    int j=0;
+    priority_queue<int>q;
 
-    map<int,int>mp;
+    int s1=0,s2=0;
 
-    FOR(i,1,m)mp[w[i]]++;
+    FOR(i,1,n)s1+=a[i];
+    FOR(i,1,m)q.push(b[i]),s2+=b[i];
 
-    FOR(i,1,m){
-        if(vis[w[i]])continue;
-        a[w[i]-1]=b[j++];
-        vis[w[i]]=1;
+    if(s1!=s2){
+        No;
+        RE;
     }
-    cout<<a<<endl;
+
+    sort(a+1,a+1+n,greater());
+
+    int i=1;
+    while(q.sz){
+        int x=q.top();
+        q.pop();
+
+        if(x<a[i]){
+            No;
+            RE;
+        }
+
+        if(a[i]==x)i++;
+        else{
+            q.push(x/2);
+            q.push((x+1)/2);
+        }
+    }
+    Yes;
 
 }
 

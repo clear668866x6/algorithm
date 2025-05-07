@@ -28,7 +28,7 @@ using TII = tuple<int, int, int>;
 #define fi first
 #define se second
 #define sz size()
-constexpr int N = 2e5 + 10;
+constexpr int N = 3e5 + 10;
 constexpr int mod = 998244353;
 
 int __FAST_IO__ = [](){
@@ -38,41 +38,36 @@ int __FAST_IO__ = [](){
     return 0;
 }();
 
-int n,m;
-string a,b;
+int n,q;
 int w[N];
-struct E{
-    char c;
-    int t;
-}c[N];
 
 void solve() {
-    cin>>n>>m>>a;
-    FOR(i,1,m)cin>>w[i];
-    cin>>b;
-
-    sort(w+1,w+1+m);
-    sort(ALL(b));
-
-    VI vis(n+1,0);
-    int j=0;
+    cin>>n>>q;
 
     map<int,int>mp;
 
-    FOR(i,1,m)mp[w[i]]++;
-
-    FOR(i,1,m){
-        if(vis[w[i]])continue;
-        a[w[i]-1]=b[j++];
-        vis[w[i]]=1;
+    FOR(i,1,n){
+        cin>>w[i];
+        if(!mp[w[i]]){
+            mp[w[i]]=i;
+        }
     }
-    cout<<a<<endl;
+    
+    while(q--){
+        int x;
+        cin>>x;
+        cout<<mp[x]<<' ';
+        FOR(j,1,50){
+            if(mp[j]<mp[x])mp[j]++;
+        }
+        mp[x]=1;
+    }
 
 }
 
 signed main() {
     int Task = 1;
-    for (cin >> Task; Task; Task--) {
+    for (; Task; Task--) {
         solve();
     }
     return 0;

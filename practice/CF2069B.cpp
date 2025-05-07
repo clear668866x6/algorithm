@@ -39,34 +39,49 @@ int __FAST_IO__ = [](){
 }();
 
 int n,m;
-string a,b;
-int w[N];
+int dx[]={-1,0,1,0};
+int dy[]={0,1,0,-1};
 struct E{
-    char c;
-    int t;
-}c[N];
+    int x,y,step;
+};
 
 void solve() {
-    cin>>n>>m>>a;
-    FOR(i,1,m)cin>>w[i];
-    cin>>b;
+    cin>>n>>m;
 
-    sort(w+1,w+1+m);
-    sort(ALL(b));
+    vector<vector<int>>w(n+1,vector<int>(m+1,0));
 
-    VI vis(n+1,0);
-    int j=0;
-
-    map<int,int>mp;
-
-    FOR(i,1,m)mp[w[i]]++;
-
-    FOR(i,1,m){
-        if(vis[w[i]])continue;
-        a[w[i]-1]=b[j++];
-        vis[w[i]]=1;
+    FOR(i,1,n){
+        FOR(j,1,m){
+            cin>>w[i][j];
+        }
     }
-    cout<<a<<endl;
+
+    int ans=1e18;
+    VI mp(n*m+1,0);
+
+    FOR(i,1,n){
+        FOR(j,1,m){
+            int cnt=1;
+            FOR(k,0,3){
+                int a=i+dx[k],b=j+dy[k];
+                if(a<1||b<1||a>n||b>m)continue;
+                if(w[a][b]==w[i][j]){
+                    cnt++;
+                    break;
+                }
+            }
+            mp[w[i][j]]=max(mp[w[i][j]],cnt);
+        }
+    }
+
+    int tot=0,sum=0;
+
+    FOR(i,1,n*m){
+        tot=max(tot,mp[i]);
+        sum+=mp[i];
+    }
+
+    cout<<(sum-tot)<<endl;
 
 }
 

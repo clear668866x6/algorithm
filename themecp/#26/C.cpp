@@ -2,7 +2,7 @@
 using namespace std;
 
 #define int int64_t
-#define endl "\n"
+// #define endl "\n"
 using PII = pair<int, int>;
 using TII = tuple<int, int, int>;
 #define FOR(i, a, b) for (int i = (int)(a); i <= (int)(b); i++)
@@ -38,35 +38,45 @@ int __FAST_IO__ = [](){
     return 0;
 }();
 
-int n,m;
-string a,b;
-int w[N];
-struct E{
-    char c;
-    int t;
-}c[N];
+int n;
+VPII ans;
+bool vis[N];
+
+int query(int x,int y){
+    cout<<"? "<<x<<' '<<y<<endl;
+    int res;
+    cin>>res;
+    return res;
+}
+
+void dfs(int l,int r){
+    vis[r]=1;
+    int t=query(l,r);
+    if(t==l){
+        ans.pb({l,r});
+        RE;
+    }
+
+    if(!vis[t])dfs(l,t);
+    dfs(t,r);
+}
 
 void solve() {
-    cin>>n>>m>>a;
-    FOR(i,1,m)cin>>w[i];
-    cin>>b;
+    cin>>n;
 
-    sort(w+1,w+1+m);
-    sort(ALL(b));
-
-    VI vis(n+1,0);
-    int j=0;
-
-    map<int,int>mp;
-
-    FOR(i,1,m)mp[w[i]]++;
-
-    FOR(i,1,m){
-        if(vis[w[i]])continue;
-        a[w[i]-1]=b[j++];
-        vis[w[i]]=1;
+    FOR(i,2,n){
+        if(!vis[i]){
+            dfs(1,i);
+        }
     }
-    cout<<a<<endl;
+    
+    cout<<"! ";
+    for(auto [x,y]:ans){
+        cout<<x<<' '<<y<<' ';
+    }
+    cout<<endl;
+    FOR(i,1,n)vis[i]=0;
+    ans.clear();
 
 }
 

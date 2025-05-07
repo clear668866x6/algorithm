@@ -38,35 +38,40 @@ int __FAST_IO__ = [](){
     return 0;
 }();
 
-int n,m;
-string a,b;
-int w[N];
-struct E{
-    char c;
-    int t;
-}c[N];
-
 void solve() {
-    cin>>n>>m>>a;
-    FOR(i,1,m)cin>>w[i];
-    cin>>b;
+    int n,m;
+    cin>>n>>m;
 
-    sort(w+1,w+1+m);
-    sort(ALL(b));
+    VI a(n),b(m);
 
-    VI vis(n+1,0);
-    int j=0;
+    FOR(i,0,n-1)cin>>a[i];
+    FOR(i,0,m-1)cin>>b[i];
 
-    map<int,int>mp;
+    multiset<int>c(ALL(a));
 
-    FOR(i,1,m)mp[w[i]]++;
+    //正难则反
 
-    FOR(i,1,m){
-        if(vis[w[i]])continue;
-        a[w[i]-1]=b[j++];
-        vis[w[i]]=1;
+    function<bool(int)>dfs=[&](int x){
+        if(!x)return false;
+        if(c.contains(x)){
+            c.erase(c.find(x));
+            return true;
+        }
+        return dfs(x/2)&&dfs(x-x/2);
+    };
+
+    for(auto x:b){
+        if(!dfs(x)){
+            No;
+            RE;
+        }
     }
-    cout<<a<<endl;
+
+    if(c.sz){
+        No;
+    }else{
+        Yes;
+    }
 
 }
 

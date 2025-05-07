@@ -38,36 +38,46 @@ int __FAST_IO__ = [](){
     return 0;
 }();
 
-int n,m;
-string a,b;
-int w[N];
-struct E{
-    char c;
-    int t;
-}c[N];
+int n;
 
 void solve() {
-    cin>>n>>m>>a;
-    FOR(i,1,m)cin>>w[i];
-    cin>>b;
+    cin>>n;
 
-    sort(w+1,w+1+m);
-    sort(ALL(b));
+    int cnt=0,t=n;
 
-    VI vis(n+1,0);
-    int j=0;
+    VPII p;
 
-    map<int,int>mp;
-
-    FOR(i,1,m)mp[w[i]]++;
-
-    FOR(i,1,m){
-        if(vis[w[i]])continue;
-        a[w[i]-1]=b[j++];
-        vis[w[i]]=1;
+    for(int i=2;i<=n/i;i++){
+        if(n%i==0){
+            int c=0;
+            while(n%i==0){
+                n/=i;
+                c++;
+            }
+            cnt++;
+            p.pb({i,c});
+        }
     }
-    cout<<a<<endl;
+    if(n>1)cnt++,p.pb({n,1});
 
+    sort(ALL(p));
+    
+    if(p.sz==1){
+        if(p[0].se>=6){
+            YES;
+            cout<<p[0].fi<<' '<<p[0].fi*p[0].fi<<' '<<t/p[0].fi/p[0].fi/p[0].fi<<endl;
+        }else{
+            NO;
+        }
+    }else{
+        int x=p[0].fi,y=p[1].fi,z=t/x/y;
+        if(z==x||z==y||z==1){
+            NO;
+        }else{
+            YES;
+            cout<<x<<' '<<y<<' '<<z<<endl;
+        }
+    }
 }
 
 signed main() {
