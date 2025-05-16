@@ -38,38 +38,48 @@ int __FAST_IO__ = [](){
     return 0;
 }();
 
-int n,x;
-int w[N];
+int n,w[N];
 
 void solve() {
-    cin>>n>>x;
+    cin>>n;
 
     FOR(i,1,n)cin>>w[i];
 
-    int mx=*max_element(w+1,w+1+n),mn=*min_element(w+1,w+1+n);
+    int ans=n;
 
-    int ans=0;
-
-    FOR(i,2,n)ans+=abs(w[i]-w[i-1]);
-
-    int tx=min(abs(w[1]-x),abs(w[n]-x));
-    int ty=min(abs(w[1]-1),abs(w[n]-1));
-
-    FOR(i,2,n){
-        tx=min(tx,abs(x-w[i-1])+abs(x-w[i])-abs(w[i]-w[i-1]));
-        ty=min(ty,abs(1-w[i-1])+abs(1-w[i])-abs(w[i]-w[i-1]));
+    if(w[1]==n||w[n]==1){
+        ans=min(ans,n-1);
     }
 
-    if(mn>1)ans+=ty;
-    if(mx<x)ans+=tx;
+    map<int,int>mp;
+
+    FOR(i,1,n){
+        mp[w[i]]=i;
+    }
+
+    int lst=-1;
+    int res=0,cnt=0;
+
+    for(auto [x,y]:mp){
+        if(y>lst)cnt++;
+        else{
+            cnt=1;
+        }
+        res=max(res,cnt);
+        lst=y;
+    }
+
+    res=max(res,cnt);
+
+    ans=min(ans,n-res);
 
     cout<<ans<<endl;
-
+    
 }
 
 signed main() {
     int Task = 1;
-    for (cin >> Task; Task; Task--) {
+    for (; Task; Task--) {
         solve();
     }
     return 0;

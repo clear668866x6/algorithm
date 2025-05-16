@@ -38,38 +38,68 @@ int __FAST_IO__ = [](){
     return 0;
 }();
 
-int n,x;
-int w[N];
+int n,w[N],b[N];
+
+int mexa(int l,int r){
+    set<int>mp;
+
+    int mex=0;
+
+    FOR(i,l,r){
+        mp.insert(w[i]);
+        while(mp.count(mex))mex++;
+    }
+    return mex;
+}
+
+int mexb(int l,int r){
+    set<int>mp;
+
+    int mex=0;
+
+    FOR(i,l,r){
+        mp.insert(b[i]);
+        while(mp.count(mex))mex++;
+    }
+    return mex;
+}
 
 void solve() {
-    cin>>n>>x;
+    cin>>n;
 
-    FOR(i,1,n)cin>>w[i];
+    FOR(i,1,n)cin>>w[i],b[i]=w[i];
 
-    int mx=*max_element(w+1,w+1+n),mn=*min_element(w+1,w+1+n);
+    sort(w+1,w+1+n);
 
-    int ans=0;
+    int cnt=0;
 
-    FOR(i,2,n)ans+=abs(w[i]-w[i-1]);
+    do{
 
-    int tx=min(abs(w[1]-x),abs(w[n]-x));
-    int ty=min(abs(w[1]-1),abs(w[n]-1));
+        bool f=false;
 
-    FOR(i,2,n){
-        tx=min(tx,abs(x-w[i-1])+abs(x-w[i])-abs(w[i]-w[i-1]));
-        ty=min(ty,abs(1-w[i-1])+abs(1-w[i])-abs(w[i]-w[i-1]));
-    }
+        FOR(l,1,n){
+            FOR(r,l,n){
+                if(mexa(l,r)!=mexb(l,r)){
+                    f=1;
+                    break;
+                }
+            }
+            if(f)break;
+        }
+        if(!f){
+            cnt++;
+            FOR(i,1,n)cout<<w[i]<<" \n"[i==n];
+        }
+    }while(next_permutation(w+1,w+1+n));
 
-    if(mn>1)ans+=ty;
-    if(mx<x)ans+=tx;
 
-    cout<<ans<<endl;
+    cout<<cnt<<endl;
 
 }
 
 signed main() {
     int Task = 1;
-    for (cin >> Task; Task; Task--) {
+    for (; Task; Task--) {
         solve();
     }
     return 0;

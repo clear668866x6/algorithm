@@ -29,7 +29,7 @@ using TII = tuple<int, int, int>;
 #define se second
 #define sz size()
 constexpr int N = 2e5 + 10;
-constexpr int mod = 998244353;
+constexpr int mod = 1e9 + 7;
 
 int __FAST_IO__ = [](){
     ios::sync_with_stdio(0), cin.tie(0);
@@ -38,31 +38,27 @@ int __FAST_IO__ = [](){
     return 0;
 }();
 
-int n,x;
-int w[N];
+int n,w[N];
 
 void solve() {
-    cin>>n>>x;
+    cin>>n;
 
     FOR(i,1,n)cin>>w[i];
 
-    int mx=*max_element(w+1,w+1+n),mn=*min_element(w+1,w+1+n);
+    VI pos(n+1,0);
 
-    int ans=0;
-
-    FOR(i,2,n)ans+=abs(w[i]-w[i-1]);
-
-    int tx=min(abs(w[1]-x),abs(w[n]-x));
-    int ty=min(abs(w[1]-1),abs(w[n]-1));
-
-    FOR(i,2,n){
-        tx=min(tx,abs(x-w[i-1])+abs(x-w[i])-abs(w[i]-w[i-1]));
-        ty=min(ty,abs(1-w[i-1])+abs(1-w[i])-abs(w[i]-w[i-1]));
+    FOR(i,1,n){
+        pos[w[i]]=i;
     }
 
-    if(mn>1)ans+=ty;
-    if(mx<x)ans+=tx;
+    int l=min(pos[0],pos[1]),r=max(pos[0],pos[1]);
 
+    int ans=1;
+
+    FOR(i,2,n-1){
+        if(pos[i]>l&&pos[i]<r)ans=(ans*(r-l+1-i))%mod;
+        else l=min(l,pos[i]),r=max(r,pos[i]);
+    }
     cout<<ans<<endl;
 
 }

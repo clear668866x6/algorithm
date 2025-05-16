@@ -38,33 +38,31 @@ int __FAST_IO__ = [](){
     return 0;
 }();
 
-int n,x;
-int w[N];
+int n,w[N];
 
 void solve() {
-    cin>>n>>x;
+    cin>>n;
 
     FOR(i,1,n)cin>>w[i];
 
-    int mx=*max_element(w+1,w+1+n),mn=*min_element(w+1,w+1+n);
-
+    
+    VI b(n+1,0);
+    
+    FOR(i,1,n)b[i]=w[i]-w[i-1];
+    
     int ans=0;
-
-    FOR(i,2,n)ans+=abs(w[i]-w[i-1]);
-
-    int tx=min(abs(w[1]-x),abs(w[n]-x));
-    int ty=min(abs(w[1]-1),abs(w[n]-1));
+    int cnt=b[1];
 
     FOR(i,2,n){
-        tx=min(tx,abs(x-w[i-1])+abs(x-w[i])-abs(w[i]-w[i-1]));
-        ty=min(ty,abs(1-w[i-1])+abs(1-w[i])-abs(w[i]-w[i-1]));
+        int t=b[i];
+        ans+=abs(t);
+        if(t<0){
+            cnt+=t;
+        }
     }
-
-    if(mn>1)ans+=ty;
-    if(mx<x)ans+=tx;
+    ans+=abs(cnt);
 
     cout<<ans<<endl;
-
 }
 
 signed main() {

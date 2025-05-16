@@ -38,38 +38,48 @@ int __FAST_IO__ = [](){
     return 0;
 }();
 
-int n,x;
-int w[N];
+int n,m;
+string s;
+int sum[N][8];
+//应该得想到满足条件的序列是长什么样子的
+//因为这种问题都只有两种方法的，一个是从起点出发；一个是从终点出发
+
+void work(char a,char b,char c,int idx){
+
+    FOR(i,1,n){
+        sum[i][idx]=sum[i-1][idx];
+        if(i%3==0&&s[i]!=a)sum[i][idx]++;
+        if(i%3==1&&s[i]!=b)sum[i][idx]++;
+        if(i%3==2&&s[i]!=c)sum[i][idx]++;
+    }
+}
 
 void solve() {
-    cin>>n>>x;
+    cin>>n>>m>>s;
 
-    FOR(i,1,n)cin>>w[i];
+    s=' '+s;
 
-    int mx=*max_element(w+1,w+1+n),mn=*min_element(w+1,w+1+n);
+    work('a','b','c',1);
+    work('a','c','b',2);
+    work('b','a','c',3);
+    work('b','c','a',4);
+    work('c','a','b',5);
+    work('c','b','a',6);
 
-    int ans=0;
-
-    FOR(i,2,n)ans+=abs(w[i]-w[i-1]);
-
-    int tx=min(abs(w[1]-x),abs(w[n]-x));
-    int ty=min(abs(w[1]-1),abs(w[n]-1));
-
-    FOR(i,2,n){
-        tx=min(tx,abs(x-w[i-1])+abs(x-w[i])-abs(w[i]-w[i-1]));
-        ty=min(ty,abs(1-w[i-1])+abs(1-w[i])-abs(w[i]-w[i-1]));
+    while(m--){
+        int l,r;
+        cin>>l>>r;
+        int ans=1e18;
+        FOR(i,1,6){
+            ans=min(ans,sum[r][i]-sum[l-1][i]);
+        }
+        cout<<ans<<endl;
     }
-
-    if(mn>1)ans+=ty;
-    if(mx<x)ans+=tx;
-
-    cout<<ans<<endl;
-
 }
 
 signed main() {
     int Task = 1;
-    for (cin >> Task; Task; Task--) {
+    for (; Task; Task--) {
         solve();
     }
     return 0;

@@ -38,32 +38,26 @@ int __FAST_IO__ = [](){
     return 0;
 }();
 
-int n,x;
-int w[N];
+int n,m,k;
+int a[N],b[N];
 
 void solve() {
-    cin>>n>>x;
+    cin>>n>>m>>k;
 
-    FOR(i,1,n)cin>>w[i];
+    FOR(i,1,k)cin>>a[i];
+    FOR(i,1,k)cin>>b[i];
 
-    int mx=*max_element(w+1,w+1+n),mn=*min_element(w+1,w+1+n);
+    map<int,int>mp1,mp2;
+
+    FOR(i,1,k)mp1[a[i]]++;
+    FOR(i,1,k)mp2[b[i]]++;
 
     int ans=0;
 
-    FOR(i,2,n)ans+=abs(w[i]-w[i-1]);
-
-    int tx=min(abs(w[1]-x),abs(w[n]-x));
-    int ty=min(abs(w[1]-1),abs(w[n]-1));
-
-    FOR(i,2,n){
-        tx=min(tx,abs(x-w[i-1])+abs(x-w[i])-abs(w[i]-w[i-1]));
-        ty=min(ty,abs(1-w[i-1])+abs(1-w[i])-abs(w[i]-w[i-1]));
+    FOR(i,1,k){
+        ans+=k-mp1[a[i]]-mp2[b[i]]+1;
     }
-
-    if(mn>1)ans+=ty;
-    if(mx<x)ans+=tx;
-
-    cout<<ans<<endl;
+    cout<<ans/2<<endl;
 
 }
 
