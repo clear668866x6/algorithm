@@ -1,0 +1,1 @@
+{"name":"Local: CF1764C","url":"/home/value/algorithm/practice/CF1764C.cpp","tests":[{"id":1747459810979,"input":"4\n4\n2 2 3 1\n6\n5 2 3 1 5 2\n12\n7 2 4 9 1 4 6 3 7 4 2 3\n4\n1000000 1000000 1000000 1000000\n","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/value/algorithm/practice/CF1764C.cpp","group":"local","local":true}

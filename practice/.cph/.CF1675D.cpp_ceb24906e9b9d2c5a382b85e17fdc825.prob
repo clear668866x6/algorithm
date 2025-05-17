@@ -1,0 +1,1 @@
+{"name":"Local: CF1675D","url":"/home/value/algorithm/practice/CF1675D.cpp","tests":[{"id":1747461924816,"input":"6\n5\n3 1 3 3 1\n4\n1 1 4 1\n7\n1 1 2 3 4 5 6\n1\n1\n6\n4 4 4 4 1 2\n4\n2 2 2 2\n","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/value/algorithm/practice/CF1675D.cpp","group":"local","local":true}

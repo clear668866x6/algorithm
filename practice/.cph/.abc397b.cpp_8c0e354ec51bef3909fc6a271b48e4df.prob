@@ -1,0 +1,1 @@
+{"name":"Local: abc397b","url":"/home/value/algorithm/practice/abc397b.cpp","tests":[{"id":1747491570029,"input":"ioi\n","output":""},{"id":1747491968747,"input":"iioo\n","output":""},{"id":1747492008707,"input":"io\n","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/value/algorithm/practice/abc397b.cpp","group":"local","local":true}
