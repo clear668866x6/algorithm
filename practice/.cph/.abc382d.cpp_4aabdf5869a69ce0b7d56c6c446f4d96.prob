@@ -1,0 +1,1 @@
+{"name":"Local: abc382d","url":"/home/value/algorithm/practice/abc382d.cpp","tests":[{"id":1747659051657,"input":"3 23\n","output":"10\n1 11 21\n1 11 22\n1 11 23\n1 12 22\n1 12 23\n1 13 23\n2 12 22\n2 12 23\n2 13 23\n3 13 23\n"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/value/algorithm/practice/abc382d.cpp","group":"local","local":true}
