@@ -1,0 +1,1 @@
+{"name":"Local: abc398c","url":"/home/value/algorithm/practice/abc398c.cpp","tests":[{"id":1747921010276,"input":"9\n2 9 9 7 9 2 4 5 8\n","output":""},{"id":1747921014287,"input":"4\n1000000000 1000000000 998244353 998244353\n","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/value/algorithm/practice/abc398c.cpp","group":"local","local":true}

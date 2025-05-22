@@ -1,0 +1,1 @@
+{"name":"Local: CF152C","url":"/home/value/algorithm/practice/CF152C.cpp","tests":[{"id":1747925534454,"input":"2 3\nAAB\nBAA\n","output":"4"},{"id":1747925538088,"input":"4 5\nABABA\nBCGDG\nAAAAA\nYABSA\n","output":"216"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/value/algorithm/practice/CF152C.cpp","group":"local","local":true}
