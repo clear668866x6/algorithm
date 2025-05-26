@@ -1,0 +1,1 @@
+{"name":"Local: ys91c","url":"/home/value/algorithm/practice/ys91c.cpp","tests":[{"id":1748153486964,"input":"3 3 3\n2 2\n1 1\n2 1","output":""},{"id":1748153514604,"input":"1 5 3\n1 1\n1 5\n1 2","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/value/algorithm/practice/ys91c.cpp","group":"local","local":true}
