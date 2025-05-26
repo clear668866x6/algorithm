@@ -1,0 +1,1 @@
+{"name":"Local: zs86c","url":"/home/value/algorithm/practice/zs86c.cpp","tests":[{"id":1748275979241,"input":"2\n7\n0101110\n4\n0000","output":""},{"id":1748276004797,"input":"1\n7\n1111110","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/value/algorithm/practice/zs86c.cpp","group":"local","local":true}

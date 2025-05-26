@@ -1,0 +1,1 @@
+{"name":"Local: lxs100b","url":"/home/value/algorithm/practice/lxs100b.cpp","tests":[{"id":1748275059207,"input":"5\n10 3 2 6 5\nRRRBB","output":""},{"id":1748275344559,"input":"5\n1 3 2 6 5\nBRRBB","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/value/algorithm/practice/lxs100b.cpp","group":"local","local":true}

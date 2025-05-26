@@ -1,0 +1,1 @@
+{"name":"Local: zs49d","url":"/home/value/algorithm/practice/zs49d.cpp","tests":[{"id":1748266976903,"input":"3\n1 1\n1 2\n1 3","output":"1\n3\n0"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/value/algorithm/practice/zs49d.cpp","group":"local","local":true}
