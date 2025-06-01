@@ -1,0 +1,401 @@
+// ==UserScript==
+// @name         Emojiforces
+// @namespace    http://tampermonkey.net/
+// @version      0.7.0
+// @description  Add emojis to submission verdicts, with subtle animations, covering more states.
+// @author       ExplodingKonjac (enhanced by AI)
+// @license      GPLv3
+// @match        https://codeforces.com/*
+// @match        https://codeforc.es/*
+// @downloadURL https://update.greasyfork.org/scripts/460448/Emojiforces.user.js
+// @updateURL https://update.greasyfork.org/scripts/460448/Emojiforces.meta.js
+// ==/UserScript==
+
+(function() {
+    'use strict';
+
+    function newEmojiSpan(text, shouldHaveSubtleAnimation = false, isCountdown = false) {
+        var x = document.createElement('span');
+        x.className = 'emojiforces-emoji';
+        x.innerHTML = text;
+
+        if (shouldHaveSubtleAnimation) {
+            x.classList.add('emojiforces-subtle-animate');
+            x.addEventListener('animationend', function handleAnimationEnd() {
+                x.classList.remove('emojiforces-subtle-animate');
+                x.classList.add('emojiforces-settled');
+            }, { once: true });
+        } else if (isCountdown) {
+            x.classList.add('emojiforces-countdown');
+        }
+        return x;
+    }
+
+    function getDifficultyLevel(x) {
+        if (x < 1000) return '😴'; else if (x < 1500) return '🙂'; else if (x < 2000) return '😐';
+        else if (x < 2400) return '😨'; else if (x < 2800) return '😱'; else if (x < 3100) return '😡';
+        else if (x < 3400) return '🥵'; else return '💀';
+    }
+
+    function getRatingLevel(x) {
+        if (x < -50) return '💩'; else if (x < 0) return '🐸'; else if (x < 800) return '👶';
+        else if (x < 1400) return '🙂'; else if (x < 1900) return '😃'; else if (x < 2400) return '🤔';
+        else if (x < 2600) return '🧐'; else if (x < 3000) return '😎'; else if (x < 3500) return '😇';
+        else return '👽';
+    }
+
+    function getContribLevel(x) {
+        if (x < -100) return '🤡'; else if (x < -50) return '👎'; else if (x < 0) return '🤐';
+        else if (x < 50) return '😯'; else if (x < 80) return '😉'; else if (x < 120) return '🤗';
+        else if (x < 160) return '👍'; else return '🤩';
+    }
+
+    function getRunningTestEmoji(testNum) {
+        if (testNum < 5) return '🙂'; else if (testNum < 15) return '🤔'; else if (testNum < 30) return '😥';
+        else if (testNum < 50) return '😰'; else if (testNum < 70) return '😨'; else return '😱';
+    }
+
+    function getFailureEmojiByTest(testNum, type = "WA") { // type can be "WA", "RE", "PE" etc.
+        if (type === "RE") { // Specific for Runtime Error
+            if (testNum <= 1) return '🐛'; // Bug on first test
+            else if (testNum <= 5) return '💥'; // Crash
+            else return '💣'; // Bigger crash
+        } else if (type === "PE") { // Specific for Presentation Error
+            return '🖼️'; // Picture frame, or '💅' for style
+        }
+        // Default to WA-like emojis if no specific type handled
+        if (testNum <= 1) return '🤦';   else if (testNum <= 3) return '😩';
+        else if (testNum <= 7) return '😭'; else if (testNum <= 15) return '😫';
+        else if (testNum <= 30) return '🤬'; else return '🤯';
+    }
+
+    let processedInCurrentMutation = new Set();
+
+    function processVerdicts(isDynamicUpdate = false) {
+        processedInCurrentMutation.clear();
+
+        function appendStaticEmoji(element, emojiChar) {
+            if (element.querySelector('.emojiforces-emoji')) return;
+            const lastChar = element.innerHTML.slice(-1);
+            const emojiPattern = /[\u{1F300}-\u{1F5FF}\u{1F600}-\u{1F64F}\u{1F680}-\u{1F6FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}\u{1F900}-\u{1F9FF}\u{1FA70}-\u{1FAFF}]/u;
+            if (lastChar !== ' ' && !emojiPattern.test(lastChar)) {
+                 element.innerHTML += emojiChar;
+            } else if (lastChar === ' ' && !emojiPattern.test(element.innerHTML.slice(-2, -1))) {
+                 element.innerHTML = element.innerHTML.trimEnd() + emojiChar;
+            }
+        }
+
+        // Accepted - static emoji
+        document.querySelectorAll('span.verdict-accepted:not(.emojiforces-processed-static), span[submissionverdict="OK"]:not(.emojiforces-processed-static)').forEach(function(e) {
+            appendStaticEmoji(e, '😘'); // Keep it simple and positive
+            e.classList.add('emojiforces-processed-static');
+        });
+        // Partial - static, could be more nuanced
+        document.querySelectorAll('span[submissionverdict="PARTIAL"]:not(.emojiforces-processed-static)').forEach(function(e) {
+            appendStaticEmoji(e, '🤏'); // Pinching hand for "partial"
+            e.classList.add('emojiforces-processed-static');
+        });
+
+
+        function addEmojiToVerdict(verdictElement, emojiChar, isNew, addSecondaryCountdown, animateThisMainEmoji) {
+            verdictElement.querySelectorAll('.emojiforces-emoji').forEach(old => old.remove());
+
+            var mainEmojiSpan = newEmojiSpan(emojiChar, animateThisMainEmoji && isNew, false);
+            verdictElement.appendChild(mainEmojiSpan);
+
+            if (addSecondaryCountdown) {
+                var countdownEmojiSpan = newEmojiSpan('⏳', false, true);
+                countdownEmojiSpan.style.marginLeft = '2px';
+                verdictElement.appendChild(countdownEmojiSpan);
+            }
+
+            verdictElement.classList.add('emojiforces-processed-dynamic');
+            processedInCurrentMutation.add(verdictElement);
+            verdictElement.setAttribute('data-emojiforces-initial-load', 'true');
+        }
+
+        const verdictsConfig = [
+            // Positive / Neutral Start States
+            { selector: 'span[submissionverdict="PENDING_JUDGEMENT"]', textMatch: ["Pending judgement", "Ожидание"], emoji: '🤔', type: "PENDING_JUDGEMENT", animate: true }, // Similar to testing start
+            { selector: 'span[submissionverdict="WAITING"]', textMatch: ["In queue", "В очереди"], emoji: '🚶', type: "WAITING", animate: true }, // Person walking for queue
+            { selector: 'span[submissionverdict="TESTING"]', textMatch: ["Running", "Тестирование"], emoji: '🏃', type: "TESTING", hasCountdown: true, animateMainEmojiLogic: true }, // animateMainEmojiLogic: true means specific logic for TESTING main emoji animation
+
+            // Common Errors
+            { selector: 'span[submissionverdict="COMPILATION_ERROR"]', textMatch: ["Compilation error", "Ошибка компиляции"], emoji: '🧱', type: "COMPILATION_ERROR", animate: true }, // Brick for build error
+            { selector: 'span[submissionverdict="WRONG_ANSWER"]', textMatch: ["Wrong answer", "Неправильный ответ"], type: "WRONG_ANSWER", animate: true, needsTestNum: true },
+            { selector: 'span[submissionverdict="RUNTIME_ERROR"]', textMatch: ["Runtime error", "Ошибка выполнения"], type: "RUNTIME_ERROR", animate: true, needsTestNum: true },
+            { selector: 'span[submissionverdict="TIME_LIMIT_EXCEEDED"]', textMatch: ["Time limit exceeded", "Превышено время исполнения"], emoji: '⏰', type: "TIME_LIMIT_EXCEEDED", animate: true },
+            { selector: 'span[submissionverdict="MEMORY_LIMIT_EXCEEDED"]', textMatch: ["Memory limit exceeded", "Превышен лимит памяти"], emoji: '🧠', type: "MEMORY_LIMIT_EXCEEDED", animate: true }, // Brain for memory
+            { selector: 'span[submissionverdict="PRESENTATION_ERROR"]', textMatch: ["Presentation error", "Ошибка презентации"], type: "PRESENTATION_ERROR", animate: true, needsTestNum: true }, // Needs test num for context, or a fixed emoji
+
+            // Hacking / Challenging
+            { selector: 'span[submissionverdict="CHALLENGED"]', textMatch: ["Hacked", "Взломано", "Challenged"], emoji: '⚔️', type: "CHALLENGED", animate: true }, // Swords for hacked/challenged
+
+            // Less Common / System Errors
+            { selector: 'span[submissionverdict="IDLENESS_LIMIT_EXCEEDED"]', textMatch: ["Idleness limit exceeded", "Превышен лимит холостого времени"], emoji: '😴', type: "IDLENESS_LIMIT_EXCEEDED", animate: true },
+            { selector: 'span[submissionverdict="SECURITY_VIOLATED"]', textMatch: ["Security violated", "Нарушение безопасности"], emoji: '🛡️', type: "SECURITY_VIOLATED", animate: true }, // Shield for security
+            { selector: 'span[submissionverdict="JUDGEMENT_FAILED"]', textMatch: ["Judgement failed", "Ошибка тестирования"], emoji: '⚙️', type: "JUDGEMENT_FAILED", animate: true }, // Gear for system/judgement fail
+            { selector: 'span[submissionverdict="INPUT_PREPARATION_FAILED"]', textMatch: ["Input preparation failed"], emoji: '📝', type: "INPUT_PREPARATION_FAILED", animate: true }, // Document for input prep fail
+            { selector: 'span[submissionverdict="SKIPPED"]', textMatch: ["Skipped", "Пропущено"], emoji: '⏭️', type: "SKIPPED", animate: false }, // Static for skipped
+            { selector: 'span[submissionverdict="DENIAL_OF_JUDGEMENT"]', textMatch: ["Denial of judgement"], emoji: '🚫', type: "DENIAL_OF_JUDGEMENT", animate: false }, // Static for DoJ
+
+            // For generic "Rejected" if no other specific submissionverdict matches. Lower priority.
+            // This needs to be handled carefully so it doesn't override specific verdicts if they also have class="verdict-rejected"
+            // For now, we rely on specific submissionverdict attributes. If a plain "Rejected" appears without a specific verdict attr, it won't get an emoji from this config.
+        ];
+
+        verdictsConfig.forEach(config => {
+            document.querySelectorAll(`${config.selector}:not(.emojiforces-processed-dynamic)`).forEach(function(e) {
+                // Check if the text content matches, if textMatch is provided
+                if (config.textMatch) {
+                    const currentText = e.innerText.trim();
+                    const matches = config.textMatch.some(matchText => currentText.startsWith(matchText));
+                    if (!matches) return; // Skip if text doesn't match
+                }
+
+                let emojiChar = config.emoji;
+                let isConsideredNew = isDynamicUpdate || !e.hasAttribute('data-emojiforces-initial-load');
+                let useSecondaryCountdown = !!config.hasCountdown;
+                let animateThisMainEmoji = !!config.animate;
+
+                let testNum = 1; // Default test number
+                if (config.needsTestNum) {
+                    const testNumSpan = e.querySelector('span.verdict-format-judged') || e; // Check self if no child
+                    const match = testNumSpan.innerText.match(/(?:on test|на тесте|тест)\s*(\d+)/i) || testNumSpan.innerText.match(/(\d+)/); // More robust regex
+                    if (match && match[1]) {
+                        testNum = parseInt(match[1], 10);
+                    }
+                }
+
+                if (config.type === "WAITING" || config.type === "PENDING_JUDGEMENT") {
+                    if (e.innerText.includes("Running on test") || e.innerText.includes("Тестирование на тесте")) return;
+                    useSecondaryCountdown = false;
+                } else if (config.type === "TESTING") {
+                    emojiChar = getRunningTestEmoji(testNum); // testNum here is from the "Running on test X" text
+                    const oldEmojiSpan = e.querySelector('.emojiforces-emoji:not(.emojiforces-countdown)');
+                    if (oldEmojiSpan && oldEmojiSpan.innerHTML !== emojiChar) {
+                        isConsideredNew = true;
+                    }
+                    // Animate specific "running" emojis if new
+                    animateThisMainEmoji = config.animateMainEmojiLogic && (emojiChar === '🤔' || emojiChar === '😥' || emojiChar === '😰' || emojiChar === '😨' || emojiChar === '😱');
+                } else if (config.type === "WRONG_ANSWER") {
+                    emojiChar = getFailureEmojiByTest(testNum, "WA");
+                } else if (config.type === "RUNTIME_ERROR") {
+                    emojiChar = getFailureEmojiByTest(testNum, "RE");
+                } else if (config.type === "PRESENTATION_ERROR") {
+                    emojiChar = getFailureEmojiByTest(testNum, "PE");
+                }
+
+                addEmojiToVerdict(e, emojiChar, isConsideredNew, useSecondaryCountdown, animateThisMainEmoji);
+            });
+        });
+
+        // GIF for FST - static image
+        document.querySelectorAll('span.cell-failed-system-test:not(.emojiforces-processed-static)').forEach(function(e) {
+            if (e.querySelector('img')) return;
+            const img = document.createElement('img');
+            img.src="https://s2.loli.net/2023/02/22/6s85lbvafzWphEr.gif";
+            img.height="20"; img.width="20";
+            img.style.verticalAlign = "middle";
+            e.appendChild(img);
+            e.classList.add('emojiforces-processed-static');
+        });
+
+        // Unsuccessful Challenge - specific logic from original script (some static, some animated)
+        document.querySelectorAll('span.verdict-unsuccessful-challenge:not(.emojiforces-processed-static):not(.emojiforces-processed-dynamic)').forEach(function(e) {
+            const innerHTMLText = e.innerText.trim(); // Use innerText for matching
+            let isNew = isDynamicUpdate || !e.hasAttribute('data-emojiforces-initial-load');
+
+            if (innerHTMLText.startsWith('Unsuccessful hacking attempt') || innerHTMLText.startsWith('Неудачная попытка взлома')) {
+                appendStaticEmoji(e, '👈🤣');
+                e.classList.add('emojiforces-processed-static');
+            } else if (innerHTMLText.startsWith('Invalid input') || innerHTMLText.startsWith('Некорректный тест')) {
+                appendStaticEmoji(e, '😨');
+                e.classList.add('emojiforces-processed-static');
+            } else if (innerHTMLText.startsWith('Generator crashed') || innerHTMLText.startsWith('Некорректный генератор')) {
+                addEmojiToVerdict(e, '🤯', isNew, false, true); // Animate this one
+            } else if (innerHTMLText.startsWith('Generator compilation error') || innerHTMLText.startsWith('Ошибка компиляции генератора')) {
+                const oldContent = e.innerHTML;
+                e.parentNode.title = oldContent;
+                e.innerHTML = ''; // Clear original text before adding elements
+
+                var x1 = newEmojiSpan('😅', isNew, false);
+                e.parentNode.insertBefore(x1, e);
+
+                const img = document.createElement('img');
+                img.src = "https://s2.loli.net/2023/02/22/6s85lbvafzWphEr.gif";
+                img.height = "20"; img.width = "20";
+                img.style.verticalAlign = "middle";
+                e.appendChild(img); // Image inside the original span
+
+                var x2 = newEmojiSpan('😅', isNew, false);
+                if (e.nextSibling) { e.parentNode.insertBefore(x2, e.nextSibling); }
+                else { e.parentNode.appendChild(x2); }
+
+                e.classList.add('emojiforces-processed-dynamic'); // Mark as processed
+                processedInCurrentMutation.add(e.parentNode); // Parent was modified significantly
+            }
+             e.setAttribute('data-emojiforces-initial-load', 'true');
+        });
+
+        // Verdict Challenged (successful hack by someone else against this solution) - static
+        document.querySelectorAll('span.verdict-challenged:not(.emojiforces-processed-static)').forEach(function(e) {
+            appendStaticEmoji(e, '🎯'); // Target for "successfully challenged"
+            e.classList.add('emojiforces-processed-static');
+        });
+
+
+        // --- Static emojis for Problem Ratings, User Ratings, Contributions ---
+        // (These sections remain largely the same as they add static, non-animated emojis)
+        document.querySelectorAll('span.ProblemRating:not(.emojiforces-processed-static), span.tag-box:not(.emojiforces-processed-rating-static)').forEach(function(e) {
+            var res = '';
+            if (e.querySelector('.emojiforces-emoji') || e.innerText.match(/[\u{1F300}-\u{1F5FF}]/u)) return;
+
+            if (e.className.includes("tag-box")) {
+                var diff = /\*(\d+)/.exec(e.innerText);
+                if (diff == null || !diff[1]) return;
+                res = diff[1];
+                appendStaticEmoji(e, getDifficultyLevel(Number(res)));
+                e.classList.add('emojiforces-processed-rating-static');
+            } else if (e.className.includes("ProblemRating")) {
+                res = e.innerText.match(/\d+/);
+                if (res && res[0]) {
+                    appendStaticEmoji(e, getDifficultyLevel(Number(res[0])));
+                    e.classList.add('emojiforces-processed-static');
+                }
+            }
+        });
+        document.querySelectorAll('div.userbox span[class*="user-"], div.personal-sidebar span[class*="user-"]').forEach(function(e) {
+            if (e.classList.contains('emojiforces-processed-static')) return;
+            if (e.innerText.match(/[\u{1F300}-\u{1F5FF}]/u)) return;
+            var numMatch = e.innerText.match(/-?\d+/);
+            if (numMatch && numMatch[0]) {
+                const userLinkAnchor = e.querySelector('a');
+                let userNameLength = 0;
+                if (userLinkAnchor && typeof userLinkAnchor.innerText === 'string') {
+                    userNameLength = userLinkAnchor.innerText.length;
+                }
+                if (userNameLength > 0 && e.innerText.length > (numMatch[0].length + userNameLength + 5)) {
+                    e.classList.add('emojiforces-processed-static'); return;
+                }
+                appendStaticEmoji(e, getRatingLevel(Number(numMatch[0])));
+                let parentToStyle = e.parentNode;
+                if (parentToStyle.tagName === 'A' && parentToStyle.parentNode.tagName === 'DIV') {
+                    parentToStyle = parentToStyle.parentNode;
+                }
+                if (parentToStyle.tagName === 'DIV' || parentToStyle.tagName === 'A') {
+                     parentToStyle.style.whiteSpace = "nowrap";
+                } else { e.style.whiteSpace = "nowrap"; }
+                e.classList.add('emojiforces-processed-static');
+            }
+        });
+        document.querySelectorAll('div.userbox span[style*="font-weight:bold"], div.personal-sidebar span[style*="font-weight:bold"]').forEach(function(e) {
+            if (e.classList.contains('emojiforces-processed-contrib-static')) return;
+            if (e.innerText.match(/[\u{1F300}-\u{1F5FF}]/u)) return;
+            const isContributionGreen = e.style.color === 'green';
+            const isContributionGray = e.style.color === 'gray';
+            if (isContributionGreen || isContributionGray) {
+                var num = /[+-]?\d+/.exec(e.innerText);
+                if (num == null || !num[0]) return;
+                const textAfterNum = e.innerText.substring(e.innerText.indexOf(num[0]) + num[0].length).trim();
+                if (textAfterNum.length > 0 && textAfterNum.length <= 3) {
+                    const emojiPattern = /[\u{1F300}-\u{1F5FF}\u{1F600}-\u{1F64F}\u{1F680}-\u{1F6FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}\u{1F900}-\u{1F9FF}\u{1FA70}-\u{1FAFF}]/u;
+                    if (emojiPattern.test(textAfterNum)) {
+                         e.classList.add('emojiforces-processed-contrib-static'); return;
+                    }
+                }
+                appendStaticEmoji(e, getContribLevel(Number(num[0])));
+                let parentToStyle = e.parentNode;
+                 if (parentToStyle.tagName === 'A' && parentToStyle.parentNode.tagName === 'DIV') {
+                    parentToStyle = parentToStyle.parentNode;
+                }
+                if (parentToStyle.tagName === 'DIV' || parentToStyle.tagName === 'A') {
+                     parentToStyle.style.whiteSpace = "nowrap";
+                } else { e.style.whiteSpace = "nowrap"; }
+                e.classList.add('emojiforces-processed-contrib-static');
+            }
+        });
+    }
+
+    processVerdicts(false); // Initial run
+
+    const observer = new MutationObserver(function(mutations) {
+        let needsProcessingForDynamic = false;
+        for (let mutation of mutations) {
+            if (mutation.type === 'childList' && mutation.addedNodes.length) {
+                for (let node of mutation.addedNodes) {
+                    if (node.nodeType === Node.ELEMENT_NODE) {
+                        if (node.matches('span[submissionverdict], span.verdict-accepted, span.verdict-unsuccessful-challenge, span.verdict-challenged') ||
+                            node.querySelector('span[submissionverdict], span.verdict-accepted, span.verdict-unsuccessful-challenge, span.verdict-challenged')) {
+                            needsProcessingForDynamic = true; break;
+                        }
+                    }
+                }
+            } else if (mutation.type === 'attributes') {
+                const target = mutation.target;
+                if (target.nodeName === 'SPAN' && target.hasAttribute('submissionverdict')) {
+                    if (!processedInCurrentMutation.has(target) ||
+                        target.getAttribute('submissionverdict') !== target.dataset.lastVerdict) {
+                        target.classList.remove('emojiforces-processed-dynamic', 'emojiforces-processed-static');
+                        needsProcessingForDynamic = true;
+                    }
+                    target.dataset.lastVerdict = target.getAttribute('submissionverdict');
+                }
+            }
+            if (needsProcessingForDynamic) break;
+        }
+        if (needsProcessingForDynamic) {
+            setTimeout(() => processVerdicts(true), 250); // Slightly longer delay
+        }
+    });
+
+    observer.observe(document.body, {
+        childList: true, subtree: true, attributes: true,
+        attributeFilter: ['submissionverdict', 'class', 'title']
+    });
+
+    if (!document.getElementById('emojiforces-styles')) {
+        var sty = document.createElement("style");
+        sty.id = 'emojiforces-styles';
+        sty.type = "text/css";
+        sty.innerHTML = `
+            @keyframes emojiforcesSubtleWiggle {
+              0%, 100% { transform: rotate(0deg) translateY(0); }
+              25% { transform: rotate(-3deg) translateY(-1px); }
+              75% { transform: rotate(3deg) translateY(0px); }
+            }
+            @keyframes emojiforcesPulse { /* For countdown ⏳ */
+              0% { transform: scale(1); }
+              50% { transform: scale(1.45); }
+              100% { transform: scale(1); }
+            }
+            .emojiforces-emoji {
+              display: inline-block; font-size: 1em; /* Or 1.1em */
+              line-height: 1; vertical-align: middle;
+              transform-origin: center bottom; /* Good for wiggle */
+            }
+            .emojiforces-subtle-animate { /* For most animated emojis */
+              animation-name: emojiforcesSubtleWiggle;
+              animation-duration: 0.7s; animation-iteration-count: 2; /* Plays twice */
+              animation-timing-function: ease-in-out;
+            }
+            .emojiforces-countdown { /* Only for the secondary ⏳ in TESTING */
+              animation-name: emojiforcesPulse;
+              animation-duration: 1.2s; animation-iteration-count: infinite;
+              animation-timing-function: ease-in-out;
+            }
+            /* Ensure verdict text and emoji stay together */
+            span[submissionverdict], span.verdict-accepted, span.verdict-rejected,
+            span.verdict-unsuccessful-challenge, span.verdict-challenged {
+                 white-space: nowrap;
+            }
+            /* For ratings etc. */
+            .ProblemRating, .tag-box, span[class*="user-"],
+            div.userbox span[style*="font-weight:bold;"],
+            div.personal-sidebar span[style*="font-weight:bold;"] {
+              white-space: nowrap !important;
+            }
+        `;
+        document.getElementsByTagName('head')[0].appendChild(sty);
+    }
+})();

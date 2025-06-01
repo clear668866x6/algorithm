@@ -1,0 +1,40 @@
+各判题状态和相应的表情总结 (Emojiforces v0.7.0):
+动画说明:
+静态: 无动画，直接附加。
+微妙动画 (晃动): 新出现时，会播放几次轻微的晃动效果。
+脉冲动画 (大小变化): 仅用于 "Running / Testing" 状态旁边的次要 ⏳ 表情，无限循环。
+Codeforces 状态 (英文)	submissionverdict 属性 (近似)	文本匹配 (部分)	表情	动画类型	备注
+Accepted	OK	"Accepted"	😘	静态
+Partial	PARTIAL	"Partial"	🤏	静态
+Pending judgement	PENDING_JUDGEMENT	"Pending judgement"	🤔	微妙动画
+In queue	WAITING	"In queue"	🚶	微妙动画
+Running / Testing	TESTING	"Running", "Testing"	🙂/🤔/😥/😰/😨/😱 (主) + ⏳ (次)	主:微妙/无, 次:脉冲	主表情根据测试点变化，特定主表情 (如🤔) 会有微妙动画，⏳ 总是脉冲
+Compilation error	COMPILATION_ERROR	"Compilation error"	🧱	微妙动画
+Wrong answer	WRONG_ANSWER	"Wrong answer"	🤦/😩/😭/😫/🤬/🤯 (根据测试点)	微妙动画
+Runtime error	RUNTIME_ERROR	"Runtime error"	🐛/💥/💣 (根据测试点)	微妙动画
+Time limit exceeded	TIME_LIMIT_EXCEEDED	"Time limit exceeded"	⏰	微妙动画
+Memory limit exceeded	MEMORY_LIMIT_EXCEEDED	"Memory limit exceeded"	🧠	微妙动画
+Presentation error	PRESENTATION_ERROR	"Presentation error"	🖼️ (或基于测试点的其他表情)	微妙动画
+Hacked / Challenged	CHALLENGED	"Hacked", "Challenged"	⚔️	微妙动画	当你的提交被别人HACK成功时
+Idleness limit exceeded	IDLENESS_LIMIT_EXCEEDED	"Idleness limit exceeded"	😴	微妙动画
+Security violated	SECURITY_VIOLATED	"Security violated"	🛡️	微妙动画
+Judgement failed	JUDGEMENT_FAILED	"Judgement failed"	⚙️	微妙动画
+Input preparation failed	INPUT_PREPARATION_FAILED	"Input preparation failed"	📝	微妙动画
+Skipped	SKIPPED	"Skipped"	⏭️	静态
+Denial of judgement	DENIAL_OF_JUDGEMENT	"Denial of judgement"	🚫	静态
+(Hack/Challenge Related)
+Unsuccessful hacking attempt	(属于verdict-unsuccessful-challenge类)	"Unsuccessful hacking attempt"	👈🤣	静态	你尝试HACK别人失败
+Invalid input (Hack)	(同上)	"Invalid input"	😨	静态	你HACK时提供的测试数据无效
+Generator crashed (Hack)	(同上)	"Generator crashed"	🤯 (这个改为了微妙动画)	微妙动画	你HACK时使用的自定义生成器崩溃了
+Generator compilation err(Hack)	(同上)	"Generator compilation error"	😅<img/>😅 (围绕GIF)	微妙动画 (😅)	你HACK时使用的自定义生成器编译失败
+Verdict Challenged	(属于verdict-challenged类)	(无特定文本，指你的提交被hack)	🎯	静态	你的提交被别人HACK成功（取代了之前的 👏👏👏）
+(Other UI elements)
+Problem Rating / Tag difficulty		(例如 *1500)	😴/🙂/😐/😨/😱/😡/🥵/💀 (根据难度)	静态
+User Rating		(例如 explodingkonjac (1800))	💩/🐸/👶/🙂/😃/🤔/🧐/😎/😇/👽 (根据rating)	静态
+Contribution		(例如 +50)	🤡/👎/🤐/😯/😉/🤗/👍/🤩 (根据贡献值)	静态
+注意：
+"Rejected" 作为一个通用的文本，如果CF不提供更具体的 submissionverdict 属性，它可能不会被这个脚本直接处理（除非它恰好是WA/RE等，并且其内部结构能被解析）。
+getFailureEmojiByTest 现在也处理 RE 和 PE 类型，可以根据测试点返回不同表情。
+表情选择和动画行为是主观的，您可以根据自己的喜好调整 verdictsConfig 中的 emoji 和 animate 属性。
+textMatch 用于进一步区分那些可能共享相同 submissionverdict 属性但有不同显示文本的状态。
+这个版本应该更全面地覆盖了您列出的判题状态。
