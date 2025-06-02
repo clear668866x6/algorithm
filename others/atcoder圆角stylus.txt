@@ -1,0 +1,682 @@
+/* ==UserStyle==
+@name         Smart Atcoder (Dark Mode with Emojis)
+@namespace    USO Archive
+@author       hhy8399 (Dark Mode & Emoji concept by AI)
+@description  Smart Atcoder-智能的Atcoder，更好看的Atcoder (暗黑模式适配 + 判题状态表情). 确保Atcoder Better也设置为深色模式以获得最佳效果。
+@version      20250418.24.02
+@license      NONE
+@preprocessor uso
+==/UserStyle== */
+@import url('https://cdn.jsdelivr.net/npm/firacode@6.2.0/distr/fira_code.css');
+@-moz-document url-prefix("https://atcoder.jp/") {
+	/*
+Smart Atcoder-智能的Atcoder，更好看的Atcoder (Dark Mode with Emojis)
+为了保证美观，请您将Atcoder Better调为深色模式
+Emoji animations are simplified due to CSS limitations.
+*/
+
+    /* Previous Dark Mode Styles Here (truncated for brevity in this example) */
+	/* ... your existing dark mode CSS from the previous response ... */
+	/*主体样式*/
+	html > body {
+		background-color: #121212 !important; /* Dark background */
+		background-image: none !important; /* Remove light image or replace with a dark one */
+		background-repeat: no-repeat;
+		background-size: cover;
+		background-position: center;
+		background-attachment: fixed;
+		color: #e0e0e0 !important; /* Default light text color */
+	}
+	#main-div.float-container {
+		background: #0000 !important; /* Transparent */
+	}
+	/* ... (all your other dark mode styles) ... */
+
+	.monaco-editor,
+	.monaco-editor .view-lines,
+	.monaco-editor .margin-view-overlays {
+		font-family: 'Fira Code' !important;
+		font-feature-settings: "ss01", "ss02", "ss03", "ss04", "ss05", "ss06", "zero", "onum" !important;
+	}
+	textarea#source {
+		font-family: 'Fira Code', monospace !important;
+		font-size: 14px !important;
+		line-height: 1.5 !important;
+		background-color: #2d2d2d !important;
+		color: #e0e0e0 !important;
+		border: 1px solid #555 !important;
+	}
+	div#preview {
+		font-family: 'Fira Code', monospace !important;
+		background-color: #2d2d2d !important;
+		color: #e0e0e0 !important;
+		border: 1px solid #555 !important;
+	}
+	.monaco-editor {
+		font-variant-ligatures: contextual !important;
+		text-rendering: optimizeLegibility !important;
+	}
+	div#console {
+		font-family: 'Fira Code', monospace !important;
+		background-color: #252525 !important;
+		color: #c5c5c5 !important;
+		border: 1px solid #444 !important;
+	}
+	span.c-fonts-loaded {
+		font-family: 'Fira Code', monospace !important;
+	}
+	.btn.disabled,
+	.btn[disabled],
+	fieldset[disabled] .btn {
+		background: #444 !important;
+		color: #888 !important;
+		border-color: #555 !important;
+	}
+	.btn.disabled:hover,
+	.btn[disabled]:hover,
+	fieldset[disabled] .btn:hover {
+		transition: all 0.3s ease-in-out !important;
+		border-radius: 15px !important;
+		background: #505050 !important;
+		color: #999 !important;
+	}
+	.dropdown-menu {
+		background-color: #2c2c2e !important;
+		border: 1px solid #444 !important;
+	}
+	.dropdown-menu > li > a {
+		color: #c0c0c0 !important;
+	}
+	.dropdown-menu > li > a:hover {
+		transition: all 0.3s ease-in-out !important;
+		border-radius: 15px !important;
+		background: rgba(92, 151, 224, 0.7) !important;
+		color: #fff !important;
+	}
+	#contest-nav-tabs {
+		transition: all 0.3s ease-in-out !important;
+		border-radius: 15px !important;
+		background-color: #252528 !important;
+	}
+	pre {
+		transition: all 0.3s ease-in-out !important;
+		border-radius: 15px !important;
+		background-color: #222528 !important;
+		color: #d4d4d4 !important;
+		border: 1px solid #444 !important;
+	}
+	.container {
+		margin-top: 60px;
+		border-radius: 15px;
+		padding-top: 20px !important;
+		background-color: rgba(40, 40, 42, .85) !important;
+		color: #e0e0e0 !important;
+	}
+	.panel,
+	.insert-participant-box {
+		border-radius: 15px !important;
+		background: #252528 !important;
+		border: 1px solid #383838 !important;
+		color: #d4d4d4 !important;
+	}
+	.panel-heading,
+	.post-heading {
+		border-radius: 15px 15px 0px 0px;
+		background-color: #33373a !important;
+		color: #e8e8e8 !important;
+		border-bottom: 1px solid #484848 !important;
+	}
+	.panel-default > .panel-heading {
+		color: #e8e8e8 !important;
+		background-color: #33373a !important;
+		border-color: #484848 !important;
+	}
+	#navbar-collapse,
+	.navbar-brand,
+	.navbar-right,
+	.navbar,
+	.navbar-inverse,
+	.navbar-fixed-top {
+		background-color: #1c1c1e !important;
+		border-bottom: 1px solid #333 !important;
+	}
+	.navbar-inverse .navbar-nav > li > a {
+		color: #b0b0b0 !important;
+	}
+	#navbar-collapse a {
+		background: transparent !important;
+		color: #a0c8f0 !important;
+		font-weight: bold !important;
+	}
+	#navbar-collapse a:hover {
+		transition: all 0.3s ease-in-out !important;
+		border-radius: 15px !important;
+		background: rgba(92, 151, 224, 0.3) !important;
+		color: #fff !important;
+	}
+	#navbar-collapse {
+		color: #a0c8f0 !important;
+		font-weight: bold !important;
+	}
+	img {
+		transition: all 0.3s ease-in-out !important;
+	}
+	img:hover {
+		border-radius: 15px !important;
+		box-shadow: 0 0 8px rgba(92, 151, 224, 0.5);
+	}
+	.fixed-server-timer p {
+		background-color: #c00000 !important;
+		color: #fff !important;
+		opacity: 0.8;
+	}
+	a {
+		transition: all 0.3s ease-in-out !important;
+		color: #6badef !important;
+	}
+	a:hover {
+		transition: all 0.3s ease-in-out !important;
+		color: #f0d960 !important;
+	}
+	a {
+		position: relative;
+	}
+	a:not(.exlg-dash-options)::after {
+		content: "";
+		width: 0;
+		height: 4px;
+		background: rgba(245, 228, 4, .7);
+		position: absolute;
+		top: 100%;
+		left: 50%;
+		transition: all .3s;
+	}
+	a:not(.exlg-dash-options):hover::after {
+		left: 0%;
+		width: 100%;
+	}
+	a[data-v-303bbf52][data-v-639bc19b][data-v-5e85f938]::after,
+	a[data-v-303bbf52][data-v-258e49ac]::after {
+		height: 0px !important;
+	}
+	.nav-tabs > li > a {
+		color: #a0c8f0 !important;
+		border: 1px solid #444 !important;
+		background-color: #2d2d30 !important;
+	}
+	.nav-tabs > li > a:hover {
+		transition: all 0.3s ease-in-out !important;
+		border-radius: 15px !important;
+		background: rgba(92, 151, 224, 0.7) !important;
+		color: #fff !important;
+		border-color: rgba(92, 151, 224, 0.7) !important;
+	}
+	.nav-tabs > li.active > a,
+	.nav-tabs > li.active > a:focus,
+	.nav-tabs > li.active > a:hover {
+		color: #fff !important;
+		background-color: #5c97e0 !important;
+		border: 1px solid #5c97e0 !important;
+		border-radius: 15px 15px 0 0 !important;
+	}
+	.btn-default {
+		background: #3a71a1 !important;
+		color: #e0e0e0 !important;
+		border: 1px solid #4a81b1 !important;
+	}
+	.btn-default:hover {
+		transition: all 0.3s ease-in-out !important;
+		border-radius: 15px !important;
+		background: #4a81b1 !important;
+		color: #fff !important;
+		border: 1px solid #5a91c1 !important;
+	}
+	.ojb_btn_popover {
+		transition: all 0.3s ease-in-out !important;
+	}
+	.select2-container .select2-selection--single {
+		background: #33373a !important;
+		color: #a0c8f0 !important;
+		border: 1px solid #555 !important;
+	}
+	.select2-dropdown {
+		background-color: #2c2c2e !important;
+		border: 1px solid #555 !important;
+	}
+	.select2-results__option {
+		color: #c0c0c0 !important;
+	}
+	.select2-results__option--highlighted[aria-selected] {
+		background-color: #5c97e0 !important;
+		color: white !important;
+	}
+	.ojb_btn.OJBetter_setting {
+		color: #ccc !important;
+		background: #333 !important;
+	}
+	.ojb_btn.OJBetter_setting:hover {
+		transition: all 0.3s ease-in-out !important;
+		color: #60a5fa !important;
+		background: #444 !important;
+	}
+	.OJBetter_setting_sidebar {
+		background-color: #252528 !important;
+	}
+	.OJBetter_setting_sidebar li a {
+		color: #b0b0b0 !important;
+	}
+	.OJBetter_setting_sidebar li a.active,
+	.OJBetter_setting_sidebar li a.active:hover {
+		transition: all 0.3s ease-in-out !important;
+		border-radius: 15px !important;
+		background: #009688 !important;
+		color: #fff !important;
+	}
+	.OJBetter_setting_sidebar li a:hover {
+		transition: all 0.3s ease-in-out !important;
+		border-radius: 15px !important;
+		background: #00796b !important;
+		color: #fff !important;
+	}
+	.OJBetter_setting_menu {
+		background-color: #2d2d30 !important;
+		color: #e0e0e0 !important;
+	}
+	.OJBetter_setting_menu .OJBetter_setting_list button {
+		transition: all 0.3s ease-in-out !important;
+		background-color: #009688 !important;
+		color: white !important;
+		border: none !important;
+	}
+	.OJBetter_setting_menu .OJBetter_setting_list button:hover {
+		background-color: #00796b !important;
+	}
+	.OJBetter_setting_menu select {
+		background-color: #33373a !important;
+		color: #e0e0e0 !important;
+		border: 1px solid #555 !important;
+	}
+	.OJBetter_setting_menu select:hover {
+		transition: all 0.3s ease-in-out !important;
+		border-radius: 15px !important;
+		background: #009688 !important;
+		color: #fff !important;
+	}
+	.OJBetter_setting_menu_label_text:hover {
+		transition: all 0.3s ease-in-out !important;
+		border-radius: 15px !important;
+		background: #009688 !important;
+		color: #fff !important;
+	}
+	.config .config_bar_ul li {
+		color: #c0c0c0 !important;
+	}
+	.config .config_bar_ul li:hover {
+		transition: all 0.3s ease-in-out !important;
+		border-radius: 15px !important;
+		background: #009688 !important;
+		color: #fff !important;
+	}
+	.OJBetter_setting_menu textarea,
+	.OJBetter_setting_menu .OJBetter_setting_list input[type="text"] {
+		background-color: #252528 !important;
+		color: #e0e0e0 !important;
+		border: 1px solid #555 !important;
+	}
+	.OJBetter_setting_menu textarea:hover,
+	.OJBetter_setting_menu .OJBetter_setting_list input[type="text"]:hover {
+		transition: all 0.3s ease-in-out !important;
+		border-radius: 15px !important;
+		border-color: #009688 !important;
+	}
+	.translate-problem-statement {
+		transition: all 0.3s ease-in-out !important;
+		border-radius: 15px !important;
+		background: #222528 !important;
+		color: #d4d4d4 !important;
+		border: 1px solid #444 !important;
+	}
+	.div-btn-copy + pre {
+		background: #222528 !important;
+		color: #d4d4d4 !important;
+		border: 1px solid #444 !important;
+	}
+	.io-style pre {
+		background: #222528 !important;
+		color: #d4d4d4 !important;
+		border: 1px solid #444 !important;
+	}
+	.translate-problem-statement-panel {
+		background: #252528 !important;
+		color: #d4d4d4 !important;
+		border: 1px solid #444 !important;
+	}
+	.btn-pre {
+		background: #3a3f44 !important;
+		color: #ddd !important;
+		border: 1px solid #555 !important;
+	}
+	.btn-pre:hover {
+		transition: all 0.3s ease-in-out !important;
+		border-radius: 15px !important;
+		background: #4a4f54 !important;
+		color: #fff !important;
+	}
+	.nav-pills > li > a {
+		color: #a0c8f0 !important;
+		border: 1px solid #4a81b1 !important;
+		background-color: transparent !important;
+	}
+	.nav-pills > li > a:hover {
+		transition: all 0.3s ease-in-out !important;
+		border-radius: 15px !important;
+		background: rgba(92, 151, 224, 0.3) !important;
+		color: #fff !important;
+		border-color: rgba(92, 151, 224, 0.5) !important;
+	}
+	.nav-pills > li.active > a,
+	.nav-pills > li.active > a:focus,
+	.nav-pills > li.active > a:hover {
+		color: #fff !important;
+		background: #5c97e0 !important;
+		border: 1px solid #5c97e0 !important;
+		border-radius: 15px !important;
+	}
+	.select2-container--bootstrap .select2-selection:hover {
+		transition: all 0.3s ease-in-out !important;
+		border-radius: 15px !important;
+		border-color: #5c97e0 !important;
+	}
+	.table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td, .table > tfoot > tr > th, .table > thead > tr > td, .table > thead > tr > th {
+		border-top: 1px solid #383838 !important;
+	}
+	.table-striped > tbody > tr:nth-of-type(odd) {
+		background-color: #2a2a2e !important;
+	}
+	.pager .disabled > a,
+	.pager .disabled > a:focus,
+	.pager .disabled > a:hover,
+	.pager .disabled > span {
+		transition: all 0.3s ease-in-out !important;
+		border-radius: 15px !important;
+		background: #444 !important;
+		color: #888 !important;
+		border-color: #555 !important;
+	}
+	h3,
+	h3.panel-title a {
+		color: #d1aaff !important;
+	}
+	div.panel-primary > .panel-heading {
+		background-color: #337ab7 !important;
+		border-color: #2e6da4 !important;
+	}
+	div.panel-primary > .panel-heading h3,
+	div.panel-primary > .panel-heading .panel-title {
+		color: white !important;
+	}
+	footer {
+		background-color: #1a1a1a !important;
+		color: #aaa !important;
+		padding: 15px 0;
+		border-top: 1px solid #333;
+	}
+	footer a {
+		color: #8cb9e0 !important;
+	}
+	footer a:hover {
+		color: #f0d960 !important;
+	}
+	hr {
+		border-top: 1px solid #444 !important;
+	}
+	.OJBetter_monaco > div {
+		border-radius: 15px !important;
+	}
+	.alert,
+	.OJBetter_alert {
+		border-radius: 15px !important;
+		color: #e0e0e0;
+	}
+	.alert-success, .OJBetter_alert.alert-success {
+		background-color: #104010 !important;
+		color: #a0d0a0 !important;
+		border: 1px solid #206020 !important;
+	}
+	.alert-info, .OJBetter_alert.alert-info {
+		background-color: #103050 !important;
+		color: #a0c0e0 !important;
+		border: 1px solid #205080 !important;
+	}
+    .alert-warning, .OJBetter_alert.alert-warning {
+        background-color: #504010 !important;
+        color: #e0d0a0 !important;
+        border: 1px solid #806020 !important;
+    }
+    .alert-danger, .OJBetter_alert.alert-danger {
+        background-color: #501010 !important;
+        color: #e0a0a0 !important;
+        border: 1px solid #802020 !important;
+    }
+	#customTestBlock,
+	#CompilerArgsInput,
+	#RunTestButton,
+	.ojb_btn,
+	.ojb_btn_popover,
+	.top {
+		border-radius: 15px !important;
+	}
+	#RunTestButton {
+		background-color: #009688 !important;
+		color: white !important;
+	}
+	#RunTestButton:hover {
+		background-color: #00796b !important;
+	}
+	.decorationsOverviewRuler {
+		border-radius: 15px !important;
+		background-color: #252528 !important;
+	}
+	.monaco-editor,
+	#OJBetter_editor {
+		border-radius: 15px !important;
+		border: 1px solid #444 !important;
+	}
+	#main-container:not(.is-new_header) {
+		background: rgba(40, 40, 42, .85) !important;
+		color: #e0e0e0 !important;
+	}
+	::-webkit-scrollbar {
+		width: 8px !important;
+		height: 8px !important;
+		background-color: rgba(255, 255, 255, .05) !important;
+	}
+	::-webkit-scrollbar-thumb {
+		background-color: #4f4f5a !important;
+		border-radius: 4px !important;
+	}
+	::-webkit-scrollbar-thumb:hover {
+		background-color: #6a6a74 !important;
+	}
+	input[type="text"], input[type="password"], input[type="email"], input[type="number"], input[type="search"], textarea {
+		background-color: #2d2d2d !important;
+		color: #e0e0e0 !important;
+		border: 1px solid #555 !important;
+		border-radius: 4px;
+	}
+	input[type="text"]:focus, input[type="password"]:focus, input[type="email"]:focus, input[type="number"]:focus, input[type="search"]:focus, textarea:focus {
+		border-color: #5c97e0 !important;
+		box-shadow: 0 0 0 0.2rem rgba(92, 151, 224, 0.25) !important;
+	}
+	.progress {
+		background-color: #333 !important;
+		border-radius: 15px !important;
+	}
+	.progress-bar {
+		background-color: #5c97e0 !important;
+		color: #fff !important;
+	}
+    .progress-bar-success { background-color: #009688 !important; }
+    .progress-bar-info { background-color: #2196F3 !important; }
+    .progress-bar-warning { background-color: #FFC107 !important; color: #121212 !important; }
+    .progress-bar-danger { background-color: #F44336 !important; }
+	.label-success, span.label-success { background-color: #106010 !important; color: #a0d0a0 !important; }
+	.label-warning, span.label-warning { background-color: #604010 !important; color: #e0d0a0 !important; }
+	.label-danger, span.label-danger { background-color: #601010 !important; color: #e0a0a0 !important; }
+	.label-info, span.label-info { background-color: #103060 !important; color: #a0c0e0 !important; }
+	.label-primary, span.label-primary { background-color: #103060 !important; color: #a0c0e0 !important; }
+	.label-default, span.label-default { background-color: #444 !important; color: #ccc !important; }
+	.table { color: #d4d4d4 !important; }
+    .table th { color: #e8e8e8 !important; }
+	.table-hover > tbody > tr:hover {
+		background-color: #3a3a3e !important;
+	}
+
+	/* --- EMOJI STATUSES START --- */
+	@keyframes emoji-wiggle { /* Subtle wiggle, plays 3 times */
+		0%, 100% { transform: rotate(0deg) translateY(0px); }
+		20% { transform: rotate(4deg) translateY(-1px); }
+        40% { transform: rotate(-3deg) translateY(0px); }
+        60% { transform: rotate(2deg) translateY(-1px); }
+        80% { transform: rotate(-1deg) translateY(0px); }
+	}
+	@keyframes emoji-pulse { /* Continuous pulse for ⏳ */
+		0%, 100% { transform: scale(1); opacity: 0.8; }
+		50% { transform: scale(1.15); opacity: 1; }
+	}
+
+    /* Helper for elements that need transform */
+    .submission-status-emoji::before, .submission-status-emoji::after {
+        display: inline-block;
+        vertical-align: middle; /* Align emoji better with text */
+        margin-right: 4px; /* Space between emoji and text */
+    }
+    .submission-status-emoji.animate-wiggle::before {
+        animation: emoji-wiggle 0.7s ease-in-out 3; /* Play 3 times for ~2 seconds */
+    }
+    .submission-status-emoji.animate-pulse::after { /* Specifically for the secondary emoji */
+        animation: emoji-pulse 1.5s infinite ease-in-out;
+        margin-left: 2px; /* Space for secondary emoji */
+    }
+
+	/* Accepted */
+	td > span.label-success[data-original-title*="Accepted"],
+    td > span.label-success[data-original-title*="AC"] {
+        padding-left: 2px !important; /* Make space for emoji */
+	}
+	td > span.label-success[data-original-title*="Accepted"]::before,
+    td > span.label-success[data-original-title*="AC"]::before {
+		content: "😘";
+        display: inline-block; margin-right: 4px; vertical-align: middle;
+	}
+
+	/* Wrong Answer */
+	td > span.label-danger[data-original-title*="Wrong Answer"],
+    td > span.label-danger[data-original-title*="WA"] {
+        padding-left: 2px !important;
+        overflow: visible !important; /* Allow animation to not be clipped */
+	}
+	td > span.label-danger[data-original-title*="Wrong Answer"]::before,
+    td > span.label-danger[data-original-title*="WA"]::before {
+		content: "🤦";
+        display: inline-block; margin-right: 4px; vertical-align: middle;
+        animation: emoji-wiggle 0.7s ease-in-out 3;
+	}
+
+	/* Time Limit Exceeded */
+	td > span.label-warning[data-original-title*="Time Limit Exceeded"],
+    td > span.label-warning[data-original-title*="TLE"] {
+        padding-left: 2px !important;
+        overflow: visible !important;
+	}
+	td > span.label-warning[data-original-title*="Time Limit Exceeded"]::before,
+    td > span.label-warning[data-original-title*="TLE"]::before {
+		content: "⏰";
+        display: inline-block; margin-right: 4px; vertical-align: middle;
+        animation: emoji-wiggle 0.7s ease-in-out 3;
+	}
+
+	/* Memory Limit Exceeded */
+	td > span.label-warning[data-original-title*="Memory Limit Exceeded"],
+    td > span.label-warning[data-original-title*="MLE"] {
+        padding-left: 2px !important;
+        overflow: visible !important;
+	}
+	td > span.label-warning[data-original-title*="Memory Limit Exceeded"]::before,
+    td > span.label-warning[data-original-title*="MLE"]::before {
+		content: "🧠";
+        display: inline-block; margin-right: 4px; vertical-align: middle;
+        animation: emoji-wiggle 0.7s ease-in-out 3;
+	}
+
+	/* Runtime Error */
+	td > span.label-danger[data-original-title*="Runtime Error"],
+    td > span.label-danger[data-original-title*="RE"] {
+        padding-left: 2px !important;
+        overflow: visible !important;
+	}
+	td > span.label-danger[data-original-title*="Runtime Error"]::before,
+    td > span.label-danger[data-original-title*="RE"]::before {
+		content: "🐛";
+        display: inline-block; margin-right: 4px; vertical-align: middle;
+        animation: emoji-wiggle 0.7s ease-in-out 3;
+	}
+
+	/* Compilation Error */
+	td > span.label-warning[data-original-title*="Compilation Error"],
+    td > span.label-warning[data-original-title*="CE"] {
+        padding-left: 2px !important;
+        overflow: visible !important;
+	}
+	td > span.label-warning[data-original-title*="Compilation Error"]::before,
+    td > span.label-warning[data-original-title*="CE"]::before {
+		content: "🧱";
+        display: inline-block; margin-right: 4px; vertical-align: middle;
+        animation: emoji-wiggle 0.7s ease-in-out 3;
+	}
+
+	/* Judging / Running */
+	td > span.label-info[data-original-title*="Judging"],
+    td > span.label-info[data-original-title*="Running"] { /* Covers "Running on test X" */
+        padding-left: 2px !important;
+        overflow: visible !important;
+	}
+	td > span.label-info[data-original-title*="Judging"]::before,
+    td > span.label-info[data-original-title*="Running"]::before {
+		content: "🤔"; /* Main emoji */
+        display: inline-block; margin-right: 4px; vertical-align: middle;
+        animation: emoji-wiggle 0.7s ease-in-out 3;
+	}
+	td > span.label-info[data-original-title*="Judging"]::after,
+    td > span.label-info[data-original-title*="Running"]::after {
+		content: "⏳"; /* Secondary emoji */
+        display: inline-block; margin-left: 2px; vertical-align: middle;
+		animation: emoji-pulse 1.5s infinite ease-in-out;
+	}
+
+	/* Waiting for Judge / In Queue */
+	td > span.label-default[data-original-title*="Waiting"],
+    td > span.label-default[data-original-title*="WJ"],
+    td > span.label-default[data-original-title*="Pending"] { /* AtCoder might use Pending */
+        padding-left: 2px !important;
+        overflow: visible !important;
+	}
+	td > span.label-default[data-original-title*="Waiting"]::before,
+    td > span.label-default[data-original-title*="WJ"]::before,
+    td > span.label-default[data-original-title*="Pending"]::before {
+		content: "🚶";
+        display: inline-block; margin-right: 4px; vertical-align: middle;
+        animation: emoji-wiggle 0.7s ease-in-out 3;
+	}
+
+	/* Partial (Less common as a distinct status text on AtCoder lists, but if it appears) */
+    td > span[data-original-title*="Partial"] { /* General span if no specific class */
+        padding-left: 2px !important;
+    }
+	td > span[data-original-title*="Partial"]::before {
+		content: "🤏";
+        display: inline-block; margin-right: 4px; vertical-align: middle;
+	}
+
+	/* --- EMOJI STATUSES END --- */
+}

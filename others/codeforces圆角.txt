@@ -1,0 +1,232 @@
+/* ==UserStyle==
+@name         Codeforces Rounded Edges Only
+@namespace    USO Archive
+@author       AI Assistant
+@description  Applies rounded corners to Codeforces elements, letting the browser/site handle background colors. Text colors are set to be generally light, assuming a dark browser theme is often used with such styles. Adds more rounded elements.
+@version      20231027.06.00
+@license      NONE
+@preprocessor uso
+==/UserStyle== */
+
+@-moz-document domain("codeforces.com") {
+
+	/* --- Primary: Rounded Corners --- */
+	/* General large radius for boxes and containers */
+	.roundbox, .caption, .sidebar-box, .pagination > ul > li > a, .pagination > ul > li > span,
+	input[type="submit"], input[type="button"], .button-a, button,
+	.acm-difficulty, .problem-statement .header, .alert, .topic .title, .comment .title,
+	.acm-styled-table, .notice, .userbox,
+    #header, .second-level-menu,
+    .datatable table,
+    .problem-statement,
+    .comment, .comment .box,
+
+    /* NEW additions (10px radius) */
+    .lang-chooser a, /* Language chooser links in header, styled like buttons */
+    .custom-test-panel, /* Panel for custom test input */
+    ul.compact-problem-list li, /* Items in compact problem lists */
+    .spoiler /* Container for spoiler blocks */
+    {
+		border-radius: 10px !important;
+	}
+
+    /* Specific overrides for elements that shouldn't have huge radius,
+       or where default CF styling might conflict with just rounding */
+    .roundbox .caption, .sidebar-box .header, .problem-statement .header, .topic .title, .comment .title,
+    .spoiler .spoiler-title /* NEW: Spoiler titles get top rounding */
+    {
+        border-radius: 10px 10px 0 0 !important; /* Only top corners rounded for headers */
+    }
+
+    /* Smaller radius for inputs, code blocks, tags, and other small elements */
+    pre, code, .tt, .submit-form textarea, .submit-form select, .submit-form input[type="text"],
+    .sample-test .input, .sample-test .output,
+    ._FilterByTagFrame_tag, .tag-box, /* Tags used in filters and problem pages */
+
+    /* NEW additions (6px radius) */
+    input#handleOrEmail, input.handleOrEmail, /* Login/Search inputs in header */
+    input[type="password"], /* Password input fields */
+    .problem-tags a, /* Problem tags on problem pages */
+    .verdict-rejected, .verdict-accepted, .verdict-waiting, .verdict-failed, .verdict-partial,
+    .verdict-compiling, .verdict-running, .verdict-idleness, .verdict-security-violated,
+    .verdict-crash, .verdict-presentation-error, .verdict-time-limit-exceeded,
+    .verdict-memory-limit-exceeded, .verdict-skipped, .verdict-challenging,
+    .verdict-compilation-error, .verdict-accepted-for-testing, /* Submission verdict spans */
+    .search-form input[type="text"], /* Search boxes */
+    .left-sidebar-list li a, /* Links in the main left navigation sidebar */
+    .toggle-details-link /* "Toggle details" links */
+    {
+        border-radius: 6px !important;
+    }
+
+    /* Prevent CF's table corner cells from having their own radius, let the table itself handle it */
+    .datatable .lt, .datatable .rt, .datatable .lb, .datatable .rb {
+        border-radius: 0 !important;
+    }
+
+
+    /* --- Adapting Borders for Visibility --- */
+    /* Using a semi-transparent black for borders, which should adapt to light/dark backgrounds. */
+	#header {
+		border-bottom-color: rgba(0,0,0,0.15) !important;
+	}
+
+	.roundbox, .sidebar-box, .problem-statement, .comment, .comment .box,
+    .datatable table, .acm-styled-table table,
+    .submit-form textarea, .submit-form select, .submit-form input[type="text"],
+    pre, code, .tt, .sample-test .input, .sample-test .output,
+    .alert, .notice, .error.for__source,
+    .pagination > ul > li > a, .pagination > ul > li > span,
+    input[type="submit"], input[type="button"], .button-a, button,
+    ._FilterByTagFrame_tag, .tag-box, /* Added border for tags */
+
+    /* NEW additions for borders */
+    input#handleOrEmail, input.handleOrEmail, input[type="password"],
+    .custom-test-panel,
+    ul.compact-problem-list li,
+    .problem-tags a,
+    .verdict-rejected, .verdict-accepted, .verdict-waiting, .verdict-failed, .verdict-partial,
+    .verdict-compiling, .verdict-running, .verdict-idleness, .verdict-security-violated,
+    .verdict-crash, .verdict-presentation-error, .verdict-time-limit-exceeded,
+    .verdict-memory-limit-exceeded, .verdict-skipped, .verdict-challenging,
+    .verdict-compilation-error, .verdict-accepted-for-testing,
+    .search-form input[type="text"],
+    .spoiler
+    {
+		border: 1px solid rgba(0,0,0,0.2) !important; /* Default border for many elements */
+	}
+
+    .roundbox .caption, .sidebar-box .header, .problem-statement .header,
+    .topic .title, .comment .title,
+    .datatable th, .acm-styled-table th,
+    /* NEW additions for bottom border */
+    .spoiler .spoiler-title,
+    table.schedule-table th /* Schedule table headers, similar to datatable th */
+    {
+        border-bottom: 1px solid rgba(0,0,0,0.15) !important; /* Keep original border style direction */
+    }
+
+    /* Table cell borders */
+    .datatable td, .acm-styled-table td,
+    table.schedule-table td /* NEW: Schedule table data cells */
+    {
+        border-top: 1px solid rgba(0,0,0,0.1) !important;
+        border-left: 1px solid rgba(0,0,0,0.1) !important;
+    }
+    .datatable th, .acm-styled-table th,
+    table.schedule-table th /* NEW: Schedule table header cells also need left border */
+    {
+         border-left: 1px solid rgba(0,0,0,0.1) !important;
+    }
+    .datatable td:first-child, .acm-styled-table td:first-child,
+    .datatable th:first-child, .acm-styled-table th:first-child,
+    table.schedule-table td:first-child, table.schedule-table th:first-child /* NEW */
+    {
+        border-left: none !important; /* No left border on first cell */
+    }
+
+
+	/* --- Text & Link Color (Assuming a darker user theme might be active) --- */
+	body, html {
+		color: #dcdcdc !important;
+	}
+	a {
+		color: #8ab4f8 !important;
+	}
+    a:hover {
+        color: #aecbfa !important;
+    }
+    a:visited {
+        color: #c58af9 !important;
+    }
+
+	.datatable td, .acm-styled-table td, .problem-statement, .topic .content, .comment .content,
+    /* NEW additions for content text color */
+    ul.compact-problem-list li,
+    table.schedule-table td,
+    .spoiler .spoiler-content
+    {
+		color: #c9c9c9 !important; /* Slightly dimmer for content areas */
+	}
+
+	.datatable th, .acm-styled-table th, .caption, .sidebar-box .header, .problem-statement .header,
+    .topic .title, .comment .title,
+    /* NEW additions for header/title text color */
+    table.schedule-table th,
+    .spoiler .spoiler-title
+    {
+        color: #e0e0e0 !important; /* Brighter for headers/titles */
+    }
+
+    input[type="text"], textarea, select, pre, code, .tt,
+    /* NEW (explicit, though input[type="text"] is a catch-all) */
+    input#handleOrEmail, input.handleOrEmail, input[type="password"], .search-form input[type="text"]
+    {
+        color: #e0e0e0 !important; /* Text inside inputs/code blocks */
+    }
+    input[type="submit"], button, .button-a {
+        color: #e0e0e0 !important; /* Text on buttons */
+    }
+
+    /* Codeforces specific rating colors - try to keep them, but ensure visibility */
+    .rated-user { font-weight: normal !important; }
+	.user-black { color: #cccccc !important; }
+	.user-gray { color: #bbbbbb !important; }
+	.user-green { color: #8ee08e !important; }
+	.user-cyan { color: #7cc7c7 !important; }
+	.user-blue { color: #77a9e0 !important; }
+	.user-violet { color: #c8a2c8 !important; }
+	.user-orange { color: #fca869 !important; }
+	.user-red { color: #ff7f7f !important; }
+	.user-legendary {
+		font-weight: bold !important;
+		background: linear-gradient(to right, #ff8a8a, #ffcd63) !important;
+		-webkit-background-clip: text !important;
+		-webkit-text-fill-color: transparent !important;
+	}
+    /* Verdict spans text color will be handled by Codeforces default styles for better contrast with their specific backgrounds.
+       This style only adds rounded corners and a subtle border to them. */
+
+
+	/* --- Remove CF's Image-Based Corners to allow CSS border-radius to show properly --- */
+    .roundbox .tl, .roundbox .tr, .roundbox .bl, .roundbox .br,
+    .sidebar-box .header .lt, .sidebar-box .header .rt,
+    .datatable .lt, .datatable .rt, .datatable .lb, .datatable .rb,
+    .caption .lt, .caption .rt,
+    .datatable div.ilt, .datatable div.irt, .datatable div.ilb, .datatable div.irb,
+    img[src$="/images/lt.png"], img[src$="/images/rt.png"],
+    img[src$="/images/lb.png"], img[src$="/images/rb.png"],
+    img[src$="/images/left-sidebar-bg.png"], img[src$="/images/right-sidebar-bg.png"]
+    {
+        background-image: none !important;
+        width: auto !important; height: auto !important;
+        border: none !important;
+        background-color: transparent !important;
+        display: none !important;
+    }
+
+    /* Ensure roundbox content area doesn't have conflicting CF styles after corners removed */
+    .roundbox > .roundbox-content, .sidebar-box > .sidebar-box-content {
+        background: transparent !important;
+        border: none !important;
+        padding: 1px;
+    }
+    /* Some caption titles are nested, ensure they don't get double borders or odd backgrounds */
+    .caption .caption {
+        border: none !important;
+        background: transparent !important;
+        padding: 0 !important;
+    }
+
+    /* Font: Let CF default, don't impose Fira Code or others */
+    /* Monospace elements should still use a monospace font by default from browser/CF */
+
+    /* Ensure background colors are not set by this style for major elements */
+    /*
+    html, body, #header, .roundbox, .sidebar-box, .datatable table, .problem-statement,
+    .comment, input, button, textarea, select, pre, code, .alert, .notice
+    {
+        background-color: transparent !important;
+    }
+    */
+}
