@@ -1,0 +1,1 @@
+{"name":"Local: nc246912","url":"/home/value/algorithm/practice/nc246912.cpp","tests":[{"id":1749141152812,"input":"3\n4 1 1\n9 7 10","output":""},{"id":1749141157072,"input":"4\n1 3 5 7\n2 4 8 22","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/value/algorithm/practice/nc246912.cpp","group":"local","local":true}
