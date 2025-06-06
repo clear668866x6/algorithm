@@ -101,5 +101,7 @@
     "flat_map": "cpp",
     "flat_set": "cpp"
   },
-  "C_Cpp.errorSquiggles": "disabled"
+  "C_Cpp.errorSquiggles": "disabled",
+  "editor.fontFamily": "'MonoLisa-Light', 'monospace', monospace",
+  "cph.language.cpp.compile": "g++ -std=c++23 -o $fileNameWithoutExt $fileName"
 }
