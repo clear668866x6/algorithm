@@ -1,0 +1,1 @@
+{"name":"Local: nk252710","url":"/home/value/algorithm/practice/nk252710.cpp","tests":[{"id":1749482649931,"input":"2\n5 3\n125 1 8 1 1\n1 0\n6","output":"3\n1"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/value/algorithm/practice/nk252710.cpp","group":"local","local":true}
