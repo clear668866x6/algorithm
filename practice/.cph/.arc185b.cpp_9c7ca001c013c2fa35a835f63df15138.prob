@@ -1,0 +1,1 @@
+{"name":"Local: arc185b","url":"/home/value/algorithm/practice/arc185b.cpp","tests":[{"id":1749658906981,"input":"3\n3\n1 7 5\n2\n9 0\n10\n607 495 419 894 610 636 465 331 925 724\n","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/value/algorithm/practice/arc185b.cpp","group":"local","local":true}
