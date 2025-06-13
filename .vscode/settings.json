@@ -99,10 +99,21 @@
     "tuple": "cpp",
     "utility": "cpp",
     "flat_map": "cpp",
-    "flat_set": "cpp"
+    "flat_set": "cpp",
+    "concepts": "cpp",
+    "text_encoding": "cpp"
   },
   "C_Cpp.errorSquiggles": "disabled",
   "editor.fontFamily": "'MonoLisa-Light', 'monospace', monospace",
   "cph.language.cpp.compile": "g++ -std=c++23 -o $fileNameWithoutExt $fileName",
-  "workbench.activityBar.location": "default"
+  "workbench.activityBar.location": "default",
+  "editor.cursorBlinking": "expand",
+  "editor.fontSize": 16,
+  "C_Cpp.formatting": "vcFormat",
+  "editor.formatOnSave": true,
+  "diffEditor.codeLens": true,
+  "C_Cpp.vcFormat.indent.preserveWithinParentheses": true,
+  "C_Cpp.vcFormat.space.beforeFunctionOpenParenthesis": "insert",
+  "C_Cpp.vcFormat.space.beforeLambdaOpenParenthesis": true,
+  "editor.fontLigatures": true
 }
