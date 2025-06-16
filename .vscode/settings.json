@@ -101,7 +101,12 @@
     "flat_map": "cpp",
     "flat_set": "cpp",
     "concepts": "cpp",
-    "text_encoding": "cpp"
+    "text_encoding": "cpp",
+    "barrier": "cpp",
+    "latch": "cpp",
+    "limits": "cpp",
+    "semaphore": "cpp",
+    "algorithm": "cpp"
   },
   "C_Cpp.errorSquiggles": "disabled",
   "editor.fontFamily": "'MonoLisa-Light', 'monospace', monospace",
