@@ -1,0 +1,1 @@
+{"name":"Local: nk271937-segmentTree","url":"/home/value/algorithm/practice/nk271937-segmentTree.cpp","tests":[{"id":1750136780385,"input":"4\n0101\n0110\n2\nA 2 3\nB 1 4","output":"2\n3"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/value/algorithm/practice/nk271937-segmentTree.cpp","group":"local","local":true}
