@@ -1,0 +1,80 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+#define int int64_t
+#define endl "\n"
+
+using PII = pair<int, int>;
+using TII = tuple<int, int, int>;
+template<class T>
+using V = vector<T>;
+using i64 = long long;
+using i128 = __int128;
+using u64 = unsigned long long;
+
+#define FOR(i, a, b) for (int i = (int)(a); i <= (int)(b); i++)
+#define FOR2(i, a, b, c) for (int i = (int)(a); i <= (int)(b); i += c)
+#define FORD(i, b, a) for (int i = (int)(a); i >= (int)(b); i--)
+#define FORD2(i, b, a, c) for (int i = (int)(a); i >= (int)(b); i -= c)
+#define ALL(a) a.begin(), a.end()
+#define RALL(a) a.rbegin(), a.rend()
+#define lowbit(x) ((x)&(-x))
+#define RE return;
+#define Yes cout << "Yes" << endl;
+#define YES cout << "YES" << endl;
+#define No cout << "No" << endl;
+#define NO cout << "NO" << endl;
+#define pb push_back
+#define eb emplace_back
+#define fi first
+#define se second
+#define sz size()
+
+void solve () {
+    int x, y, k;
+    cin >> x >> y >> k;
+
+    int t = __gcd (x, y);
+
+    x /= t, y /= t;
+
+    V<int>f (max (x, y) + 1, 1e18);
+
+    function<int (int)>dfs = [&] (int x) {
+        if (f[x] != 1e18)return f[x];
+        if (x == 1)return f[x] = 0;
+        if (x <= k)return f[x] = 1;
+
+        for (int i = 2;i <= x / i && min (i, x / i) <= k;i++) {
+            if (x % i == 0) {
+                if (i <= k)f[x] = min (f[x], dfs (x / i) + 1);
+                if (x / i <= k)f[x] = min (f[x], dfs (i) + 1);
+            }
+        }
+        return f[x];
+        };
+
+    dfs (x);
+    dfs (y);
+
+    if (f[x] == 1e18 || f[y] == 1e18) {
+        cout << -1 << endl;
+    } else {
+        cout << f[x] + f[y] << endl;
+    }
+
+}
+
+signed main () {
+    int Task = 1;
+
+    ios::sync_with_stdio (false);
+    cin.tie (nullptr);
+    cin >> Task;
+
+    while (Task--) {
+        solve ();
+    }
+
+    return 0;
+}
