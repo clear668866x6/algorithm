@@ -1,0 +1,1 @@
+{"name":"Local: CF2111C","url":"/home/value/algorithm/practice/CF2111C.cpp","tests":[{"id":1750772690603,"input":"3\n4\n2 4 1 3\n3\n1 1 1\n10\n7 5 5 5 10 9 9 4 6 10\n","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/value/algorithm/practice/CF2111C.cpp","group":"local","local":true}

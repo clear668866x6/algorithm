@@ -107,7 +107,8 @@
     "limits": "cpp",
     "semaphore": "cpp",
     "algorithm": "cpp",
-    "generator": "cpp"
+    "generator": "cpp",
+    "numbers": "cpp"
   },
   "C_Cpp.errorSquiggles": "disabled",
   "editor.fontFamily": "'MonoLisa-Light', 'monospace', monospace",

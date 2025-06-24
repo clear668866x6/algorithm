@@ -1,0 +1,1 @@
+{"name":"Local: CF2111D-2","url":"/home/value/algorithm/practice/CF2111D-2.cpp","tests":[{"id":1750691961284,"input":"3\n2 4\n479 290 478 293\n1 1\n31415\n6 10\n479 385 290 293 384 383 297 478 291 382\n","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/value/algorithm/practice/CF2111D-2.cpp","group":"local","local":true}
