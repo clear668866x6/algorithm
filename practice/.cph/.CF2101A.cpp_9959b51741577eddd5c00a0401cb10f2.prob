@@ -1,0 +1,1 @@
+{"name":"Local: CF2101A","url":"/home/value/algorithm/practice/CF2101A.cpp","tests":[{"id":1751034487550,"input":"2\n2\n3\n","output":""},{"id":1751034510363,"input":"1\n3","output":""},{"id":1751035225941,"input":"1\n4","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/value/algorithm/practice/CF2101A.cpp","group":"local","local":true}
