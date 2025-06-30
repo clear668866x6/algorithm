@@ -31,31 +31,31 @@ using TII = tuple<int, int, int>;
 constexpr int N = 2e5 + 10;
 constexpr int mod = 998244353;
 
-int __FAST_IO__ = []() {
-    ios::sync_with_stdio(0), cin.tie(0);
-    cout.tie(0);
-    cout << fixed << setprecision(12);
+int __FAST_IO__ = [] () {
+    ios::sync_with_stdio (0), cin.tie (0);
+    cout.tie (0);
+    cout << fixed << setprecision (12);
     return 0;
     }();
 
 int w[N];
 
-void solve() {
+void solve () {
     int n = 10;
-    FOR(i, 1, n)w[i] = n - i;
+    FOR (i, 1, n)w[i] = n - i;
 
-    FOR(i, 1, n)cout << w[i] << " ";
+    FOR (i, 1, n)cout << w[i] << " ";
     cout << endl;
 
-    sort(w + 1, w + 1 + 3);
+    sort (w + 1, w + 1 + 3);
 
-    FOR(i, 1, n)cout << w[i] << ' ';
+    FOR (i, 1, n)cout << w[i] << ' ';
 }
 
-signed main() {
+signed main () {
     int Task = 1;
     for (; Task; Task--) {
-        solve();
+        solve ();
     }
     return 0;
 }
