@@ -1,7 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-#define int int64_t
 #define endl "\n"
 
 using PII = pair<int, int>;
@@ -30,28 +29,44 @@ using u64 = unsigned long long;
 #define se second
 #define sz size()
 
-int qmi (int a, int b, int mod = 998244353) {
-    int res = 1;
-    while (b) {
-        if (b & 1)res = res * a % mod;
-        a = a * a % mod;
-        b >>= 1;
-    }
-    return res;
-}
-
 void solve () {
     int n;
     cin >> n;
-    int mod = 998244353;
-    int ans = ((n + 1) % mod) * (n % mod) % mod * qmi (2, mod - 2) % mod;
 
-    for (int l = 1, r;l <= n;l = r + 1) {
-        r = n / (n / l);
-        ans = (ans - (r - l + 1) * (n / l) % mod + mod) % mod;
+    V<int>w (n * 2 + 1);
+
+    FOR (i, 1, n * 2)cin >> w[i];
+
+    if (w[1] == w[n * 2]) {
+        Yes;
+        RE;
     }
 
-    cout << ans;
+    unordered_map<int, int>mpl, mpr;
+
+    FOR (i, 1, n * 2)mpr[w[i]] = i;
+    FORD (i, 1, n * 2)mpl[w[i]] = i;
+
+    V<int>vis (n * 2 + 1, 0);
+
+    FOR (i, 1, n * 2) {
+        int l = i, r = mpr[w[i]];
+        if (mpl[w[i]] < i) {
+            No;
+            RE;
+        }
+        FOR (j, l, r)vis[j] = 1;
+        i = r;
+    }
+
+    FOR (i, 1, n * 2) {
+        if (!vis[i]) {
+            No;
+            RE;
+        }
+    }
+    Yes;
+
 }
 
 signed main () {
@@ -59,6 +74,7 @@ signed main () {
 
     ios::sync_with_stdio (false);
     cin.tie (nullptr);
+    cin >> Task;
 
     while (Task--) {
         solve ();

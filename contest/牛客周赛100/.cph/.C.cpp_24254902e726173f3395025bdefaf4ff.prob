@@ -1,0 +1,1 @@
+{"name":"Local: C","url":"/home/value/algorithm/contest/牛客周赛100/C.cpp","tests":[{"id":1752405642553,"input":"2\n3\n1 2 3 1 2 3\n3\n1 2 3 3 2 1","output":"No\nYes"},{"id":1752405649599,"input":"1\n4\n1 4 1 3 3 2 4 2","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/value/algorithm/contest/牛客周赛100/C.cpp","group":"local","local":true}

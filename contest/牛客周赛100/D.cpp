@@ -30,28 +30,47 @@ using u64 = unsigned long long;
 #define se second
 #define sz size()
 
-int qmi (int a, int b, int mod = 998244353) {
-    int res = 1;
-    while (b) {
-        if (b & 1)res = res * a % mod;
-        a = a * a % mod;
-        b >>= 1;
-    }
-    return res;
-}
-
 void solve () {
     int n;
     cin >> n;
-    int mod = 998244353;
-    int ans = ((n + 1) % mod) * (n % mod) % mod * qmi (2, mod - 2) % mod;
 
-    for (int l = 1, r;l <= n;l = r + 1) {
-        r = n / (n / l);
-        ans = (ans - (r - l + 1) * (n / l) % mod + mod) % mod;
+    V<int>w (n * 2 + 1);
+
+    FOR (i, 1, n * 2)cin >> w[i];
+
+    map<int, int>mpl, mpr;
+    V<int>vis (n * 2 + 1, 0);
+    FOR (i, 1, n * 2)mpr[w[i]] = i;
+    FORD (i, 1, n * 2)mpl[w[i]] = i;
+
+    FOR (i, 1, n * 2)vis[mpr[w[i]]] = 1;
+
+    int ans = 0, res = 0;
+
+    FOR (i, 1, n) {
+        ans += (mpr[i] - mpl[i] - 1);
     }
 
-    cout << ans;
+    int idx = 0;
+
+    FOR (i, 1, n * 2) {
+        if (vis[i]) {
+            idx = i;
+            break;
+        }
+    }
+
+    res = max (res, ans);
+    FORD (i, 1, n * 2) {
+        if (!vis[i]) {
+            int t = ans + (i - idx) * 2;
+            res = max (res, t);
+        }
+    }
+
+    cout << res;
+
+
 }
 
 signed main () {

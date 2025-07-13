@@ -30,28 +30,42 @@ using u64 = unsigned long long;
 #define se second
 #define sz size()
 
-int qmi (int a, int b, int mod = 998244353) {
-    int res = 1;
-    while (b) {
-        if (b & 1)res = res * a % mod;
-        a = a * a % mod;
-        b >>= 1;
-    }
-    return res;
-}
-
 void solve () {
-    int n;
-    cin >> n;
-    int mod = 998244353;
-    int ans = ((n + 1) % mod) * (n % mod) % mod * qmi (2, mod - 2) % mod;
+    int n, m;
+    cin >> n >> m;
 
-    for (int l = 1, r;l <= n;l = r + 1) {
-        r = n / (n / l);
-        ans = (ans - (r - l + 1) * (n / l) % mod + mod) % mod;
+    V<V<int>>w (n + 1, V<int> (m + 1));
+
+    int mx = 0, tot = 0;
+
+    FOR (i, 1, n) {
+        FOR (j, 1, m) {
+            cin >> w[i][j];
+            mx = max (mx, w[i][j]);
+        }
     }
 
-    cout << ans;
+    map<int, int>c, r;
+
+    FOR (i, 1, n) {
+        FOR (j, 1, m) {
+            if (w[i][j] == mx) {
+                r[i]++;
+                c[j]++;
+                tot++;
+            }
+        }
+    }
+
+    FOR (i, 1, n) {
+        FOR (j, 1, m) {
+            if (r[i] + c[j] - (w[i][j] == mx) == tot) {
+                cout << mx - 1 << endl;
+                RE;
+            }
+        }
+    }
+    cout << mx << endl;
 }
 
 signed main () {
@@ -59,6 +73,7 @@ signed main () {
 
     ios::sync_with_stdio (false);
     cin.tie (nullptr);
+    cin >> Task;
 
     while (Task--) {
         solve ();

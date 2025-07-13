@@ -30,28 +30,51 @@ using u64 = unsigned long long;
 #define se second
 #define sz size()
 
-int qmi (int a, int b, int mod = 998244353) {
-    int res = 1;
-    while (b) {
-        if (b & 1)res = res * a % mod;
-        a = a * a % mod;
-        b >>= 1;
-    }
-    return res;
-}
-
 void solve () {
-    int n;
-    cin >> n;
-    int mod = 998244353;
-    int ans = ((n + 1) % mod) * (n % mod) % mod * qmi (2, mod - 2) % mod;
+    int n, k;
+    cin >> n >> k;
 
-    for (int l = 1, r;l <= n;l = r + 1) {
-        r = n / (n / l);
-        ans = (ans - (r - l + 1) * (n / l) % mod + mod) % mod;
+    V<V<PII>>g (n + 1);
+    V<V<int>>f (k, V<int> (2 * n + 2, -1)), cnt (k, V<int> (n + 1, 0));
+
+    FOR (i, 2, n) {
+        int a, b;
+        cin >> a >> b;
+        g[a].eb (b, 2 * i);
+        g[b].eb (a, 2 * i + 1);
     }
 
-    cout << ans;
+    queue<array<int, 3>>q;
+
+    q.push ({ 1,0 ,-1 });
+
+    V<int> ac (n + 1, -1);
+
+    while (q.sz) {
+        auto [ver, d, e] = q.front ();
+        q.pop ();
+
+        if (d % k == 0 && ac[ver] == -1) {
+            ac[ver] = d / k;
+        }
+
+        if (cnt[d % k][ver] == 2)continue;
+        cnt[d % k][ver]++;
+
+        for (auto [j, e2] : g[ver]) {
+            if ((e ^ e2) == 1 && d % k != 0)continue;
+            if (f[(d + 1) % k][e2] == -1) {
+                f[(d + 1) % k][e2] = d + 1;
+                q.push ({ d + 1,j,e2 });
+            }
+
+        }
+    }
+
+    FOR (i, 2, n) {
+        cout << ac[i] << " \n"[i == n];
+    }
+
 }
 
 signed main () {
@@ -59,6 +82,7 @@ signed main () {
 
     ios::sync_with_stdio (false);
     cin.tie (nullptr);
+    cin >> Task;
 
     while (Task--) {
         solve ();

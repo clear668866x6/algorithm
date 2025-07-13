@@ -30,28 +30,26 @@ using u64 = unsigned long long;
 #define se second
 #define sz size()
 
-int qmi (int a, int b, int mod = 998244353) {
-    int res = 1;
-    while (b) {
-        if (b & 1)res = res * a % mod;
-        a = a * a % mod;
-        b >>= 1;
-    }
-    return res;
-}
-
 void solve () {
-    int n;
-    cin >> n;
-    int mod = 998244353;
-    int ans = ((n + 1) % mod) * (n % mod) % mod * qmi (2, mod - 2) % mod;
+    int w, h, a, b;
+    cin >> w >> h >> a >> b;
+    int x1, x2, y1, y2;
+    cin >> x1 >> y1 >> x2 >> y2;
 
-    for (int l = 1, r;l <= n;l = r + 1) {
-        r = n / (n / l);
-        ans = (ans - (r - l + 1) * (n / l) % mod + mod) % mod;
+    int dx = abs (x1 - x2) % a, dy = abs (y1 - y2) % b;
+    if (!dx) {
+        if (!dy || x1 != x2) {
+            YES;
+        } else {
+            NO;
+        }
+    } else {
+        if (!dy && y1 != y2) {
+            YES;
+        } else {
+            NO;
+        }
     }
-
-    cout << ans;
 }
 
 signed main () {
@@ -59,6 +57,7 @@ signed main () {
 
     ios::sync_with_stdio (false);
     cin.tie (nullptr);
+    cin >> Task;
 
     while (Task--) {
         solve ();

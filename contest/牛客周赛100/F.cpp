@@ -30,12 +30,12 @@ using u64 = unsigned long long;
 #define se second
 #define sz size()
 
-int qmi (int a, int b, int mod = 998244353) {
+int qmi (int a, int b, int mod) {
     int res = 1;
     while (b) {
-        if (b & 1)res = res * a % mod;
+        if (b % 2 == 1)res = res * a % mod;
         a = a * a % mod;
-        b >>= 1;
+        b /= 2;
     }
     return res;
 }
@@ -43,15 +43,26 @@ int qmi (int a, int b, int mod = 998244353) {
 void solve () {
     int n;
     cin >> n;
-    int mod = 998244353;
-    int ans = ((n + 1) % mod) * (n % mod) % mod * qmi (2, mod - 2) % mod;
 
-    for (int l = 1, r;l <= n;l = r + 1) {
-        r = n / (n / l);
-        ans = (ans - (r - l + 1) * (n / l) % mod + mod) % mod;
+    V<int>w (n * 2), cost (n * 2, 0), tag;
+
+    int mod = 1e9 + 7;
+
+    for (auto& x : w)cin >> x;
+
+    sort (RALL (w));
+    FOR (i, 0, n * 2 - 1)cost[i] = 100 * qmi (w[i], mod - 2, mod) % mod;
+
+    int ans = 0;
+
+    int j = 0;
+    FORD (k, 1, n) {
+        int t1 = cost[j++], t2 = cost[j++];
+        ans = (ans + (t1 + t2) * k % mod) % mod;
     }
 
     cout << ans;
+
 }
 
 signed main () {
