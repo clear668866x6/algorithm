@@ -1,0 +1,1 @@
+{"name":"Local: CF2064C","url":"/home/value/algorithm/practice/CF2064C.cpp","tests":[{"id":1752505438519,"input":"3\n6\n3 1 4 -1 -5 -9\n6\n-10 -3 -17 1 19 20\n1\n1\n","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/value/algorithm/practice/CF2064C.cpp","group":"local","local":true}
