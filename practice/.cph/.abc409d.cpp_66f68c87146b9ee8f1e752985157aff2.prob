@@ -1,0 +1,1 @@
+{"name":"Local: abc409d","url":"/home/value/algorithm/practice/abc409d.cpp","tests":[{"id":1752589478770,"input":"3\n7\natcoder\n1\nx\n5\nsnuke\n","output":"acodert\nx\nnsuke\n"},{"id":1752589850791,"input":"1\n5\ncaaab","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/value/algorithm/practice/abc409d.cpp","group":"local","local":true}
