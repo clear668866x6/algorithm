@@ -1,0 +1,1 @@
+{"name":"Local: CF1969B","url":"/home/value/algorithm/practice/CF1969B.cpp","tests":[{"id":1752676192046,"input":"5\n10\n0000\n11000\n101011\n01101001\n","output":"2\n0\n9\n5\n11\n"},{"id":1752676303678,"input":"1\n01101001","output":"11"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/value/algorithm/practice/CF1969B.cpp","group":"local","local":true}
