@@ -1,0 +1,1 @@
+{"name":"Local: A","url":"/home/value/algorithm/contest/代码源21/A.cpp","tests":[{"id":1752840122419,"input":"b 12 12\na 11 11\n","output":"b\n"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/value/algorithm/contest/代码源21/A.cpp","group":"local","local":true}
