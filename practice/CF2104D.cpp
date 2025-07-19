@@ -30,24 +30,54 @@ using u64 = unsigned long long;
 #define se second
 #define sz size()
 
-void solve () {
-    int n, k;
-    cin >> n >> k;
+struct Prime {
+    V<int>primes, vis;
+    int cnt;
 
-    V<array<int, 3>>w (n);
+    void init (int x) {
+        primes.resize (x + 10), vis.resize (x + 10);
+        cnt = 0;
 
-    for (auto& [c, a, b] : w)cin >> a >> b >> c;
-
-    sort (ALL (w));
-
-    FOR (i, 0, n - 1) {
-        if (k >= w[i][1] && k <= w[i][2]) {
-            if (w[i][0] > k) {
-                k = w[i][0];
+        for (int i = 2; i <= x;i++) {
+            if (!vis[i])primes[cnt++] = i;
+            for (int j = 0;i * primes[j] <= x;j++) {
+                vis[i * primes[j]] = 1;
+                if (i % primes[j] == 0)break;
             }
         }
     }
-    cout << k << endl;
+}A;
+
+void solve () {
+    int n;
+    cin >> n;
+
+    V<int>w (n);
+    for (auto& x : w)cin >> x;
+
+    sort (ALL (w));
+
+    int tot = 0, tmp = 0;
+
+    FOR (i, 0, n - 1) {
+        tot += (w[i] - 2);
+        tmp += (A.primes[i] - 2);
+    }
+
+    if (tot >= tmp) {
+        cout << 0 << endl;
+        RE;
+    }
+
+    FOR (i, 0, n - 1) {
+        tot -= (w[i] - 2);
+        tmp -= (A.primes[n - i - 1] - 2);
+        if (tot >= tmp) {
+            cout << i + 1 << endl;
+            RE;
+        }
+    }
+
 }
 
 signed main () {
@@ -56,7 +86,7 @@ signed main () {
     ios::sync_with_stdio (false);
     cin.tie (nullptr);
     cin >> Task;
-
+    A.init (1e7);
     while (Task--) {
         solve ();
     }

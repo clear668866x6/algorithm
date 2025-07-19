@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-#define int int64_t
+// #define int int64_t
 #define endl "\n"
 
 using PII = pair<int, int>;
@@ -31,23 +31,45 @@ using u64 = unsigned long long;
 #define sz size()
 
 void solve () {
-    int n, k;
-    cin >> n >> k;
+    int n;
+    string s;
+    cin >> n >> s;
+    int len = s.sz;
+    s = '0' + s;
 
-    V<array<int, 3>>w (n);
+    int tot = (1 << n) - 1;
+    unordered_map<int, int>vis;
 
-    for (auto& [c, a, b] : w)cin >> a >> b >> c;
+    bool f = false;
 
-    sort (ALL (w));
+    function<void (int)>dfs = [&] (int u) {
+        if (f || vis[u]) {
+            RE;
+        }
+        vis[u] = 1;
+        if (u > 0 && s[u] == '1') {
+            RE;
+        }
+        if (!u) {
+            f = 1;
+            Yes;
+            RE;
+        }
 
-    FOR (i, 0, n - 1) {
-        if (k >= w[i][1] && k <= w[i][2]) {
-            if (w[i][0] > k) {
-                k = w[i][0];
+        FOR (k, 0, n - 1) {
+            int t = (1 << k);
+            if ((u >> k) & 1) {
+                dfs (u ^ t);
+                if (f)RE;
             }
         }
+        };
+
+    dfs (tot);
+    if (!f) {
+        No;
     }
-    cout << k << endl;
+
 }
 
 signed main () {

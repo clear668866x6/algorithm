@@ -31,23 +31,25 @@ using u64 = unsigned long long;
 #define sz size()
 
 void solve () {
-    int n, k;
-    cin >> n >> k;
+    int n;
+    cin >> n;
 
-    V<array<int, 3>>w (n);
+    set<int>s;
 
-    for (auto& [c, a, b] : w)cin >> a >> b >> c;
-
-    sort (ALL (w));
-
-    FOR (i, 0, n - 1) {
-        if (k >= w[i][1] && k <= w[i][2]) {
-            if (w[i][0] > k) {
-                k = w[i][0];
-            }
-        }
+    FOR (i, 1, n) {
+        int x;
+        cin >> x;
+        s.insert (x);
     }
-    cout << k << endl;
+
+    int x;
+    cin >> x;
+
+    if (s.count (x)) {
+        Yes;
+    } else {
+        No;
+    }
 }
 
 signed main () {
@@ -55,7 +57,6 @@ signed main () {
 
     ios::sync_with_stdio (false);
     cin.tie (nullptr);
-    cin >> Task;
 
     while (Task--) {
         solve ();

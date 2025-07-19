@@ -31,23 +31,45 @@ using u64 = unsigned long long;
 #define sz size()
 
 void solve () {
-    int n, k;
-    cin >> n >> k;
+    int n, m;
+    cin >> n >> m;
 
-    V<array<int, 3>>w (n);
+    struct E {
+        int a, b, dif;
+        bool operator<(const E& t)const {
+            if (dif == t.dif)return a < t.a;
+            return dif < t.dif;
+        }
+    };
 
-    for (auto& [c, a, b] : w)cin >> a >> b >> c;
+    V<E>w (m);
+
+    FOR (i, 0, m - 1)cin >> w[i].a >> w[i].b, w[i].dif = w[i].a - w[i].b;
 
     sort (ALL (w));
 
-    FOR (i, 0, n - 1) {
-        if (k >= w[i][1] && k <= w[i][2]) {
-            if (w[i][0] > k) {
-                k = w[i][0];
+    int i = 0, ans = 0;
+
+    while (i < m) {
+        if (n - w[i].a >= 0) {
+            int l = 0, r = 1e18;
+            while (l + 1 != r) {
+                int mid = l + r >> 1;
+                if (n - (i128)mid * w[i].dif <= w[i].a)r = mid;
+                else l = mid;
             }
+            if (n - r * w[i].dif == w[i].a)r++;
+            ans += r;
+            // cout << i << ' ' << r << ' ' << (n - r * w[i].dif) << ' ' << w[i].dif << endl;
+            n -= r * w[i].dif;
+            i++;
+        } else {
+            i++;
         }
     }
-    cout << k << endl;
+
+    cout << ans;
+
 }
 
 signed main () {
@@ -55,7 +77,6 @@ signed main () {
 
     ios::sync_with_stdio (false);
     cin.tie (nullptr);
-    cin >> Task;
 
     while (Task--) {
         solve ();

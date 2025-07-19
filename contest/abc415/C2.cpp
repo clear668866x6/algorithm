@@ -31,23 +31,53 @@ using u64 = unsigned long long;
 #define sz size()
 
 void solve () {
-    int n, k;
-    cin >> n >> k;
+    int n;
+    string s;
+    cin >> n >> s;
 
-    V<array<int, 3>>w (n);
+    if (s[s.sz - 1] == '1') {
+        No;
+        RE;
+    }
 
-    for (auto& [c, a, b] : w)cin >> a >> b >> c;
+    map<int, int>mp;
+    map<int, map<int, int>>vis;
 
-    sort (ALL (w));
+    FOR (i, 0, s.sz - 1) {
+        if (s[i] == '0') {
+            int t = i + 1, c1 = 0;
 
-    FOR (i, 0, n - 1) {
-        if (k >= w[i][1] && k <= w[i][2]) {
-            if (w[i][0] > k) {
-                k = w[i][0];
+            FOR (j, 0, n - 1) {
+                if (t >> j & 1) {
+                    c1++;
+                }
             }
+
+            FOR (j, 0, n - 1) {
+                if (t >> j & 1) {
+                    vis[c1][j] = 1;
+                }
+            }
+            mp[c1]++;
         }
     }
-    cout << k << endl;
+
+    bool f = false;
+
+    FOR (i, 0, n - 1) {
+        bool ff = false;
+        FOR (j, 1, n) {
+            if (!vis[j][i]) {
+                ff = true;
+                break;
+            }
+        }
+        if (!ff) {
+            Yes;
+            RE;
+        }
+    }
+    No;
 }
 
 signed main () {

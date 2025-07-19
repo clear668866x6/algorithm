@@ -34,20 +34,40 @@ void solve () {
     int n, k;
     cin >> n >> k;
 
-    V<array<int, 3>>w (n);
+    map<int, int>mp;
 
-    for (auto& [c, a, b] : w)cin >> a >> b >> c;
+    V<int>w (n);
+
+    for (auto& x : w)cin >> x, mp[x]++;
 
     sort (ALL (w));
+    w.erase (unique (ALL (w)), w.end ());
 
-    FOR (i, 0, n - 1) {
-        if (k >= w[i][1] && k <= w[i][2]) {
-            if (w[i][0] > k) {
-                k = w[i][0];
+    int ans = 0, lst = -1, cnt = 0, t = 0;
+
+    FOR (i, 0, w.sz - 1) {
+        if (lst == -1) {
+            lst = w[i];
+            t += mp[w[i]];
+            cnt++;
+        } else {
+            if (w[i] == lst + 1) {
+                cnt++;
+                t += mp[w[i]];
+                if (cnt > k) {
+                    cnt--;
+                    t -= mp[w[i - k]];
+                }
+                lst = w[i];
+            } else {
+                cnt = 1;
+                t = mp[w[i]];
+                lst = w[i];
             }
         }
+        ans = max (ans, t);
     }
-    cout << k << endl;
+    cout << ans << endl;
 }
 
 signed main () {

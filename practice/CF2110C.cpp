@@ -31,23 +31,47 @@ using u64 = unsigned long long;
 #define sz size()
 
 void solve () {
-    int n, k;
-    cin >> n >> k;
+    int n;
+    cin >> n;
+    V<int>w (n + 1, 0), l (n + 1, 0), r (n + 1, 0);
 
-    V<array<int, 3>>w (n);
+    FOR (i, 1, n)cin >> w[i];
+    FOR (i, 1, n)cin >> l[i] >> r[i];
 
-    for (auto& [c, a, b] : w)cin >> a >> b >> c;
+    V<int>hl (n + 1, 0), hr (n + 1, 0);
 
-    sort (ALL (w));
+    int x = 0, y = 0;
 
-    FOR (i, 0, n - 1) {
-        if (k >= w[i][1] && k <= w[i][2]) {
-            if (w[i][0] > k) {
-                k = w[i][0];
-            }
+    FOR (i, 1, n) {
+        if (w[i] != -1) {
+            x += w[i], y += w[i];
+        } else {
+            y++;
+        }
+
+        int L = max (x, l[i]), R = min (y, r[i]);
+        if (L > R) {
+            cout << -1 << endl;
+            RE;
+        }
+        x = L, y = R;
+        hl[i] = L, hr[i] = R;
+    }
+
+    int t = hl[n];
+
+    FORD (i, 1, n) {
+        if (w[i] == -1) {
+            if (t >= hl[i - 1] && t <= hr[i - 1])w[i] = 0;
+            else w[i] = 1;
+            t -= w[i];
+        } else {
+            t -= w[i];
         }
     }
-    cout << k << endl;
+
+    FOR (i, 1, n)cout << w[i] << " \n"[i == n];
+
 }
 
 signed main () {

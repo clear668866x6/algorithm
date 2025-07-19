@@ -31,23 +31,32 @@ using u64 = unsigned long long;
 #define sz size()
 
 void solve () {
-    int n, k;
-    cin >> n >> k;
+    int n;
+    cin >> n;
 
-    V<array<int, 3>>w (n);
+    V<int>a (n), b (n), c (n), d (n);
 
-    for (auto& [c, a, b] : w)cin >> a >> b >> c;
+    FOR (i, 0, n - 1)cin >> a[i] >> b[i] >> c[i] >> d[i];
 
-    sort (ALL (w));
+    V<int>da (n, 0), db (n, 0);
 
     FOR (i, 0, n - 1) {
-        if (k >= w[i][1] && k <= w[i][2]) {
-            if (w[i][0] > k) {
-                k = w[i][0];
-            }
+        da[i] = a[i] - c[i];
+        db[i] = b[i] - d[i];
+    }
+
+    int ans = 0;
+
+    FOR (i, 0, n - 1) {
+        if (db[i] > 0) {
+            ans += (a[i] + db[i]);
+        } else {
+            ans += max<int> (0, da[i]);
         }
     }
-    cout << k << endl;
+
+    cout << ans << endl;
+
 }
 
 signed main () {

@@ -30,24 +30,18 @@ using u64 = unsigned long long;
 #define se second
 #define sz size()
 
+V<int>c, s;
+
 void solve () {
-    int n, k;
-    cin >> n >> k;
+    int l, r;
+    cin >> l >> r;
 
-    V<array<int, 3>>w (n);
+    int p = c[l - 1];
 
-    for (auto& [c, a, b] : w)cin >> a >> b >> c;
+    int ans = s[r] - s[l - 1] + p;
 
-    sort (ALL (w));
+    cout << ans << endl;
 
-    FOR (i, 0, n - 1) {
-        if (k >= w[i][1] && k <= w[i][2]) {
-            if (w[i][0] > k) {
-                k = w[i][0];
-            }
-        }
-    }
-    cout << k << endl;
 }
 
 signed main () {
@@ -56,6 +50,17 @@ signed main () {
     ios::sync_with_stdio (false);
     cin.tie (nullptr);
     cin >> Task;
+    s.resize (2e5 + 10);
+
+    FOR (i, 1, 2e5) {
+        int t = i, cnt = 0;
+        while (t) {
+            cnt++;
+            t /= 3;
+        }
+        c.eb (cnt);
+        s[i] = s[i - 1] + c[i - 1];
+    }
 
     while (Task--) {
         solve ();
