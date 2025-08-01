@@ -123,8 +123,9 @@
   "C_Cpp.vcFormat.space.beforeFunctionOpenParenthesis": "insert",
   "C_Cpp.vcFormat.space.beforeLambdaOpenParenthesis": true,
   "editor.fontLigatures": true,
-  "animations.Install-Method": "Custom UI Style",
+  "animations.Install-Method": "Apc Customize UI++",
   "editor.cursorSmoothCaretAnimation": "on",
   "animations.CursorAnimation": true,
-  "animations.UseCursorColorForCursorAnimation": true
+  "animations.UseCursorColorForCursorAnimation": true,
+  "animations.Active": "Indent"
 }
