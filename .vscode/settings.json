@@ -122,5 +122,9 @@
   "C_Cpp.vcFormat.indent.preserveWithinParentheses": true,
   "C_Cpp.vcFormat.space.beforeFunctionOpenParenthesis": "insert",
   "C_Cpp.vcFormat.space.beforeLambdaOpenParenthesis": true,
-  "editor.fontLigatures": true
+  "editor.fontLigatures": true,
+  "animations.Install-Method": "Custom UI Style",
+  "editor.cursorSmoothCaretAnimation": "on",
+  "animations.CursorAnimation": true,
+  "animations.UseCursorColorForCursorAnimation": true
 }
