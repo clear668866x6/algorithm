@@ -31,22 +31,23 @@ using u64 = unsigned long long;
 
 void solve() {
     int n;
-    cin >> n;
+    string s;
+    cin >> n >> s;
+
+    s = ' ' + s;
+
+    V<int> sum(n + 1, 0);
+
+    FOR(i, 1, n) { sum[i] = sum[i - 1] + (s[i] == '1'); }
+
+    V<int> w(n + 1, 1e18);
+    w[0] = 0;
+    FOR(i, 1, n) w[i] = min(w[i - 1], 2 * sum[i] - i);
 
     int ans = 1e18;
 
-    FOR(i, 2, n / i) {
-        if (n % i == 0) {
-            if (i != n / i) {
-                ans = min(ans, n / i);
-            }
-        }
-    }
+    FOR(i, 1, n) ans = min(ans, sum[n] + w[i] - (2 * sum[i] - i));
 
-    if (ans == 1e18) {
-        cout << n << endl;
-        RE;
-    }
     cout << ans << endl;
 }
 

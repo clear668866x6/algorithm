@@ -1,4 +1,6 @@
 #include <bits/stdc++.h>
+#include <functional>
+#include <numeric>
 using namespace std;
 
 #define int int64_t
@@ -30,24 +32,46 @@ using u64 = unsigned long long;
 #define sz size()
 
 void solve() {
-    int n;
-    cin >> n;
+    int n, m;
 
-    int ans = 1e18;
+    cin >> n >> m;
 
-    FOR(i, 2, n / i) {
-        if (n % i == 0) {
-            if (i != n / i) {
-                ans = min(ans, n / i);
+    V<array<int, 3>> w(m + 1);
+
+    FOR(i, 1, m) { cin >> w[i].at(0) >> w[i].at(1) >> w[i].at(2); }
+
+    V<int> p(n + 1, 0);
+
+    function<int(int)> find = [&](int x) {
+        if (x != p[x])
+            return p[x] = find(p[x]);
+        return p[x];
+    };
+
+    function<int(int)> check = [&](int x) {
+        FOR(i, 1, n) p[i] = i;
+        FOR(i, 1, m) {
+            if ((w[i].back() | x) == x) {
+                int a = find(w[i].at(0)), b = find(w[i].at(1));
+                if (a != b) {
+                    p[a] = b;
+                }
             }
+        }
+        if (find(1) == find(n))
+            return 1;
+        return 0;
+    };
+
+    int ans = 0;
+
+    FORD(i, 0, 30) {
+        if (!check((ans | ((1LL << i) - 1)))) {
+            ans |= (1LL << i);
         }
     }
 
-    if (ans == 1e18) {
-        cout << n << endl;
-        RE;
-    }
-    cout << ans << endl;
+    cout << ans;
 }
 
 signed main() {
@@ -55,7 +79,6 @@ signed main() {
 
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    cin >> Task;
 
     while (Task--) {
         solve();

@@ -1,4 +1,5 @@
 #include <bits/stdc++.h>
+#include <functional>
 using namespace std;
 
 #define int int64_t
@@ -30,24 +31,55 @@ using u64 = unsigned long long;
 #define sz size()
 
 void solve() {
-    int n;
-    cin >> n;
+    int n, m;
+    cin >> n >> m;
 
-    int ans = 1e18;
+    V<int> b(n + 1, 0);
 
-    FOR(i, 2, n / i) {
-        if (n % i == 0) {
-            if (i != n / i) {
-                ans = min(ans, n / i);
+    int tot = 0;
+
+    FOR(i, 1, n) cin >> b[i], tot += b[i];
+
+    V<V<PII>> g(n + 1);
+
+    FOR(i, 1, m) {
+        int a, b, c;
+        cin >> a >> b >> c;
+        g[a].eb(b, c);
+    }
+
+    function<int(int)> check = [&](int x) {
+        queue<array<int, 2>> q;
+
+        V<int> f(n + 1, -1);
+        f[1] = min(x, b[1]);
+        FOR(ver, 1, n) {
+            for (auto [j, w] : g[ver]) {
+                if (f[ver] >= w) {
+                    f[j] = max(f[j], min(x, f[ver] + b[j]));
+                }
             }
         }
-    }
 
-    if (ans == 1e18) {
-        cout << n << endl;
-        RE;
+        if (f[n] == -1)
+            return 0;
+        return 1;
+    };
+
+    int l = -1, r = tot + 1;
+
+    while (l + 1 != r) {
+        int mid = (l + r) >> 1;
+        if (check(mid))
+            r = mid;
+        else
+            l = mid;
     }
-    cout << ans << endl;
+    if (!check(r)) {
+        cout << -1 << endl;
+    } else {
+        cout << r << endl;
+    }
 }
 
 signed main() {

@@ -33,20 +33,26 @@ void solve() {
     int n;
     cin >> n;
 
-    int ans = 1e18;
+    V<int> w(n);
 
-    FOR(i, 2, n / i) {
-        if (n % i == 0) {
-            if (i != n / i) {
-                ans = min(ans, n / i);
+    map<int, int> mp;
+    for (auto& x : w)
+        cin >> x, mp[x]++;
+
+    int ans = 0;
+
+    FOR(i, 1, n) {
+        int t = 0;
+        FOR(j, 1, i / j) {
+            if (i % j == 0) {
+                t += mp[j];
+                if (i / j != j)
+                    t += mp[i / j];
             }
         }
+        ans = max(ans, t);
     }
 
-    if (ans == 1e18) {
-        cout << n << endl;
-        RE;
-    }
     cout << ans << endl;
 }
 

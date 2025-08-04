@@ -33,20 +33,23 @@ void solve() {
     int n;
     cin >> n;
 
-    int ans = 1e18;
+    V<int> w(n);
 
-    FOR(i, 2, n / i) {
-        if (n % i == 0) {
-            if (i != n / i) {
-                ans = min(ans, n / i);
+    for (auto& x : w)
+        cin >> x;
+
+    sort(ALL(w));
+
+    int ans = n;
+
+    FOR(l, 0, n - 1) {
+        FOR(r, l, n - 1) {
+            if ((w[l] + w[r]) % 2 == 0) {
+                ans = min(ans, n - (r - l + 1));
             }
         }
     }
 
-    if (ans == 1e18) {
-        cout << n << endl;
-        RE;
-    }
     cout << ans << endl;
 }
 

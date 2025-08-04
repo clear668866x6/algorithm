@@ -30,24 +30,29 @@ using u64 = unsigned long long;
 #define sz size()
 
 void solve() {
-    int n;
-    cin >> n;
+    string s;
+    cin >> s;
 
-    int ans = 1e18;
+    int pos = 0;
 
-    FOR(i, 2, n / i) {
-        if (n % i == 0) {
-            if (i != n / i) {
-                ans = min(ans, n / i);
+    if (s[0] == '(')
+        pos = 1;
+    else
+        pos = 0;
+
+    FOR(i, 1, s.sz - 1) {
+        if (s[i] == '(')
+            pos++;
+        else
+            pos--;
+        if (s[i - 1] == ')' && s[i] == '(') {
+            if (pos == 1) {
+                YES;
+                RE;
             }
         }
     }
-
-    if (ans == 1e18) {
-        cout << n << endl;
-        RE;
-    }
-    cout << ans << endl;
+    NO;
 }
 
 signed main() {

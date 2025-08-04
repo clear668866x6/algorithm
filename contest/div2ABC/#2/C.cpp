@@ -33,21 +33,53 @@ void solve() {
     int n;
     cin >> n;
 
-    int ans = 1e18;
+    V<int> w(n);
+    for (auto& x : w)
+        cin >> x;
 
-    FOR(i, 2, n / i) {
-        if (n % i == 0) {
-            if (i != n / i) {
-                ans = min(ans, n / i);
+    V<PII> seg(n);
+    for (auto& [a, b] : seg)
+        cin >> a >> b;
+
+    int l = 0, r = 0;
+    V<int> L(n), R(n);
+
+    FOR(i, 0, n - 1) {
+        if (w[i] == 1)
+            l++, r++;
+        else if (w[i] == -1)
+            r++;
+        l = max(l, seg[i].fi), r = min(r, seg[i].se);
+        if (l > r) {
+            cout << -1 << endl;
+            RE;
+        }
+        L[i] = l, R[i] = r;
+    }
+
+    int t = l;
+
+    FORD(i, 0, n - 1) {
+        if (i) {
+            if (w[i] == -1) {
+                if (t >= L[i - 1] && t <= R[i - 1])
+                    w[i] = 0;
+                else
+                    w[i] = 1, t--;
+            } else if (w[i] == 1) {
+                t--;
+            }
+        } else {
+            if (w[i] == -1) {
+                if (t > 0)
+                    w[i] = 1, t--;
+                else
+                    w[i] = 0;
             }
         }
     }
 
-    if (ans == 1e18) {
-        cout << n << endl;
-        RE;
-    }
-    cout << ans << endl;
+    FOR(i, 0, n - 1) cout << w[i] << " \n"[i == n - 1];
 }
 
 signed main() {

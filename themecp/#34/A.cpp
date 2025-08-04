@@ -1,3 +1,4 @@
+#include <algorithm>
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -33,21 +34,27 @@ void solve() {
     int n;
     cin >> n;
 
-    int ans = 1e18;
+    V<int> w(n);
+    for (auto& x : w)
+        cin >> x;
 
-    FOR(i, 2, n / i) {
-        if (n % i == 0) {
-            if (i != n / i) {
-                ans = min(ans, n / i);
-            }
+    V<PII> ans;
+
+    FOR(i, 0, n - 1) {
+        if (lowbit(w[i]) == w[i])
+            continue;
+        int t = w[i], cnt = 0;
+        while (t) {
+            cnt++;
+            t /= 2;
         }
+
+        ans.pb({i + 1, (1LL << cnt) - w[i]});
     }
 
-    if (ans == 1e18) {
-        cout << n << endl;
-        RE;
-    }
-    cout << ans << endl;
+    cout << ans.sz << endl;
+    for (auto [a, b] : ans)
+        cout << a << ' ' << b << endl;
 }
 
 signed main() {
