@@ -4,7 +4,7 @@ IndentWidth: 4
 UseTab: false
 BreakBeforeBraces: Attach
 AllowShortIfStatementsOnASingleLine: false
-ColumnLimit: 80
+ColumnLimit: 300
 SpacesBeforeTrailingComments: 1
 IndentCaseLabels: false
 PointerBindsToType: true
