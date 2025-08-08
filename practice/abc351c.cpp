@@ -19,19 +19,30 @@ using u64 = unsigned long long;
 #define RALL(a) a.rbegin(), a.rend()
 #define lowbit(x) ((x) & (-x))
 #define RE return;
-#define Yes cout << "Yes" << endl;
-#define YES cout << "YES" << endl;
-#define No cout << "No" << endl;
-#define NO cout << "NO" << endl;
-#define pb push_back
-#define eb emplace_back
 #define fi first
 #define se second
-#define sz(x) (int)(x).size()
+#define sz size()
 
 void solve() {
-    V<int> w;
-    cout << sz(w) - 1;
+    int n;
+    cin >> n;
+
+    V<int> w(n + 1, 0);
+
+    FOR(i, 1, n) cin >> w[i];
+
+    V<int> s;
+    FOR(i, 1, n) {
+        s.push_back(w[i]);
+        while (s.size() >= 2 && s[s.sz - 1] == s[s.sz - 2]) {
+            int t = s[s.sz - 1];
+            s.pop_back();
+            s.pop_back();
+            s.push_back(t + 1);
+        }
+    }
+
+    cout << s.sz << endl;
 }
 
 signed main() {
@@ -39,7 +50,7 @@ signed main() {
 
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    cin >> Task;
+
     while (Task--) {
         solve();
     }

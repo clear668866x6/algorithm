@@ -19,19 +19,43 @@ using u64 = unsigned long long;
 #define RALL(a) a.rbegin(), a.rend()
 #define lowbit(x) ((x) & (-x))
 #define RE return;
-#define Yes cout << "Yes" << endl;
-#define YES cout << "YES" << endl;
-#define No cout << "No" << endl;
-#define NO cout << "NO" << endl;
-#define pb push_back
-#define eb emplace_back
 #define fi first
 #define se second
-#define sz(x) (int)(x).size()
 
 void solve() {
-    V<int> w;
-    cout << sz(w) - 1;
+    int n;
+    cin >> n;
+
+    if (n == 1) {
+        cout << "NO" << endl;
+        RE;
+    }
+
+    function<int(int, int)> qmi = [&](int a, int b) {
+        int res = 1;
+        while (b) {
+            if (b & 1)
+                res = res * a;
+            a = a * a;
+            b >>= 1;
+        }
+        return res;
+    };
+
+    FOR(x, 3, 30) {
+        FOR(k, 2, n) {
+            int t = qmi(k, x) - 1;
+            if (t / (k - 1) > n)
+                break;
+            if (t % (k - 1))
+                continue;
+            if (t / (k - 1) == n) {
+                cout << "YES" << endl;
+                RE;
+            }
+        }
+    }
+    cout << "NO" << endl;
 }
 
 signed main() {

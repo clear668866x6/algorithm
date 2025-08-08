@@ -19,19 +19,22 @@ using u64 = unsigned long long;
 #define RALL(a) a.rbegin(), a.rend()
 #define lowbit(x) ((x) & (-x))
 #define RE return;
-#define Yes cout << "Yes" << endl;
-#define YES cout << "YES" << endl;
-#define No cout << "No" << endl;
-#define NO cout << "NO" << endl;
-#define pb push_back
-#define eb emplace_back
 #define fi first
 #define se second
-#define sz(x) (int)(x).size()
 
 void solve() {
-    V<int> w;
-    cout << sz(w) - 1;
+    int n;
+    cin >> n;
+
+    int ans = 0;
+
+    FOR(i, 1, n) {
+        int a, b;
+        cin >> a >> b;
+        if (a > b)
+            ans++;
+    }
+    cout << ans << endl;
 }
 
 signed main() {

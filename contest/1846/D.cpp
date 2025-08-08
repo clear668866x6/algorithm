@@ -1,4 +1,5 @@
 #include <bits/stdc++.h>
+#include <iomanip>
 using namespace std;
 
 #define int int64_t
@@ -19,19 +20,29 @@ using u64 = unsigned long long;
 #define RALL(a) a.rbegin(), a.rend()
 #define lowbit(x) ((x) & (-x))
 #define RE return;
-#define Yes cout << "Yes" << endl;
-#define YES cout << "YES" << endl;
-#define No cout << "No" << endl;
-#define NO cout << "NO" << endl;
-#define pb push_back
-#define eb emplace_back
 #define fi first
 #define se second
-#define sz(x) (int)(x).size()
 
 void solve() {
-    V<int> w;
-    cout << sz(w) - 1;
+    int n, d, h;
+    cin >> n >> d >> h;
+
+    V<int> y(n + 1, 0);
+
+    FOR(i, 1, n) cin >> y[i];
+
+    double ans = 1. * d * h / 2.0 * n;
+
+    double area = 1. * d * h / 2.0, cnt = 0;
+    FOR(i, 2, n) {
+        if (y[i] - y[i - 1] < h) {
+            int del = y[i] - y[i - 1];
+            double p = pow((1. * (h - del)) / (1.0 * h), 2);
+            ans -= area * p;
+        }
+    }
+
+    cout << setprecision(12) << fixed << ans << endl;
 }
 
 signed main() {
