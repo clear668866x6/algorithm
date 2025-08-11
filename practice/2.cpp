@@ -1,6 +1,10 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+#ifndef ONLINE_JUDGE
+#include <bits/debug.h>
+#endif
+
 #define int int64_t
 #define endl "\n"
 
@@ -11,10 +15,10 @@ using i64 = long long;
 using i128 = __int128;
 using u64 = unsigned long long;
 
-#define FOR(i, a, b) for (auto i = (a); i <= (b); i++)
-#define FOR2(i, a, b, c) for (auto i = (a); i <= (b); i += c)
-#define FORD(i, b, a) for (auto i = (a); i >= (b); i--)
-#define FORD2(i, b, a, c) for (auto i = (a); i >= (b); i -= c)
+#define FOR(i, a, b) for (int i = (int)(a); i <= (int)(b); i++)
+#define FOR2(i, a, b, c) for (int i = (int)(a); i <= (int)(b); i += (int)(c))
+#define FORD(i, b, a) for (int i = (int)(a); i >= (int)(b); i--)
+#define FORD2(i, b, a, c) for (int i = (int)(a); i <= (int)(b); i -= (int)(c))
 #define ALL(a) a.begin(), a.end()
 #define RALL(a) a.rbegin(), a.rend()
 #define lowbit(x) ((x) & (-x))
@@ -29,10 +33,7 @@ using u64 = unsigned long long;
 #define se second
 #define sz(x) (int)(x).size()
 
-void solve() {
-    V<int> w;
-    cout << sz(w) - 1;
-}
+void solve() {}
 
 signed main() {
     int Task = 1;
