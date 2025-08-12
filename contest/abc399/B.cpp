@@ -1,20 +1,24 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+#ifndef ONLINE_JUDGE
+#include <bits/debug.h>
+#endif
+
 #define int int64_t
 #define endl "\n"
 
 using PII = pair<int, int>;
 using TII = tuple<int, int, int>;
-template<class T> using V = vector<T>;
+template <class T> using V = vector<T>;
 using i64 = long long;
 using i128 = __int128;
 using u64 = unsigned long long;
 
-#define FOR(i, a, b) for (auto i = (a); i <= (b); i++)
-#define FOR2(i, a, b, c) for (auto i = (a); i <= (b); i += c)
-#define FORD(i, b, a) for (auto i = (a); i >= (b); i--)
-#define FORD2(i, b, a, c) for (auto i = (a); i >= (b); i -= c)
+#define FOR(i, a, b) for (int i = (int)(a); i <= (int)(b); i++)
+#define FOR2(i, a, b, c) for (int i = (int)(a); i <= (int)(b); i += (int)(c))
+#define FORD(i, b, a) for (int i = (int)(a); i >= (int)(b); i--)
+#define FORD2(i, b, a, c) for (int i = (int)(a); i <= (int)(b); i -= (int)(c))
 #define ALL(a) a.begin(), a.end()
 #define RALL(a) a.rbegin(), a.rend()
 #define lowbit(x) ((x) & (-x))
@@ -33,24 +37,28 @@ void solve() {
     int n;
     cin >> n;
 
-    V<int> a(n + 2, 0), b(n + 1);
+    V<array<int, 2>> w(n);
 
-    FOR(i, 1, n) cin >> a[i];
-    FOR(i, 1, n) cin >> b[i];
-
-    if (a[n] != b[n]) {
-        NO;
-        RE;
+    FOR(i, 0, n - 1) {
+        cin >> w[i][0];
+        w[i][1] = i + 1;
     }
 
-    FORD(i, 1, n - 1) {
-        if (a[i] == b[i]) continue;
-        if ((a[i] ^ a[i + 1]) != b[i] && (a[i] ^ b[i + 1]) != b[i]) {
-            NO;
-            RE;
+    sort(RALL(w));
+
+    int r = 1, t = 1;
+
+    map<int, int> mp;
+    mp[w[0][1]] = 1;
+    FOR(i, 1, n - 1) {
+        r++;
+        if (w[i][0] != w[i - 1][0]) {
+            t = r;
         }
+        mp[w[i][1]] = t;
     }
-    YES;
+
+    FOR(i, 1, n) cout << mp[i] << endl;
 }
 
 signed main() {
@@ -58,7 +66,7 @@ signed main() {
 
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    cin >> Task;
+
     while (Task--) {
         solve();
     }

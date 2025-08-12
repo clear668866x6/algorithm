@@ -1,6 +1,10 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+#ifndef ONLINE_JUDGE
+    #include <bits/debug.h>
+#endif
+
 #define int int64_t
 #define endl "\n"
 
@@ -11,10 +15,10 @@ using i64 = long long;
 using i128 = __int128;
 using u64 = unsigned long long;
 
-#define FOR(i, a, b) for (auto i = (a); i <= (b); i++)
-#define FOR2(i, a, b, c) for (auto i = (a); i <= (b); i += c)
-#define FORD(i, b, a) for (auto i = (a); i >= (b); i--)
-#define FORD2(i, b, a, c) for (auto i = (a); i >= (b); i -= c)
+#define FOR(i, a, b) for (int i = (int)(a); i <= (int)(b); i++)
+#define FOR2(i, a, b, c) for (int i = (int)(a); i <= (int)(b); i += (int)(c))
+#define FORD(i, b, a) for (int i = (int)(a); i >= (int)(b); i--)
+#define FORD2(i, b, a, c) for (int i = (int)(a); i <= (int)(b); i -= (int)(c))
 #define ALL(a) a.begin(), a.end()
 #define RALL(a) a.rbegin(), a.rend()
 #define lowbit(x) ((x) & (-x))
@@ -30,27 +34,38 @@ using u64 = unsigned long long;
 #define sz(x) (int)(x).size()
 
 void solve() {
-    int n;
-    cin >> n;
+    int n, x;
+    cin >> n >> x;
 
-    V<int> a(n + 2, 0), b(n + 1);
+    int t1 = n + x - 2, t2 = n - x;
 
-    FOR(i, 1, n) cin >> a[i];
-    FOR(i, 1, n) cin >> b[i];
+    set<int> s;
 
-    if (a[n] != b[n]) {
-        NO;
-        RE;
-    }
-
-    FORD(i, 1, n - 1) {
-        if (a[i] == b[i]) continue;
-        if ((a[i] ^ a[i + 1]) != b[i] && (a[i] ^ b[i + 1]) != b[i]) {
-            NO;
-            RE;
+    FOR(i, 1, t1 / i) {
+        if (t1 % i == 0) {
+            s.insert(i);
+            s.insert(t1 / i);
         }
     }
-    YES;
+
+    FOR(i, 1, t2 / i) {
+        if (t2 % i == 0) {
+            s.insert(i);
+            s.insert(t2 / i);
+        }
+    }
+
+    int ans = 0;
+
+    for (auto t : s) {
+        if (!(t & 1)) {
+            if ((t + 2) / 2 >= x) {
+                ans++;
+            }
+        }
+    }
+
+    cout << ans << endl;
 }
 
 signed main() {

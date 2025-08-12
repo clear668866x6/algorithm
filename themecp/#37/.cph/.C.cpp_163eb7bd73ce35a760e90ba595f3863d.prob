@@ -1,0 +1,1 @@
+{"name":"Local: C","url":"/home/value/algorithm/themecp/#37/C.cpp","tests":[{"id":1754986198400,"input":"5\n10 2\n3 1\n76 4\n100 99\n1000000000 500000000\n","output":""},{"id":1754986262688,"input":"1\n76 4","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/value/algorithm/themecp/#37/C.cpp","group":"local","local":true}

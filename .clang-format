@@ -1,10 +1,14 @@
-Language:  Cpp
 BasedOnStyle: LLVM
 IndentWidth: 4
-UseTab: false
-BreakBeforeBraces: Attach
-AllowShortIfStatementsOnASingleLine: false
-ColumnLimit: 100
-SpacesBeforeTrailingComments: 1
-IndentCaseLabels: false
-PointerBindsToType: true
+
+AllowShortLoopsOnASingleLine: true
+AllowShortIfStatementsOnASingleLine: true
+AllowShortFunctionsOnASingleLine: Empty
+
+NamespaceIndentation: All
+ColumnLimit: 120
+IndentPPDirectives: BeforeHash
+SpaceAfterTemplateKeyword: false
+MaxEmptyLinesToKeep: 2
+ReflowComments: true
+AlignTrailingComments: false
