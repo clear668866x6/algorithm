@@ -9,6 +9,6 @@ NamespaceIndentation: All
 ColumnLimit: 120
 IndentPPDirectives: BeforeHash
 SpaceAfterTemplateKeyword: false
-MaxEmptyLinesToKeep: 2
+MaxEmptyLinesToKeep: 1
 ReflowComments: true
 AlignTrailingComments: false

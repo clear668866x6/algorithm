@@ -1,0 +1,1 @@
+{"name":"Local: A","url":"/home/value/algorithm/contest/group/#9/A.cpp","tests":[{"id":1755480426395,"input":"10\na\naa\naaa\naaaa\nabab\nabcabc\nabacaba\nxxyy\nxyyx\nxyxy\n","output":"NO\nYES\nNO\nYES\nYES\nYES\nNO\nNO\nNO\nYES\n"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/value/algorithm/contest/group/#9/A.cpp","group":"local","local":true}
