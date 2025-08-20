@@ -1,3 +1,4 @@
+#include <algorithm>
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -29,41 +30,72 @@ using u64 = unsigned long long;
 #define se second
 #define sz(x) (int)(x).size()
 
+template<class T> struct LiChaoSegmentTree {
+    V<int> t;
+    T x;
+    LiChaoSegmentTree() {}
+    LiChaoSegmentTree(int x, T y) {
+        y = x;
+        t.resize(x + 10);
+    }
+
+    void update(int u, int l, int r, int k) {
+        if (!k) RE;
+        if (l == r) {
+            if (x.fun(t[u], l) < x.fun(k, l)) swap(t[u], k);
+            RE;
+        }
+        int mid = (l + r) >> 1;
+        if (x.fun(t[u], mid) < x.fun(k, mid)) swap(t[u], k);
+        if (x.fun(t[u], l) < x.fun(k, l)) update(u << 1, l, mid, k);
+        if (x.fun(t[u], r) < x.fun(k, r)) update(u << 1 | 1, mid + 1, r, k);
+    }
+
+    int query(int u, int l, int r, int k) {
+        if (l > k || r < k || !t[u]) return -1e18;
+        if (l == r) {
+            return x.fun(t[u], k);
+        }
+        int mid = (l + r) >> 1;
+        return max({x.fun(t[u], k), query(u << 1, l, mid, k), query(u << 1 | 1, mid + 1, r, k)});
+    }
+};
+
 void solve() {
     int n;
     cin >> n;
 
-    V<int> w(n + 1, 0);
-
-    FOR(i, 1, n) cin >> w[i];
-
-    V<int> pre(n + 1, 0);
+    V<int> w(n + 1, 0), a(n + 1, 0), b(n + 1, 0), s(n + 1, 0);
 
     FOR(i, 1, n) {
-        pre[i] = pre[i - 1] + (w[i] * i);
+        cin >> w[i];
+        s[i] = b[i] = s[i - 1] + w[i];
+        a[i] = a[i - 1] + w[i] * i;
     }
 
-    V<int> p(n + 2, 0), spre(n + 2, 0), sp(n + 2, 0);
+    sort(s.begin() + 1, s.end());
+    s.erase(unique(s.begin() + 1, s.end()), s.end());
 
-    FOR(i, 2, n) {
-        spre[i] = spre[i - 1] + ((i - 1) * w[i] + w[i - 1]);
-    }
+    int t = sz(s);
+
     int ans = 0;
-    int j = 1;
 
-    cout << spre[2] << ' ' << pre[3] - spre[2] << endl;
+    V<array<int, 2>> p(n + 1);
+
+    struct E {
+
+        int fun(int pos, int x) {
+            if (!pos) return -1e18;
+            return p[pos][0] * s[x] + p[pos][1];
+        }
+    };
+
+    LiChaoSegmentTree<E> A(2e5 + 10);
 
     FOR(i, 1, n) {
-        int s = spre[i] - spre[j];
-        cout << j << ' ' << i << ' ' << s << endl;
-        while (j + 1 <= i && spre[i] - spre[j + 1] > s) {
-            s = spre[i] - spre[j + 1];
-            j++;
-        }
-        ans = max(ans, s);
+        int pos = lower_bound(s.begin() + 1, s.end(), b[i]) - s.begin();
+        p[i] = {1 - i, -a[i - 1] + (i - 1) * b[i - 1]};
     }
-
-    cout << ans;
 }
 
 signed main() {
