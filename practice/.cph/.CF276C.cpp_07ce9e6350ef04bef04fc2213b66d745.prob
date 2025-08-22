@@ -1,0 +1,1 @@
+{"name":"Local: CF276C","url":"/home/value/algorithm/practice/CF276C.cpp","tests":[{"id":1755827266166,"input":"3 3\n5 3 2\n1 2\n2 3\n1 3\n","output":""},{"id":1755827270097,"input":"5 3\n5 2 4 1 3\n1 5\n2 3\n2 3\n","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/value/algorithm/practice/CF276C.cpp","group":"local","local":true}

@@ -1,0 +1,1 @@
+{"name":"Local: abc162d-3","url":"/home/value/algorithm/practice/abc162d-3.cpp","tests":[{"id":1755828441108,"input":"4\nRRGB\n","output":""},{"id":1755828460556,"input":"39\nRBRBGRBGGBBRRGBBRRRBGGBRBGBRBGBRBBBGBBB\n","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/value/algorithm/practice/abc162d-3.cpp","group":"local","local":true}
