@@ -1,0 +1,1 @@
+{"name":"Local: A","url":"/home/value/algorithm/contest/abc419/A.cpp","tests":[{"id":1755913566170,"input":"red\n","output":"SSS\n"},{"id":1755913573729,"input":"atcoder\n","output":"Unknown\n"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/value/algorithm/contest/abc419/A.cpp","group":"local","local":true}
