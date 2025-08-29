@@ -1,0 +1,1 @@
+{"name":"Local: A","url":"/home/value/algorithm/contest/abc326/A.cpp","tests":[{"id":1756474846658,"input":"1 4\n","output":""},{"id":1756474850638,"input":"99 96\n","output":""},{"id":1756474854517,"input":"100 1\n","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/value/algorithm/contest/abc326/A.cpp","group":"local","local":true}

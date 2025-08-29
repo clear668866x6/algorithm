@@ -1,0 +1,1 @@
+{"name":"Local: LG-P4113","url":"/home/value/algorithm/practice/LG-P4113.cpp","tests":[{"id":1756459114087,"input":"5 3 5\n1 2 2 3 1\n1 5\n1 2\n2 2\n2 3\n3 5","output":"2\n0\n0\n1\n0\n"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/value/algorithm/practice/LG-P4113.cpp","group":"local","local":true}

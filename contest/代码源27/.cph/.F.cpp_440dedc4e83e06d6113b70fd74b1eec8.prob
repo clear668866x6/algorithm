@@ -1,0 +1,1 @@
+{"name":"Local: F","url":"/home/value/algorithm/contest/代码源27/F.cpp","tests":[{"id":1756473316721,"input":"3\n2 4 4\n","output":"28"},{"id":1756473870530,"input":"3\n10 10 10","output":"841\n"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/value/algorithm/contest/代码源27/F.cpp","group":"local","local":true}
