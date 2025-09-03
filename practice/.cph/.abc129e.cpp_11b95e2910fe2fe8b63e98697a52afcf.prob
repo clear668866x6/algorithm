@@ -1,0 +1,1 @@
+{"name":"Local: abc129e","url":"/home/value/algorithm/practice/abc129e.cpp","tests":[{"id":1756875985533,"input":"10\n","output":"5"},{"id":1756876011162,"input":"1111111111111111111\n","output":"162261460\n"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/value/algorithm/practice/abc129e.cpp","group":"local","local":true}
