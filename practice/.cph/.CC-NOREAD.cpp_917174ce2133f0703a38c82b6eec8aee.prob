@@ -1,0 +1,1 @@
+{"name":"Local: CC-NOREAD","url":"/home/value/algorithm/practice/CC-NOREAD.cpp","tests":[{"id":1756972323909,"input":"3\n4\n2 3 1 2\n4\n3 3 5 9\n5\n5 4 5 4 5","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/value/algorithm/practice/CC-NOREAD.cpp","group":"local","local":true}

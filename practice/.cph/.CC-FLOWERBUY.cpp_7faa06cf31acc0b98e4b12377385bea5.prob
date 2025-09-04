@@ -1,0 +1,1 @@
+{"name":"Local: CC-FLOWERBUY","url":"/home/value/algorithm/practice/CC-FLOWERBUY.cpp","tests":[{"id":1756971907485,"input":"4\n2\n3\n5\n8","output":"4\n5\n9\n14"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/value/algorithm/practice/CC-FLOWERBUY.cpp","group":"local","local":true}

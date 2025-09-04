@@ -1,0 +1,1 @@
+{"name":"Local: CF1593C","url":"/home/value/algorithm/practice/CF1593C.cpp","tests":[{"id":1756953951366,"input":"3\n10 6\n8 7 5 4 9 4\n2 8\n1 1 1 1 1 1 1 1\n12 11\n1 2 3 4 5 6 7 8 9 10 11\n","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/value/algorithm/practice/CF1593C.cpp","group":"local","local":true}
