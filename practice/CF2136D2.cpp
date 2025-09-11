@@ -1,0 +1,93 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+#define int int64_t
+using PII = pair<int, int>;
+using TII = tuple<int, int, int>;
+template<class T> using V = vector<T>;
+using i64 = long long;
+using i128 = __int128;
+using u64 = unsigned long long;
+
+#define FOR(i, a, b) for (int i = (int)(a); i <= (int)(b); i++)
+#define FOR2(i, a, b, c) for (int i = (int)(a); i <= (int)(b); i += c)
+#define FORD(i, b, a) for (int i = (int)(a); i >= (int)(b); i--)
+#define FORD2(i, b, a, c) for (int i = (int)(a); i >= (int)(b); i -= c)
+#define ALL(a) a.begin(), a.end()
+#define RALL(a) a.rbegin(), a.rend()
+#define lowbit(x) ((x) & (-x))
+#define RE return;
+#define Yes cout << "Yes" << endl;
+#define YES cout << "YES" << endl;
+#define No cout << "No" << endl;
+#define NO cout << "NO" << endl;
+#define pb push_back
+#define eb emplace_back
+#define fi first
+#define se second
+#define sz(x) (int)(x).size()
+
+void solve() {
+    int n;
+    cin >> n;
+
+    V<array<int, 2>> w(n + 1);
+
+    FOR(i, 1, n) cin >> w[i][0] >> w[i][1];
+
+    int mn1 = 1e18, mn2 = 1e18;
+
+    int mx = 1e9;
+
+    int x1 = -mx, y1 = -mx, x2 = -mx, y2 = mx;
+    FOR(i, 1, n) {
+        mn1 = min(mn1, abs(w[i][0] - x1) + abs(w[i][1] - y1));
+        mn2 = min(mn2, abs(w[i][0] - x2) + abs(w[i][1] - y2));
+    }
+
+    int dis;
+    cout << "? D " << mx << endl;
+    cin >> dis;
+    cout << "? D " << mx << endl;
+    cin >> dis;
+    cout << "? L " << mx << endl;
+    cin >> dis;
+    cout << "? L " << mx << endl;
+    cin >> dis;
+    int del1 = dis - mn1;
+
+    int b1 = (y1 - (del1 + mx));
+
+    cout << "? U " << mx << endl;
+    cin >> dis;
+    cout << "? U " << mx << endl;
+    cin >> dis;
+    cout << "? U " << mx << endl;
+    cin >> dis;
+    cout << "? U " << mx << endl;
+    cin >> dis;
+
+    int del2 = dis - mn2;
+
+    int b2 = (y2 + (del2 + mx));
+
+    int x = (4 * mx + b1 - b2) / 2;
+    int y = -x + b1;
+
+    x += 2 * mx, y += 2 * mx;
+
+    cout << "! " << x << ' ' << y << endl;
+}
+
+signed main() {
+    int Task = 1;
+
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    cin >> Task;
+    while (Task--) {
+        solve();
+    }
+
+    return 0;
+}

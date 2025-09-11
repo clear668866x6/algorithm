@@ -1,36 +1,49 @@
-namespace LCA{
-    VI g[N];
-    int dep[N];
-    int f[N][22];
 
-    void dfs(int u,int fa){
-        dep[u]=dep[fa]+1;
-        f[u][0]=fa;
+struct LCA {
+    static constexpr int N = 5e5 + 10;
 
-        FOR(i,1,20)f[u][i]=f[f[u][i-1]][i-1];
+    int f[N][22], dep[N];
+    V<int> g[N];
+    int n;
 
-        for(auto& j:g[u]){
-            if(j==fa)continue;
-            dfs(j,u);
+    LCA() {}
+    void add(int a, int b) {
+        g[a].eb(b);
+        g[b].eb(a);
+    }
+
+    void dfs(int u, int fa) {
+        dep[u] = dep[fa] + 1;
+        f[u][0] = fa;
+        FOR(k, 1, 20) f[u][k] = f[f[u][k - 1]][k - 1];
+
+        for (auto j : g[u]) {
+            if (j == fa) continue;
+            dfs(j, u);
         }
     }
 
-    int lca(int x,int y){
-        if(dep[x]<dep[y])swap(x,y);
+    int lca(int x, int y) {
+        if (dep[x] < dep[y]) swap(x, y);
 
-        FORD(i,1,20){
-            if(dep[f[x][i]]>=dep[y]){
-                x=f[x][i];
+        FORD(k, 0, 20) {
+            if (dep[f[x][k]] >= dep[y]) {
+                x = f[x][k];
             }
         }
-        if(x==y)return x;
+        if (x == y) return x;
 
-        FORD(i,1,20){
-            if(f[x][i]!=f[y][i]){
-                x=f[x][i];
-                y=f[y][i];
+        FORD(k, 0, 20) {
+            if (f[x][k] != f[y][k]) {
+                x = f[x][k];
+                y = f[y][k];
             }
         }
         return f[x][0];
     }
-}
+
+    int dist(int a, int b) {
+        int t = lca(a, b);
+        return dep[a] + dep[b] - 2 * dep[t];
+    }
+} A;
