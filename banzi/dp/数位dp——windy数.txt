@@ -1,0 +1,42 @@
+
+struct Shuweidp {
+    static constexpr int N = 30;
+
+    int f[N][N];
+    V<int> num;
+
+    int dfs(int u, int lst, bool lim) {
+        if (u == sz(num)) return lst != 10;
+        if (!lim && ~f[u][lst]) return f[u][lst];
+        int res = 0;
+        FOR(i, 0, (lim ? num[u] : 9)) {
+            if (lst == 10) {
+                if (!i) {
+                    res = (res + dfs(u + 1, 10, lim && num[u] == i));
+                } else {
+
+                    res = (res + dfs(u + 1, i, lim && num[u] == i));
+                }
+            } else {
+                if (abs(lst - i) < 2) continue;
+                res = (res + dfs(u + 1, i, lim && num[u] == i));
+            }
+        }
+        if (!lim) f[u][lst] = res;
+        return res;
+    }
+
+    int work(int x) {
+        memset(f, -1, sizeof f);
+        if (!x) return 0;
+        num.clear();
+        while (x) {
+            num.eb(x % 10);
+            x /= 10;
+        }
+        reverse(ALL(num));
+
+        return dfs(0, 10, 1);
+    }
+
+} A;

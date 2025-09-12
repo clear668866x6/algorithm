@@ -1,0 +1,74 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+#define int int64_t
+#define endl "\n"
+
+using PII = pair<int, int>;
+using TII = tuple<int, int, int>;
+template<class T> using V = vector<T>;
+using i64 = long long;
+using i128 = __int128;
+using u64 = unsigned long long;
+
+#define FOR(i, a, b) for (int i = (int)(a); i <= (int)(b); i++)
+#define FOR2(i, a, b, c) for (int i = (int)(a); i <= (int)(b); i += c)
+#define FORD(i, b, a) for (int i = (int)(a); i >= (int)(b); i--)
+#define FORD2(i, b, a, c) for (int i = (int)(a); i >= (int)(b); i -= c)
+#define ALL(a) a.begin(), a.end()
+#define RALL(a) a.rbegin(), a.rend()
+#define lowbit(x) ((x) & (-x))
+#define RE return;
+#define Yes cout << "Yes" << endl;
+#define YES cout << "YES" << endl;
+#define No cout << "No" << endl;
+#define NO cout << "NO" << endl;
+#define pb push_back
+#define eb emplace_back
+#define fi first
+#define se second
+#define sz(x) (int)(x).size()
+
+void solve() {
+    int n, b, c;
+    cin >> n >> b >> c;
+
+    if (n > 2 && b == 0 && c == 0) {
+        cout << -1 << endl;
+        RE;
+    }
+
+    if (b == 0) {
+        if (c <= n - 1) {
+            int t = c + 2;
+            if (n > t) {
+                cout << -1 << endl;
+                RE;
+            }
+            cout << n - 1 << endl;
+        } else {
+            cout << n << endl;
+        }
+    } else {
+        int t = max<int>(0, (n - 1 - c) / b + 1);
+
+        if (t - 1 >= 0 && (i128)b * (t - 1) + c > n - 1) t--;
+
+        int ans = n - t;
+
+        cout << ans << endl;
+    }
+}
+
+signed main() {
+    int Task = 1;
+
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    cin >> Task;
+    while (Task--) {
+        solve();
+    }
+
+    return 0;
+}
