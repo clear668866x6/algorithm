@@ -29,50 +29,47 @@ using u64 = unsigned long long;
 #define se second
 #define sz(x) (int)(x).size()
 
+struct E {
+    static constexpr int N = 2e5 + 10;
+
+    V<int> div[N];
+
+    void init() {
+        int x = 2e5;
+        FOR(i, 1, x) {
+            FOR2(j, i, x, i) {
+                div[j].eb(i);
+            }
+        }
+    }
+} A;
+
 void solve() {
     int n;
     cin >> n;
 
-    V<V<int>> w(n);
+    V<int> w(n + 1, 0);
 
-    int mx = 0;
+    FOR(i, 1, n) cin >> w[i];
 
-    FOR(i, 0, n - 1) {
-        int k;
-        cin >> k;
-        mx = max(mx, k);
-        FOR(j, 0, k - 1) {
-            int x;
-            cin >> x;
-            w[i].eb(x);
-        }
-    }
+    int cur = 0;
+    map<int, int> cnt;
 
-    V<int> ans(mx, 0);
+    int ans = 0;
 
-    int pos = 0;
-
-    while (pos < mx) {
-        sort(ALL(w));
-        FOR(i, 0, sz(w[0]) - 1) {
-            ans[pos++] = w[0][i];
-        }
-
-        int k = sz(w[0]);
-        V<V<int>> b;
-        FOR(i, 0, sz(w) - 1) {
-            V<int> c;
-            FOR(j, k, sz(w[i]) - 1) {
-                c.eb(w[i][j]);
-            }
-            if (sz(c)) {
-                b.eb(c);
+    FOR(i, 1, n) {
+        for (auto x : A.div[w[i]]) {
+            cnt[x]++;
+            if (cnt[x] != i) {
+                ans = max(ans, cnt[x]);
             }
         }
-        w = b;
+        if (cur != gcd(cur, w[i])) {
+            ans = max(ans, cnt[cur]);
+        }
+        cur = gcd(cur, w[i]);
+        cout << ans << " \n"[i == n];
     }
-
-    FOR(i, 0, mx - 1) cout << ans[i] << " \n"[i == mx - 1];
 }
 
 signed main() {
@@ -81,6 +78,7 @@ signed main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
     cin >> Task;
+    A.init();
     while (Task--) {
         solve();
     }

@@ -1,3 +1,4 @@
+#include <algorithm>
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -30,49 +31,55 @@ using u64 = unsigned long long;
 #define sz(x) (int)(x).size()
 
 void solve() {
-    int n;
-    cin >> n;
+    int n, k;
+    cin >> n >> k;
 
-    V<V<int>> w(n);
+    V<int> a(k + 1, 0), vis(n + 1, 0), dep(n + 1, 0);
+
+    FOR(i, 1, k) cin >> a[i], vis[a[i]] = 1;
+
+    V<V<int>> g(n + 1);
+
+    FOR(i, 2, n) {
+        int a, b;
+        cin >> a >> b;
+        g[a].eb(b);
+        g[b].eb(a);
+    }
+
+    function<void(int, int)> dfs = [&](int u, int fa) {
+        dep[u] = dep[fa] + 1;
+        for (auto j : g[u]) {
+            if (j == fa) continue;
+            dfs(j, u);
+        }
+    };
+
+    dfs(1, 0);
+
+    int id = 0;
+
+    FOR(i, 1, n) {
+        if (vis[i]) {
+            if (dep[i] > dep[id]) {
+                id = i;
+            }
+        }
+    }
+
+    FOR(i, 1, n) dep[i] = 0;
+
+    dfs(id, 0);
 
     int mx = 0;
 
-    FOR(i, 0, n - 1) {
-        int k;
-        cin >> k;
-        mx = max(mx, k);
-        FOR(j, 0, k - 1) {
-            int x;
-            cin >> x;
-            w[i].eb(x);
+    FOR(i, 1, n) {
+        if (vis[i]) {
+            mx = max(mx, dep[i]);
         }
     }
 
-    V<int> ans(mx, 0);
-
-    int pos = 0;
-
-    while (pos < mx) {
-        sort(ALL(w));
-        FOR(i, 0, sz(w[0]) - 1) {
-            ans[pos++] = w[0][i];
-        }
-
-        int k = sz(w[0]);
-        V<V<int>> b;
-        FOR(i, 0, sz(w) - 1) {
-            V<int> c;
-            FOR(j, k, sz(w[i]) - 1) {
-                c.eb(w[i][j]);
-            }
-            if (sz(c)) {
-                b.eb(c);
-            }
-        }
-        w = b;
-    }
-
-    FOR(i, 0, mx - 1) cout << ans[i] << " \n"[i == mx - 1];
+    cout << mx / 2 << endl;
 }
 
 signed main() {

@@ -30,49 +30,14 @@ using u64 = unsigned long long;
 #define sz(x) (int)(x).size()
 
 void solve() {
-    int n;
-    cin >> n;
+    int n, m, y;
+    cin >> n >> m >> y;
 
-    V<V<int>> w(n);
+    V<int> a(n + 1, 0);
 
-    int mx = 0;
+    FOR(i, 1, n) cin >> a[i];
 
-    FOR(i, 0, n - 1) {
-        int k;
-        cin >> k;
-        mx = max(mx, k);
-        FOR(j, 0, k - 1) {
-            int x;
-            cin >> x;
-            w[i].eb(x);
-        }
-    }
-
-    V<int> ans(mx, 0);
-
-    int pos = 0;
-
-    while (pos < mx) {
-        sort(ALL(w));
-        FOR(i, 0, sz(w[0]) - 1) {
-            ans[pos++] = w[0][i];
-        }
-
-        int k = sz(w[0]);
-        V<V<int>> b;
-        FOR(i, 0, sz(w) - 1) {
-            V<int> c;
-            FOR(j, k, sz(w[i]) - 1) {
-                c.eb(w[i][j]);
-            }
-            if (sz(c)) {
-                b.eb(c);
-            }
-        }
-        w = b;
-    }
-
-    FOR(i, 0, mx - 1) cout << ans[i] << " \n"[i == mx - 1];
+    int ans = 0;
 }
 
 signed main() {
@@ -80,7 +45,7 @@ signed main() {
 
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    cin >> Task;
+
     while (Task--) {
         solve();
     }

@@ -30,49 +30,44 @@ using u64 = unsigned long long;
 #define sz(x) (int)(x).size()
 
 void solve() {
-    int n;
-    cin >> n;
+    int n, k;
+    cin >> n >> k;
 
-    V<V<int>> w(n);
+    V<array<int, 3>> w(n);
 
-    int mx = 0;
+    FOR(i, 0, n - 1) cin >> w[i][0] >> w[i][1] >> w[i][2];
+
+    set<array<int, 2>> s;
+
+    int tot = 0, mx = 0;
 
     FOR(i, 0, n - 1) {
-        int k;
-        cin >> k;
-        mx = max(mx, k);
-        FOR(j, 0, k - 1) {
-            int x;
-            cin >> x;
-            w[i].eb(x);
+        if (tot + w[i][2] <= k) {
+            tot += w[i][2];
+            if (w[i][0] >= mx) {
+                cout << w[i][0] << endl;
+                s.insert({w[i][0] + w[i][1], i});
+
+            } else {
+                cout << mx << endl;
+                s.insert({mx + w[i][1], i});
+            }
+        } else {
+            while (sz(s) && tot + w[i][2] > k) {
+                tot -= w[(*s.begin())[1]][2];
+                mx = max(mx, (*s.begin())[0]);
+                s.erase(*s.begin());
+            }
+            if (w[i][0] >= mx) {
+                cout << w[i][0] << endl;
+                s.insert({w[i][0] + w[i][1], i});
+            } else {
+                cout << mx << endl;
+                s.insert({mx + w[i][1], i});
+            }
+            tot += w[i][2];
         }
     }
-
-    V<int> ans(mx, 0);
-
-    int pos = 0;
-
-    while (pos < mx) {
-        sort(ALL(w));
-        FOR(i, 0, sz(w[0]) - 1) {
-            ans[pos++] = w[0][i];
-        }
-
-        int k = sz(w[0]);
-        V<V<int>> b;
-        FOR(i, 0, sz(w) - 1) {
-            V<int> c;
-            FOR(j, k, sz(w[i]) - 1) {
-                c.eb(w[i][j]);
-            }
-            if (sz(c)) {
-                b.eb(c);
-            }
-        }
-        w = b;
-    }
-
-    FOR(i, 0, mx - 1) cout << ans[i] << " \n"[i == mx - 1];
 }
 
 signed main() {
@@ -80,7 +75,7 @@ signed main() {
 
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    cin >> Task;
+
     while (Task--) {
         solve();
     }

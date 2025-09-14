@@ -33,46 +33,26 @@ void solve() {
     int n;
     cin >> n;
 
-    V<V<int>> w(n);
+    V<int> w(n + 1, 0);
 
-    int mx = 0;
+    FOR(i, 1, n) cin >> w[i];
 
-    FOR(i, 0, n - 1) {
-        int k;
-        cin >> k;
-        mx = max(mx, k);
-        FOR(j, 0, k - 1) {
-            int x;
-            cin >> x;
-            w[i].eb(x);
-        }
+    int ans = n - 1;
+
+    FOR(i, 1, n) {
+        if (w[i] == 0) {
+            ans--;
+        } else
+            break;
     }
 
-    V<int> ans(mx, 0);
-
-    int pos = 0;
-
-    while (pos < mx) {
-        sort(ALL(w));
-        FOR(i, 0, sz(w[0]) - 1) {
-            ans[pos++] = w[0][i];
-        }
-
-        int k = sz(w[0]);
-        V<V<int>> b;
-        FOR(i, 0, sz(w) - 1) {
-            V<int> c;
-            FOR(j, k, sz(w[i]) - 1) {
-                c.eb(w[i][j]);
-            }
-            if (sz(c)) {
-                b.eb(c);
-            }
-        }
-        w = b;
+    FORD(i, 1, n) {
+        if (w[i] == 0)
+            ans--;
+        else
+            break;
     }
-
-    FOR(i, 0, mx - 1) cout << ans[i] << " \n"[i == mx - 1];
+    cout << max<int>(0, ans);
 }
 
 signed main() {
@@ -80,7 +60,7 @@ signed main() {
 
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    cin >> Task;
+
     while (Task--) {
         solve();
     }

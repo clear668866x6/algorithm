@@ -1,4 +1,5 @@
 #include <bits/stdc++.h>
+#include <iomanip>
 using namespace std;
 
 #define int int64_t
@@ -30,49 +31,42 @@ using u64 = unsigned long long;
 #define sz(x) (int)(x).size()
 
 void solve() {
-    int n;
-    cin >> n;
+    int n, m;
+    cin >> n >> m;
 
-    V<V<int>> w(n);
+    V<int> a(n + 1, 0), b(n + 2, 0);
 
-    int mx = 0;
+    FOR(i, 1, n) cin >> a[i];
+    FOR(i, 1, n) cin >> b[i];
+    b[n + 1] = b[1];
 
-    FOR(i, 0, n - 1) {
-        int k;
-        cin >> k;
-        mx = max(mx, k);
-        FOR(j, 0, k - 1) {
-            int x;
-            cin >> x;
-            w[i].eb(x);
+    double l = 0, r = 1e9 + 2;
+
+    auto check = [&](double x) {
+        double tot = m + x;
+
+        FOR(i, 1, n) {
+            double t1 = tot / (double)a[i], t2 = (tot - t1) / (double)b[i + 1];
+            tot -= t1;
+            tot -= t2;
+            if (tot < m) return 0;
         }
+
+        return 1;
+    };
+
+    while (r - l > 1e-6) {
+        double mid = (l + r) / 2;
+        if (check(mid))
+            r = mid;
+        else
+            l = mid;
     }
-
-    V<int> ans(mx, 0);
-
-    int pos = 0;
-
-    while (pos < mx) {
-        sort(ALL(w));
-        FOR(i, 0, sz(w[0]) - 1) {
-            ans[pos++] = w[0][i];
-        }
-
-        int k = sz(w[0]);
-        V<V<int>> b;
-        FOR(i, 0, sz(w) - 1) {
-            V<int> c;
-            FOR(j, k, sz(w[i]) - 1) {
-                c.eb(w[i][j]);
-            }
-            if (sz(c)) {
-                b.eb(c);
-            }
-        }
-        w = b;
+    if (r == 1e9 + 2) {
+        cout << -1;
+    } else {
+        cout << setprecision(12) << fixed << r << endl;
     }
-
-    FOR(i, 0, mx - 1) cout << ans[i] << " \n"[i == mx - 1];
 }
 
 signed main() {
@@ -80,7 +74,7 @@ signed main() {
 
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    cin >> Task;
+
     while (Task--) {
         solve();
     }

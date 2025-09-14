@@ -1,4 +1,5 @@
 #include <bits/stdc++.h>
+#include <queue>
 using namespace std;
 
 #define int int64_t
@@ -30,49 +31,40 @@ using u64 = unsigned long long;
 #define sz(x) (int)(x).size()
 
 void solve() {
-    int n;
-    cin >> n;
+    int n, k;
+    cin >> n >> k;
 
-    V<V<int>> w(n);
+    V<V<int>> g(n + 1);
 
-    int mx = 0;
-
-    FOR(i, 0, n - 1) {
-        int k;
-        cin >> k;
-        mx = max(mx, k);
-        FOR(j, 0, k - 1) {
-            int x;
-            cin >> x;
-            w[i].eb(x);
-        }
+    FOR(i, 2, n) {
+        int a, b;
+        cin >> a >> b;
+        g[a].eb(b);
+        g[b].eb(a);
     }
 
-    V<int> ans(mx, 0);
-
-    int pos = 0;
-
-    while (pos < mx) {
-        sort(ALL(w));
-        FOR(i, 0, sz(w[0]) - 1) {
-            ans[pos++] = w[0][i];
+    V<int> dep(n + 1, 0), vis(n + 1, 0), siz(n + 1, 0);
+    priority_queue<int> q;
+    function<void(int, int)> dfs = [&](int u, int fa) {
+        dep[u] = dep[fa] + 1;
+        siz[u] = 1;
+        for (auto j : g[u]) {
+            if (j == fa) continue;
+            dfs(j, u);
+            siz[u] += siz[j];
         }
+        q.push(dep[u] - siz[u]);
+    };
 
-        int k = sz(w[0]);
-        V<V<int>> b;
-        FOR(i, 0, sz(w) - 1) {
-            V<int> c;
-            FOR(j, k, sz(w[i]) - 1) {
-                c.eb(w[i][j]);
-            }
-            if (sz(c)) {
-                b.eb(c);
-            }
-        }
-        w = b;
+    dfs(1, 0);
+
+    int ans = 0;
+    FOR(i, 1, k) {
+        ans += q.top();
+        q.pop();
     }
 
-    FOR(i, 0, mx - 1) cout << ans[i] << " \n"[i == mx - 1];
+    cout << ans << endl;
 }
 
 signed main() {
@@ -80,7 +72,7 @@ signed main() {
 
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    cin >> Task;
+
     while (Task--) {
         solve();
     }
