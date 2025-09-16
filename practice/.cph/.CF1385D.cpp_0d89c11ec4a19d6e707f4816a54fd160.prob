@@ -1,0 +1,1 @@
+{"name":"Local: CF1385D","url":"/home/value/algorithm/practice/CF1385D.cpp","tests":[{"id":1758024649741,"input":"6\n8\nbbdcaaaa\n8\nasdfghjk\n8\nceaaaabb\n8\nbbaaddcc\n1\nz\n2\nac\n","output":"0\n7\n4\n5\n1\n1\n"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/value/algorithm/practice/CF1385D.cpp","group":"local","local":true}
