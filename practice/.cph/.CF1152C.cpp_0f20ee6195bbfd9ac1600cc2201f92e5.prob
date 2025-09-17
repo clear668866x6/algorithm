@@ -1,0 +1,1 @@
+{"name":"Local: CF1152C","url":"/home/value/algorithm/practice/CF1152C.cpp","tests":[{"id":1758124691496,"input":"6 10\n","output":"2"},{"id":1758125330617,"input":"21 31\n","output":"9"},{"id":1758125333594,"input":"5 10\n","output":"0"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/value/algorithm/practice/CF1152C.cpp","group":"local","local":true}
