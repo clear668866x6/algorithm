@@ -30,48 +30,39 @@ using u64 = unsigned long long;
 #define sz(x) (int)(x).size()
 
 void solve() {
-    int n;
-    cin >> n;
+    int n, x;
+    cin >> n >> x;
     V<int> w(n + 1, 0);
     FOR(i, 1, n) cin >> w[i];
 
-    V<V<V<i64>>> f(2, V<V<i64>>(203, V<i64>(2, 0)));
-    int mod = 998244353;
+    V<V<V<int>>> f(n + 1, V<V<int>>(510, V<int>(2, 1e18)));
+    f[0][x][0] = 0;
 
-    if (w[1] > 0)
-        f[1][w[1]][0] = 1;
-    else {
-        FOR(i, 1, 200) f[1][i][0] = 1;
-    }
+    FOR(i, 1, n) {
+        FOR(j, 0, 500) {
 
-    FOR(i, 2, n) {
-        int cur = i % 2;
-        int lst = (i - 1) % 2;
-
-        FOR(j, 0, 200) {
-            f[cur][j][0] = f[cur][j][1] = 0;
-        }
-
-        FOR(j, 1, 200) {
-            f[lst][j][0] += f[lst][j - 1][0];
-            f[lst][j][1] += f[lst][j - 1][1];
-        }
-
-        FOR(j, 1, 200) {
-            if (w[i] > 0 && w[i] != j) continue;
-            f[cur][j][1] += f[lst][j][0] - f[lst][j - 1][0];
-            f[cur][j][1] += f[lst][200][1] - f[lst][j - 1][1];
-            f[cur][j][0] += f[lst][j - 1][0] - f[lst][0][0];
-            f[cur][j][0] += f[lst][j - 1][1] - f[lst][0][1];
-            f[cur][j][1] %= mod, f[cur][j][0] %= mod;
+            FOR(k, 0, 500) {
+                if (j == k && w[i - 1] <= w[i]) {
+                    f[i][j][0] = min(f[i][j][0], f[i - 1][k][0]);
+                }
+                if (j == w[i - 1] && k <= w[i]) {
+                    f[i][j][0] = min(f[i][j][0], f[i - 1][k][1]);
+                }
+                if (j == k && j >= w[i - 1] && j < w[i]) {
+                    f[i][j][1] = min(f[i][j][1], f[i - 1][k][0] + 1);
+                }
+                if (w[i] > w[i - 1] && w[i - 1] == j && k <= j) {
+                    f[i][j][1] = min(f[i][j][1], f[i - 1][k][1] + 1);
+                }
+            }
         }
     }
 
-    i64 ans = 0;
+    int ans = 1e18;
 
-    FOR(i, 1, 200)(ans += f[n % 2][i][1]) %= mod;
-
-    cout << (ans + mod) % mod << endl;
+    FOR(i, 0, 500) ans = min({ans, f[n][i][0], f[n][i][1]});
+    if (ans == 1e18) ans = -1;
+    cout << ans << endl;
 }
 
 signed main() {
@@ -79,7 +70,7 @@ signed main() {
 
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-
+    cin >> Task;
     while (Task--) {
         solve();
     }

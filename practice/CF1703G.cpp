@@ -30,48 +30,40 @@ using u64 = unsigned long long;
 #define sz(x) (int)(x).size()
 
 void solve() {
-    int n;
-    cin >> n;
-    V<int> w(n + 1, 0);
-    FOR(i, 1, n) cin >> w[i];
+    int n, k;
+    cin >> n >> k;
+    V<int> a(n + 1, 0);
+    FOR(i, 1, n) cin >> a[i];
 
-    V<V<V<i64>>> f(2, V<V<i64>>(203, V<i64>(2, 0)));
-    int mod = 998244353;
+    V<V<V<int>>> f(n + 1, V<V<int>>(35, V<int>(2, -1e18)));
 
-    if (w[1] > 0)
-        f[1][w[1]][0] = 1;
-    else {
-        FOR(i, 1, 200) f[1][i][0] = 1;
-    }
+    f[0][0][1] = 0;
 
-    FOR(i, 2, n) {
-        int cur = i % 2;
-        int lst = (i - 1) % 2;
-
-        FOR(j, 0, 200) {
-            f[cur][j][0] = f[cur][j][1] = 0;
+    FOR(i, 1, n) {
+        FOR(j, 0, min<int>(33, i)) {
+            f[i][j][1] = max<int>(f[i][j][1], f[i - 1][j][1] + (a[i] / (1LL << j)) - k);
+            if (j >= 1) {
+                f[i][j][1] = max<int>(f[i][j][1], f[i - 1][j][0] + (a[i] / (1LL << j)) - k);
+            }
+            if (j - 1 >= 0) {
+                f[i][j][0] = max<int>(f[i][j][0], f[i - 1][j - 1][1] + (a[i] / (1LL << j)));
+            }
+            if (j - 1 >= 1) {
+                f[i][j][0] = max<int>(f[i][j][0], f[i - 1][j - 1][0] + (a[i] / (1LL << j)));
+            }
         }
-
-        FOR(j, 1, 200) {
-            f[lst][j][0] += f[lst][j - 1][0];
-            f[lst][j][1] += f[lst][j - 1][1];
-        }
-
-        FOR(j, 1, 200) {
-            if (w[i] > 0 && w[i] != j) continue;
-            f[cur][j][1] += f[lst][j][0] - f[lst][j - 1][0];
-            f[cur][j][1] += f[lst][200][1] - f[lst][j - 1][1];
-            f[cur][j][0] += f[lst][j - 1][0] - f[lst][0][0];
-            f[cur][j][0] += f[lst][j - 1][1] - f[lst][0][1];
-            f[cur][j][1] %= mod, f[cur][j][0] %= mod;
+        if (i > 32) {
+            f[i][33][0] = max({f[i][33][0], f[i - 1][33][1], f[i - 1][33][0]});
+            f[i][33][1] = max({f[i][33][1], f[i - 1][33][1], f[i - 1][33][0]});
         }
     }
 
-    i64 ans = 0;
+    int ans = -1e18;
 
-    FOR(i, 1, 200)(ans += f[n % 2][i][1]) %= mod;
-
-    cout << (ans + mod) % mod << endl;
+    FOR(i, 0, 33) {
+        ans = max({ans, f[n][i][0], f[n][i][1]});
+    }
+    cout << ans << endl;
 }
 
 signed main() {
@@ -79,7 +71,7 @@ signed main() {
 
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-
+    cin >> Task;
     while (Task--) {
         solve();
     }

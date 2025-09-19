@@ -1,4 +1,5 @@
 #include <bits/stdc++.h>
+#include <numeric>
 using namespace std;
 
 #define int int64_t
@@ -30,48 +31,41 @@ using u64 = unsigned long long;
 #define sz(x) (int)(x).size()
 
 void solve() {
-    int n;
-    cin >> n;
+    int n, k;
+    cin >> n >> k;
     V<int> w(n + 1, 0);
     FOR(i, 1, n) cin >> w[i];
 
-    V<V<V<i64>>> f(2, V<V<i64>>(203, V<i64>(2, 0)));
-    int mod = 998244353;
+    auto calc = [&]() {
+        V<int> b(n + 1, 0);
+        FOR(i, 1, n) b[w[i]]++;
+        int mex = 0;
+        set<int> s;
+        FOR(i, 1, n) {
+            s.insert(w[i]);
+            while (s.count(mex)) mex++;
+        }
+        V<int> vis(n + 1, 0);
 
-    if (w[1] > 0)
-        f[1][w[1]][0] = 1;
-    else {
-        FOR(i, 1, 200) f[1][i][0] = 1;
+        FOR(i, 0, mex - 1) {
+            if (b[i] == 1) {
+                vis[i] = 1;
+            }
+        }
+        FOR(i, 1, n) {
+            if (!vis[w[i]]) {
+                w[i] = mex;
+            }
+        }
+    };
+
+    calc();
+    if (k > 1) {
+        calc();
+        if (k & 1) calc();
     }
 
-    FOR(i, 2, n) {
-        int cur = i % 2;
-        int lst = (i - 1) % 2;
-
-        FOR(j, 0, 200) {
-            f[cur][j][0] = f[cur][j][1] = 0;
-        }
-
-        FOR(j, 1, 200) {
-            f[lst][j][0] += f[lst][j - 1][0];
-            f[lst][j][1] += f[lst][j - 1][1];
-        }
-
-        FOR(j, 1, 200) {
-            if (w[i] > 0 && w[i] != j) continue;
-            f[cur][j][1] += f[lst][j][0] - f[lst][j - 1][0];
-            f[cur][j][1] += f[lst][200][1] - f[lst][j - 1][1];
-            f[cur][j][0] += f[lst][j - 1][0] - f[lst][0][0];
-            f[cur][j][0] += f[lst][j - 1][1] - f[lst][0][1];
-            f[cur][j][1] %= mod, f[cur][j][0] %= mod;
-        }
-    }
-
-    i64 ans = 0;
-
-    FOR(i, 1, 200)(ans += f[n % 2][i][1]) %= mod;
-
-    cout << (ans + mod) % mod << endl;
+    cout << accumulate(ALL(w), 0ll) << endl;
 }
 
 signed main() {
@@ -79,7 +73,7 @@ signed main() {
 
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-
+    cin >> Task;
     while (Task--) {
         solve();
     }

@@ -29,49 +29,59 @@ using u64 = unsigned long long;
 #define se second
 #define sz(x) (int)(x).size()
 
+struct ST {
+    static constexpr int N = 2e5 + 10;
+
+    int f[N][22];
+
+    void init(V<int> w, int n) {
+        FOR(j, 0, 20) {
+            for (int i = 1; i + (1 << j) - 1 <= n; i++) {
+                if (!j)
+                    f[i][j] = w[i];
+                else
+                    f[i][j] = max(f[i][j - 1], f[i + (1 << (j - 1))][j - 1]);
+            }
+        }
+    }
+
+    int query(int l, int r) {
+        int len = log2(r - l + 1);
+        return max(f[l][len], f[r - (1 << len) + 1][len]);
+    }
+
+} A;
+
 void solve() {
     int n;
     cin >> n;
-    V<int> w(n + 1, 0);
-    FOR(i, 1, n) cin >> w[i];
+    V<int> a(n + 1, 0), b(n + 1, 0);
+    FOR(i, 1, n) cin >> a[i];
+    FOR(i, 1, n) cin >> b[i];
 
-    V<V<V<i64>>> f(2, V<V<i64>>(203, V<i64>(2, 0)));
-    int mod = 998244353;
+    A.init(a, n);
 
-    if (w[1] > 0)
-        f[1][w[1]][0] = 1;
-    else {
-        FOR(i, 1, 200) f[1][i][0] = 1;
-    }
+    int ans = 0;
 
-    FOR(i, 2, n) {
-        int cur = i % 2;
-        int lst = (i - 1) % 2;
+    FOR(i, 1, n) {
+        int t = max(a[i], b[i]);
+        int l = 0, r = i;
 
-        FOR(j, 0, 200) {
-            f[cur][j][0] = f[cur][j][1] = 0;
+        while (l + 1 != r) {
+            int mid = (l + r) >> 1;
+            if (A.query(mid, i - 1) >= t)
+                l = mid;
+            else
+                r = mid;
         }
-
-        FOR(j, 1, 200) {
-            f[lst][j][0] += f[lst][j - 1][0];
-            f[lst][j][1] += f[lst][j - 1][1];
-        }
-
-        FOR(j, 1, 200) {
-            if (w[i] > 0 && w[i] != j) continue;
-            f[cur][j][1] += f[lst][j][0] - f[lst][j - 1][0];
-            f[cur][j][1] += f[lst][200][1] - f[lst][j - 1][1];
-            f[cur][j][0] += f[lst][j - 1][0] - f[lst][0][0];
-            f[cur][j][0] += f[lst][j - 1][1] - f[lst][0][1];
-            f[cur][j][1] %= mod, f[cur][j][0] %= mod;
+        if (a[i] == b[i]) {
+            ans += i * (n - i + 1);
+        } else {
+            ans += l * (n - i + 1);
         }
     }
 
-    i64 ans = 0;
-
-    FOR(i, 1, 200)(ans += f[n % 2][i][1]) %= mod;
-
-    cout << (ans + mod) % mod << endl;
+    cout << ans << endl;
 }
 
 signed main() {
@@ -79,7 +89,7 @@ signed main() {
 
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-
+    cin >> Task;
     while (Task--) {
         solve();
     }

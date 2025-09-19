@@ -30,48 +30,34 @@ using u64 = unsigned long long;
 #define sz(x) (int)(x).size()
 
 void solve() {
-    int n;
-    cin >> n;
-    V<int> w(n + 1, 0);
-    FOR(i, 1, n) cin >> w[i];
+    int n, q;
+    cin >> n >> q;
+    V<array<int, 2>> w(n + 1);
+    FOR(i, 1, n) cin >> w[i][0] >> w[i][1];
 
-    V<V<V<i64>>> f(2, V<V<i64>>(203, V<i64>(2, 0)));
-    int mod = 998244353;
-
-    if (w[1] > 0)
-        f[1][w[1]][0] = 1;
-    else {
-        FOR(i, 1, 200) f[1][i][0] = 1;
+    V<V<int>> f(1010, V<int>(1010, 0));
+    FOR(i, 1, n) {
+        f[w[i][0]][w[i][1]] += w[i][0] * w[i][1];
     }
 
-    FOR(i, 2, n) {
-        int cur = i % 2;
-        int lst = (i - 1) % 2;
-
-        FOR(j, 0, 200) {
-            f[cur][j][0] = f[cur][j][1] = 0;
-        }
-
-        FOR(j, 1, 200) {
-            f[lst][j][0] += f[lst][j - 1][0];
-            f[lst][j][1] += f[lst][j - 1][1];
-        }
-
-        FOR(j, 1, 200) {
-            if (w[i] > 0 && w[i] != j) continue;
-            f[cur][j][1] += f[lst][j][0] - f[lst][j - 1][0];
-            f[cur][j][1] += f[lst][200][1] - f[lst][j - 1][1];
-            f[cur][j][0] += f[lst][j - 1][0] - f[lst][0][0];
-            f[cur][j][0] += f[lst][j - 1][1] - f[lst][0][1];
-            f[cur][j][1] %= mod, f[cur][j][0] %= mod;
+    FOR(i, 1, 1000) {
+        FOR(j, 1, 1000) {
+            f[i][j] += f[i - 1][j] + f[i][j - 1] - f[i - 1][j - 1];
         }
     }
 
-    i64 ans = 0;
+    while (q--) {
+        int a, b, c, d;
+        cin >> a >> b >> c >> d;
 
-    FOR(i, 1, 200)(ans += f[n % 2][i][1]) %= mod;
+        a++, b++, c--, d--;
 
-    cout << (ans + mod) % mod << endl;
+        auto calc = [&](int x1, int y1, int x2, int y2) {
+            return f[x2][y2] - f[x1 - 1][y2] - f[x2][y1 - 1] + f[x1 - 1][y1 - 1];
+        };
+
+        cout << calc(a, b, c, d) << endl;
+    }
 }
 
 signed main() {
@@ -79,7 +65,7 @@ signed main() {
 
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-
+    cin >> Task;
     while (Task--) {
         solve();
     }

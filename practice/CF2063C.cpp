@@ -32,46 +32,67 @@ using u64 = unsigned long long;
 void solve() {
     int n;
     cin >> n;
-    V<int> w(n + 1, 0);
-    FOR(i, 1, n) cin >> w[i];
-
-    V<V<V<i64>>> f(2, V<V<i64>>(203, V<i64>(2, 0)));
-    int mod = 998244353;
-
-    if (w[1] > 0)
-        f[1][w[1]][0] = 1;
-    else {
-        FOR(i, 1, 200) f[1][i][0] = 1;
-    }
-
+    V<V<int>> g(n + 1);
+    V<int> d(n + 1, 0);
     FOR(i, 2, n) {
-        int cur = i % 2;
-        int lst = (i - 1) % 2;
+        int a, b;
+        cin >> a >> b;
+        g[a].eb(b);
+        g[b].eb(a);
+        d[a]++, d[b]++;
+    }
 
-        FOR(j, 0, 200) {
-            f[cur][j][0] = f[cur][j][1] = 0;
+    // 假的贪心
+    //  int mx = 0;
+    //  FOR(i, 1, n) {
+    //      if (d[i] > d[mx]) {
+    //          mx = i;
+    //      }
+    //  }
+
+    // int ans = d[mx] + 1 - 1;
+
+    // // cout << ans << endl;
+    // d[mx] = 0;
+    // for (auto j : g[mx]) {
+    //     d[j]--;
+    // }
+    // mx = 0;
+    // FOR(i, 1, n) {
+    //     if (d[i] > d[mx]) {
+    //         mx = i;
+    //     }
+    // }
+
+    // ans += d[mx] - 1;
+
+    // cout << ans << endl;
+
+    multiset<int> s;
+
+    FOR(i, 1, n) s.insert(d[i]);
+
+    int ans = 0;
+
+    FOR(i, 1, n) {
+        s.erase(s.find(d[i]));
+        int res = d[i];
+        for (auto j : g[i]) {
+            s.erase(s.find(d[j]));
+            d[j]--;
+            s.insert(d[j]);
         }
-
-        FOR(j, 1, 200) {
-            f[lst][j][0] += f[lst][j - 1][0];
-            f[lst][j][1] += f[lst][j - 1][1];
-        }
-
-        FOR(j, 1, 200) {
-            if (w[i] > 0 && w[i] != j) continue;
-            f[cur][j][1] += f[lst][j][0] - f[lst][j - 1][0];
-            f[cur][j][1] += f[lst][200][1] - f[lst][j - 1][1];
-            f[cur][j][0] += f[lst][j - 1][0] - f[lst][0][0];
-            f[cur][j][0] += f[lst][j - 1][1] - f[lst][0][1];
-            f[cur][j][1] %= mod, f[cur][j][0] %= mod;
+        res += (*s.rbegin() - 1);
+        ans = max(ans, res);
+        s.insert(d[i]);
+        for (auto j : g[i]) {
+            s.erase(s.find(d[j]));
+            d[j]++;
+            s.insert(d[j]);
         }
     }
 
-    i64 ans = 0;
-
-    FOR(i, 1, 200)(ans += f[n % 2][i][1]) %= mod;
-
-    cout << (ans + mod) % mod << endl;
+    cout << ans << endl;
 }
 
 signed main() {
@@ -79,7 +100,7 @@ signed main() {
 
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-
+    cin >> Task;
     while (Task--) {
         solve();
     }
