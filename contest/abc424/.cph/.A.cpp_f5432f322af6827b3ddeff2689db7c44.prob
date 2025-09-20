@@ -1,0 +1,1 @@
+{"name":"Local: A","url":"/home/value/algorithm/contest/abc424/A.cpp","tests":[{"id":1758369659711,"input":"4 2 4\n","output":""},{"id":1758369664457,"input":"3 4 5\n","output":""},{"id":1758369668422,"input":"10 10 10\n","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/value/algorithm/contest/abc424/A.cpp","group":"local","local":true}
