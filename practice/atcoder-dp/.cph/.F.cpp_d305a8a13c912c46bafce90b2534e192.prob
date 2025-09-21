@@ -1,0 +1,1 @@
+{"name":"Local: F","url":"/home/value/algorithm/practice/atcoder-dp/F.cpp","tests":[{"id":1758466747616,"input":"axyb\nabyxb\n","output":"axb\n"},{"id":1758466817064,"input":"abracadabra\navadakedavra\n","output":"aaadara\n"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/value/algorithm/practice/atcoder-dp/F.cpp","group":"local","local":true}
