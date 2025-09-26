@@ -1,5 +1,5 @@
-#include <algorithm>
 #include <bits/stdc++.h>
+#include <iomanip>
 using namespace std;
 
 #define int int64_t
@@ -31,33 +31,33 @@ using u64 = unsigned long long;
 #define sz(x) (int)(x).size()
 
 void solve() {
-    int n, m;
-    cin >> n >> m;
-    V<V<int>> g(n + 1);
-    FOR(i, 1, m) {
-        int a, b;
-        cin >> a >> b;
-        g[a].eb(b);
+    int n;
+    cin >> n;
+    V<double> p(n + 1, 0);
+    FOR(i, 1, n) {
+        cin >> p[i];
     }
 
-    V<int> f(n + 1, 0), vis(n + 1, 0);
+    V<V<double>> f(n + 1, V<double>(n + 1, 0));
 
-    function<void(int)> dfs = [&](int u) {
-        if (vis[u]) RE;
-        vis[u] = 1;
-        for (auto j : g[u]) {
-            dfs(j);
-            f[u] = max(f[u], f[j] + 1);
-        }
-    };
+    f[0][0] = 1;
 
     FOR(i, 1, n) {
-        if (!vis[i]) {
-            dfs(i);
+        FOR(j, 0, i) {
+            f[i][j] = (f[i][j] + f[i - 1][j] * (1 - p[i]));
+            if (j - 1 >= 0) {
+                f[i][j] = (f[i][j] + f[i - 1][j - 1] * p[i]);
+            }
         }
     }
 
-    cout << *max_element(ALL(f));
+    double ans = 0;
+
+    FOR(i, n / 2 + 1, n) {
+        ans += f[n][i];
+    }
+
+    cout << fixed << setprecision(12) << ans << endl;
 }
 
 signed main() {

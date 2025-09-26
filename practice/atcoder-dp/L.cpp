@@ -1,4 +1,3 @@
-#include <algorithm>
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -31,33 +30,25 @@ using u64 = unsigned long long;
 #define sz(x) (int)(x).size()
 
 void solve() {
-    int n, m;
-    cin >> n >> m;
-    V<V<int>> g(n + 1);
-    FOR(i, 1, m) {
-        int a, b;
-        cin >> a >> b;
-        g[a].eb(b);
-    }
+    int n;
+    cin >> n;
+    V<int> w(n + 2, 0);
+    FOR(i, 1, n) cin >> w[i];
 
-    V<int> f(n + 1, 0), vis(n + 1, 0);
+    V<V<int>> f(n + 2, V<int>(n + 2, 0));
 
-    function<void(int)> dfs = [&](int u) {
-        if (vis[u]) RE;
-        vis[u] = 1;
-        for (auto j : g[u]) {
-            dfs(j);
-            f[u] = max(f[u], f[j] + 1);
-        }
-    };
-
-    FOR(i, 1, n) {
-        if (!vis[i]) {
-            dfs(i);
+    FOR(len, 1, n) {
+        for (int l = 1; l + len - 1 <= n; l++) {
+            int r = l + len - 1;
+            if ((n - len) & 1) {
+                f[l][r] = min(f[l + 1][r] - w[l], f[l][r - 1] - w[r]);
+            } else {
+                f[l][r] = max(f[l + 1][r] + w[l], f[l][r - 1] + w[r]);
+            }
         }
     }
 
-    cout << *max_element(ALL(f));
+    cout << f[1][n];
 }
 
 signed main() {

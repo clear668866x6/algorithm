@@ -1,4 +1,3 @@
-#include <algorithm>
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -33,31 +32,25 @@ using u64 = unsigned long long;
 void solve() {
     int n, m;
     cin >> n >> m;
-    V<V<int>> g(n + 1);
-    FOR(i, 1, m) {
-        int a, b;
-        cin >> a >> b;
-        g[a].eb(b);
-    }
-
-    V<int> f(n + 1, 0), vis(n + 1, 0);
-
-    function<void(int)> dfs = [&](int u) {
-        if (vis[u]) RE;
-        vis[u] = 1;
-        for (auto j : g[u]) {
-            dfs(j);
-            f[u] = max(f[u], f[j] + 1);
-        }
-    };
-
+    V<V<char>> s(n + 1, V<char>(m + 1, 0));
     FOR(i, 1, n) {
-        if (!vis[i]) {
-            dfs(i);
+        FOR(j, 1, m) {
+            cin >> s[i][j];
         }
     }
 
-    cout << *max_element(ALL(f));
+    V<V<int>> f(n + 1, V<int>(m + 1, 0));
+    int mod = 1e9 + 7;
+    f[1][1] = 1;
+    FOR(i, 1, n) {
+        FOR(j, 1, m) {
+            if (s[i][j] == '.') {
+                f[i][j] = (f[i][j] + f[i - 1][j]) % mod;
+                f[i][j] = (f[i][j] + f[i][j - 1]) % mod;
+            }
+        }
+    }
+    cout << f[n][m] << endl;
 }
 
 signed main() {

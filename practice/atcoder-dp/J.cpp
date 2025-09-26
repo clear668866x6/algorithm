@@ -1,5 +1,6 @@
-#include <algorithm>
+// 期望dp是 f[i]=(f[j]+1)*p
 #include <bits/stdc++.h>
+#include <iomanip>
 using namespace std;
 
 #define int int64_t
@@ -31,33 +32,34 @@ using u64 = unsigned long long;
 #define sz(x) (int)(x).size()
 
 void solve() {
-    int n, m;
-    cin >> n >> m;
-    V<V<int>> g(n + 1);
-    FOR(i, 1, m) {
-        int a, b;
-        cin >> a >> b;
-        g[a].eb(b);
+    int n;
+    cin >> n;
+    V<int> a(n + 1, 0);
+    map<int, int> mp;
+    FOR(i, 1, n) cin >> a[i], mp[a[i]]++;
+
+    V<V<V<double>>> f(n + 2, V<V<double>>(n + 2, V<double>(n + 2, 0)));
+
+    FOR(k, 0, n) {
+        FOR(j, 0, n) {
+            FOR(i, 0, n) {
+                if (!i && !j && !k) continue;
+                int tot = i + j + k;
+                if (i) {
+                    f[i][j][k] += (double)i / (double)tot * (f[i - 1][j][k]);
+                }
+                if (j) {
+                    f[i][j][k] += (double)j / (double)tot * (f[i + 1][j - 1][k]);
+                }
+                if (k) {
+                    f[i][j][k] += (double)k / (double)tot * (f[i][j + 1][k - 1]);
+                }
+                f[i][j][k] += (double)n / (double)tot;
+            }
+        }
     }
 
-    V<int> f(n + 1, 0), vis(n + 1, 0);
-
-    function<void(int)> dfs = [&](int u) {
-        if (vis[u]) RE;
-        vis[u] = 1;
-        for (auto j : g[u]) {
-            dfs(j);
-            f[u] = max(f[u], f[j] + 1);
-        }
-    };
-
-    FOR(i, 1, n) {
-        if (!vis[i]) {
-            dfs(i);
-        }
-    }
-
-    cout << *max_element(ALL(f));
+    cout << fixed << setprecision(12) << f[mp[1]][mp[2]][mp[3]];
 }
 
 signed main() {

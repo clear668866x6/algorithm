@@ -129,5 +129,6 @@
   "animations.UseCursorColorForCursorAnimation": true,
   "animations.Active": "Indent",
   "C_Cpp.clang_format_style": "file",
-  "window.menuBarVisibility": "toggle"
+  "window.menuBarVisibility": "toggle",
+  "fonted.font": "'MonoLisa-Light', 'monospace', monospace"
 }
