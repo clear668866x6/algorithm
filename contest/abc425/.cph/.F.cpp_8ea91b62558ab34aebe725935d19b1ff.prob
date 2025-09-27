@@ -1,0 +1,1 @@
+{"name":"Local: F","url":"/home/value/algorithm/contest/abc425/F.cpp","tests":[{"id":1758979825312,"input":"3\naab\n","output":""},{"id":1758981058675,"input":"7\natcoder\n","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/value/algorithm/contest/abc425/F.cpp","group":"local","local":true}
