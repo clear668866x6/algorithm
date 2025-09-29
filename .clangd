@@ -1,0 +1,2 @@
+CompileFlags:
+  Add: [-stdlib=libstdc++, -std=c++20]
