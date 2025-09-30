@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": false,
-      "cwd": "/home/value/algorithm/contest/abc399",
-      "program": "/home/value/algorithm/contest/abc399/build/Debug/outDebug",
+      "cwd": "/home/value/algorithm/contest/2146",
+      "program": "/home/value/algorithm/contest/2146/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [

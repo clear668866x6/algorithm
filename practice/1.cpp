@@ -6,7 +6,7 @@ using namespace std;
 
 using PII = pair<int, int>;
 using TII = tuple<int, int, int>;
-template <class T> using V = vector<T>;
+template<class T> using V = vector<T>;
 using i64 = long long;
 using i128 = __int128;
 using u64 = unsigned long long;
@@ -22,7 +22,15 @@ using u64 = unsigned long long;
 #define fi first
 #define se second
 
-void solve() {}
+void solve() {
+    V<int> a;
+    a.emplace_back(1);
+    a.emplace_back(0);
+
+    ranges::sort(a);
+
+    for (auto x : a) cout << x << ' ';
+}
 
 signed main() {
     int Task = 1;
