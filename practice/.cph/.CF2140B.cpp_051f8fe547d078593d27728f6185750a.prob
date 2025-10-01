@@ -1,0 +1,1 @@
+{"name":"Local: CF2140B","url":"/home/value/algorithm/practice/CF2140B.cpp","tests":[{"id":1759319834295,"input":"6\n8\n42\n1000\n66666\n106344\n9876543\n","output":""},{"id":1759319854352,"input":"1\n9876543","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/value/algorithm/practice/CF2140B.cpp","group":"local","local":true}
