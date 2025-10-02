@@ -1,0 +1,1 @@
+{"name":"Local: CF1294D","url":"/home/value/algorithm/practice/CF1294D.cpp","tests":[{"id":1759420418021,"input":"7 3\n0\n1\n2\n2\n0\n0\n10\n","output":"1\n2\n3\n3\n4\n4\n7\n"},{"id":1759420998532,"input":"4 3\n1\n2\n1\n2\n","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/value/algorithm/practice/CF1294D.cpp","group":"local","local":true}
