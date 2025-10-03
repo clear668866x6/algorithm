@@ -1,0 +1,1 @@
+{"name":"Local: A","url":"/home/value/algorithm/practice/1003/A.cpp","tests":[{"id":1759467327404,"input":"5\n4\nabab\n6\nbababa\n7\nabababa\n2\nab\n1\nb\n","output":""},{"id":1759467773344,"input":"1\n6\nbababa","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/value/algorithm/practice/1003/A.cpp","group":"local","local":true}
