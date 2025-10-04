@@ -1,0 +1,1 @@
+{"name":"Local: CF616E","url":"/home/value/algorithm/practice/CF616E.cpp","tests":[{"id":1759557647782,"input":"3 4\n","output":""},{"id":1759557991539,"input":"10000000000000 10000000000000","output":"869957328"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/value/algorithm/practice/CF616E.cpp","group":"local","local":true}
