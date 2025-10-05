@@ -1,0 +1,1 @@
+{"name":"Local: CF2022C","url":"/home/value/algorithm/practice/CF2022C.cpp","tests":[{"id":1759669295042,"input":"4\n3\nAAA\nAJJ\n6\nJAJAJJ\nJJAJAJ\n6\nAJJJAJ\nAJJAAA\n9\nAJJJJAJAJ\nJAAJJJJJA\n","output":"2\n2\n3\n2\n"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/value/algorithm/practice/CF2022C.cpp","group":"local","local":true}

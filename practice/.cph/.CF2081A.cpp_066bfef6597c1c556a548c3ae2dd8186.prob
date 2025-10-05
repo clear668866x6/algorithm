@@ -1,0 +1,1 @@
+{"name":"Local: CF2081A","url":"/home/value/algorithm/practice/CF2081A.cpp","tests":[{"id":1759672927632,"input":"3\n3\n110\n3\n100\n10\n1101001011\n","output":"500000006\n2\n193359386\n"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/value/algorithm/practice/CF2081A.cpp","group":"local","local":true}
