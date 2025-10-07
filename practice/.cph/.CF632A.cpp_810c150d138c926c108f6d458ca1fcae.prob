@@ -1,0 +1,1 @@
+{"name":"Local: CF632A","url":"/home/value/algorithm/practice/CF632A.cpp","tests":[{"id":1759844078839,"input":"2 10\nhalf\nhalfplus\n","output":""},{"id":1759844082396,"input":"3 10\nhalfplus\nhalfplus\nhalfplus\n","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/value/algorithm/practice/CF632A.cpp","group":"local","local":true}
