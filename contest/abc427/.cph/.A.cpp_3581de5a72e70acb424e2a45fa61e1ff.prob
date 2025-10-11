@@ -1,0 +1,1 @@
+{"name":"Local: A","url":"/home/value/algorithm/contest/abc427/A.cpp","tests":[{"id":1760182649498,"input":"ABCDE\n","output":""},{"id":1760184085584,"input":"OOO\n","output":""},{"id":1760184088400,"input":"ATCODER\n","output":"ATCDER\n"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/value/algorithm/contest/abc427/A.cpp","group":"local","local":true}
