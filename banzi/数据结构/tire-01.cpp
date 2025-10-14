@@ -1,32 +1,38 @@
+// CF 665E
+struct Tire {
+    static constexpr int N = 2e6 + 10;
+    struct E {
+        int ch[2];
+        int siz;
+    } tr[N * 30];
+    int idx;
 
-struct Tire{
-    int tr[N*30][2],pos[N*30],idx;
-
-    void clear(){
-        FOR(i,1,idx)tr[i][0]=tr[i][1]=pos[i]=0;
-        idx=1;
+    Tire() {
+        idx = 2;
     }
 
-    void insert(int x,int y){
-        int p=1;
-        FORD(i,0,30){
-            int t=x>>i&1;
-            if(!tr[p][t])tr[p][t]=++idx;
-            p=tr[p][t];
-            pos[p]=max(pos[p],y);
+    void insert(int x) {
+        int u = 1;
+        FORD(i, 0, 32) {
+            int v = x >> i & 1;
+            if (!tr[u].ch[v]) tr[u].ch[v] = idx++;
+            u = tr[u].ch[v];
+            tr[u].siz++;
         }
     }
 
-    int query(int x){
-        int p=1,ans=0,mx=-1;
-        FORD(i,0,30){
-            int t=x>>i&1;
-            if(tr[p][t^1]){
-                if((ans+(1<<i))>=m)mx=max(mx,pos[tr[p][t^1]]),p=tr[p][t];
-                else p=tr[p][t^1],ans+=(1<<i);
-            }else if(tr[p][t])p=tr[p][t];
-            else break;
+    int query(int x, int k) {
+        int u = 1;
+        int tot = 0;
+        FORD(i, 0, 32) {
+            int a = x >> i & 1, b = k >> i & 1;
+            if (!b) {
+                tot += tr[tr[u].ch[a ^ 1]].siz;
+            }
+            u = tr[u].ch[a ^ b];
         }
-        return mx;
+        tot += tr[u].siz;
+        return tot;
     }
-}t;
+
+} A;
