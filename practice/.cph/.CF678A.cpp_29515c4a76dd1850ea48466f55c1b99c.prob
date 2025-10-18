@@ -1,0 +1,1 @@
+{"name":"Local: CF678A","url":"/home/value/algorithm/practice/CF678A.cpp","tests":[{"id":1760797390213,"input":"5 3\n","output":""},{"id":1760797392660,"input":"25 13\n","output":""},{"id":1760797395653,"input":"26 13\n","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/value/algorithm/practice/CF678A.cpp","group":"local","local":true}

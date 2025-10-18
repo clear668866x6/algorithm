@@ -1,0 +1,1 @@
+{"name":"Local: E","url":"/home/value/algorithm/contest/abc428/E.cpp","tests":[{"id":1760794244463,"input":"3\n1 2\n2 3\n","output":""},{"id":1760794252371,"input":"5\n1 2\n2 3\n2 4\n1 5\n","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/value/algorithm/contest/abc428/E.cpp","group":"local","local":true}
