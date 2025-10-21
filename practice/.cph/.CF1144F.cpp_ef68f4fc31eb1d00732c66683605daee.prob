@@ -1,0 +1,1 @@
+{"name":"Local: CF1144F","url":"/home/value/algorithm/practice/CF1144F.cpp","tests":[{"id":1761060979347,"input":"6 5\n1 5\n2 1\n1 4\n3 1\n6 1\n","output":"YES\n10100\n"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/value/algorithm/practice/CF1144F.cpp","group":"local","local":true}
