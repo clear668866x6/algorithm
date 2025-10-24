@@ -1,0 +1,1 @@
+{"name":"Local: abc134e","url":"/home/value/algorithm/training/atcoder/abc134e.cpp","tests":[{"id":1761320389884,"input":"5\n2\n1\n4\n5\n3\n","output":""},{"id":1761320394476,"input":"4\n0\n0\n0\n0\n","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/value/algorithm/training/atcoder/abc134e.cpp","group":"local","local":true}
