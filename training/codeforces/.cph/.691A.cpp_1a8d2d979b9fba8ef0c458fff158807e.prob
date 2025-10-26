@@ -1,0 +1,1 @@
+{"name":"Local: 691A","url":"/home/value/algorithm/training/codeforces/691A.cpp","tests":[{"id":1761489229803,"input":"3\n1 0 1\n","output":""},{"id":1761489235774,"input":"3\n1 0 0\n","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/value/algorithm/training/codeforces/691A.cpp","group":"local","local":true}
