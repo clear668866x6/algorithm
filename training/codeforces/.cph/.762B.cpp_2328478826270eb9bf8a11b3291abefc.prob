@@ -1,0 +1,1 @@
+{"name":"Local: 762B","url":"/home/value/algorithm/training/codeforces/762B.cpp","tests":[{"id":1761745018615,"input":"2 1 1\n4\n5 USB\n6 PS/2\n3 PS/2\n7 PS/2\n","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/value/algorithm/training/codeforces/762B.cpp","group":"local","local":true}

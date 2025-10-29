@@ -1,0 +1,1 @@
+{"name":"Local: 119895F","url":"/home/value/algorithm/training/nowcoder/119895F.cpp","tests":[{"id":1761742041123,"input":"2\n9 2\n9 3","output":""},{"id":1761742643023,"input":"1\n268931131 4408707","output":"36161984006075655"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/value/algorithm/training/nowcoder/119895F.cpp","group":"local","local":true}

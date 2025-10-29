@@ -1,3 +1,2 @@
 CompileFlags:
-  Add: [-std=c++20, -stdlib=libstdc++] 
-  Add: [-header-insertion=never]
+  Add: [-std=c++20, -stdlib=libstdc++]
