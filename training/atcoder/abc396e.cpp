@@ -37,87 +37,58 @@ void solve() {
     FOR(i, 1, m) {
         int a, b, c;
         cin >> a >> b >> c;
-
-        if (a > b) swap(a, b);
-        if (a == b) continue;
-        if (a == b && c) {
-            cout << -1 << endl;
-            RE;
-        }
         g[a].eb(b, c);
         g[b].eb(a, c);
     }
 
-    V<int> vis(n + 1, 0);
+    V<int> ans(n + 1, 0), num(n + 1, 0), p, vis(n + 1, 0);
 
-    int ans = 0;
-    FORD(i, 0, 32) {
-        // 1
-        int t = ans | (1ll << i);
-        V<int> c1(n + 1, 0), c2(n + 1, 0);
-        function<void(int, int, int, int)> dfs2 = [&](int u, int fa, int s, int p) {
-            if (vis[u]) {
-                RE;
+    function<void(int, int)> dfs = [&](int u, int fa) {
+        p.eb(u);
+        for (auto [j, w] : g[u]) {
+            if (vis[j]) {
+                if ((num[j] ^ num[u]) != w) {
+                    cout << -1 << endl;
+                    exit(0);
+                }
+                continue;
             }
-            vis[u] = 1;
-            for (auto [j, w] : g[u]) {
-                if (j == fa) continue;
-                dfs2(j, u, s ^ w, p);
+            vis[j] = 1;
+            num[j] = w ^ num[u];
+
+            dfs(j, u);
+        }
+    };
+
+    FOR(i, 1, n) {
+        if (vis[i]) continue;
+        p.clear();
+        num[i] = 0;
+        dfs(i, 0);
+
+        FOR(k, 0, 32) {
+            int cnt = 0;
+            for (auto j : p) {
+                if (num[j] >> k & 1) cnt++;
             }
-            if (s >> i & 1) {
-                if (p) {
-                    c1[u]++;
-                } else {
-                    c2[u]++;
+
+            if (cnt < sz(p) - cnt) {
+                for (auto j : p) {
+                    if (num[j] >> k & 1) {
+                        ans[j] |= (1ll << k);
+                    }
+                }
+            } else {
+                for (auto j : p) {
+                    if (!(num[j] >> k & 1)) {
+                        ans[j] |= (1ll << k);
+                    }
                 }
             }
-            vis[u] = 0;
-        };
-
-        dfs2(1, 0, t, 1);
-        dfs2(1, 0, ans, 0);
-        int cnt1 = 0, cnt2 = 0;
-        for (auto x : c1) {
-            if (x) cnt1++;
-        }
-        for (auto x : c2) {
-            if (x) cnt2++;
-        }
-        if (cnt1 < cnt2) {
-            ans |= (1ll << i);
         }
     }
 
-    V<int> res(n + 1, -1);
-
-    function<void(int, int, int)> dfs3 = [&](int u, int fa, int s) {
-        if (vis[u]) {
-            RE;
-        }
-        vis[u] = 1;
-        if (res[u] == -1) {
-            res[u] = s;
-
-        } else {
-            if (res[u] != s) {
-                cout << -1 << endl;
-                exit(0);
-            }
-        }
-        for (auto [j, w] : g[u]) {
-            if (j == fa) continue;
-            if (res[j] != -1 && (s ^ w) != res[j]) {
-                cout << -1 << endl;
-                exit(0);
-            }
-            dfs3(j, u, s ^ w);
-        }
-        vis[u] = 0;
-    };
-
-    dfs3(1, 0, ans);
-
-    FOR(i, 1, n) cout << res[i] << ' ';
+    FOR(i, 1, n) cout << ans[i] << " ";
 }
 
 signed main() {
