@@ -1,0 +1,1 @@
+{"name":"Local: 2155B","url":"/home/value/algorithm/training/codeforces/2155B.cpp","tests":[{"id":1761990371306,"input":"3\n2 4\n3 5\n2 3\n","output":""},{"id":1761990696004,"input":"1\n9 76","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/value/algorithm/training/codeforces/2155B.cpp","group":"local","local":true}

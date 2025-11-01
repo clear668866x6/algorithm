@@ -1,0 +1,1 @@
+{"name":"Local: 10","url":"/home/value/algorithm/training/nowcoder/daily/10.cpp","tests":[{"id":1762015376143,"input":"6\n12 13 14 36 35 34\n4","output":""},{"id":1762015487992,"input":"6\n4 4 4 4 4 4\n4","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/value/algorithm/training/nowcoder/daily/10.cpp","group":"local","local":true}
