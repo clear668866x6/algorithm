@@ -1,0 +1,1 @@
+{"name":"Local: abc430c","url":"/home/value/algorithm/training/atcoder/abc430c.cpp","tests":[{"id":1762348570402,"input":"11 4 2\nabbaaabaaba\n","output":""},{"id":1762349124500,"input":"13 1 2\nbbbbbbbbbbbbb\n","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/value/algorithm/training/atcoder/abc430c.cpp","group":"local","local":true}
