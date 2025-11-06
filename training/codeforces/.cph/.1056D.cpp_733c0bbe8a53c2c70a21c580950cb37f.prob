@@ -1,0 +1,1 @@
+{"name":"Local: 1056D","url":"/home/value/algorithm/training/codeforces/1056D.cpp","tests":[{"id":1762435737980,"input":"3\n1 1\n","output":""},{"id":1762435741686,"input":"5\n1 1 3 3\n","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/value/algorithm/training/codeforces/1056D.cpp","group":"local","local":true}

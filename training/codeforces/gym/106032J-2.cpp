@@ -33,54 +33,31 @@ void solve() {
     int n, m, q;
     cin >> n >> m >> q;
     V<int> w(n + 1, 0);
-    map<int, int> mp;
-    FOR(i, 1, n) cin >> w[i], mp[w[i]]++;
+    V<int> cnt(m + 1, 0);
+    FOR(i, 1, n) cin >> w[i], cnt[w[i]] ^= 1;
 
-    set<int> odd;
-    V<int> vis(n + 1, 0);
-    FOR(i, 1, n) {
-        if (mp[w[i]] & 1) {
-            odd.insert(w[i]);
-        } else {
-            vis[i] = 1;
+    V<int> odd(m + 1, 1e18);
+
+    FOR(i, 0, m) {
+        if (cnt[i]) {
+            odd[i] = 0;
         }
     }
 
-    int step = 0;
+    FORD(i, 1, m) odd[i - 1] = min(odd[i - 1], odd[i] + 1);
+    odd[m] = min(odd[m], odd[0]);
+    FORD(i, 1, m) odd[i - 1] = min(odd[i - 1], odd[i] + 1);
+    int c = 0;
 
     while (q--) {
         int op, x;
         cin >> op;
-        if (op == 1) {
-            step++;
-        } else {
+        if (op == 1)
+            c++;
+        else {
             cin >> x;
-
-            if (!vis[x]) {
-                cout << w[x] << endl;
-            } else {
-                if (odd.empty()) {
-                    cout << (w[x] + step - 1) % m + 1 << endl;
-                    continue;
-                }
-                auto it = odd.upper_bound(w[x]);
-                if (it == odd.end()) {
-                    it = odd.begin();
-                    int del = (m - w[x] + *it);
-                    if (del >= step) {
-                        cout << (w[x] + step - 1) % m + 1 << endl;
-                    } else {
-                        cout << *it << endl;
-                    }
-                } else {
-                    int del = *it - w[x];
-                    if (del >= step) {
-                        cout << (w[x] + step - 1) % m + 1 << endl;
-                    } else {
-                        cout << *it << endl;
-                    }
-                }
-            }
+            int t = min(c, odd[w[x]]);
+            cout << (w[x] + t - 1) % m + 1 << endl;
         }
     }
 }
