@@ -1,0 +1,1 @@
+{"name":"Local: C","url":"/home/value/algorithm/contest/代码源/37/C.cpp","tests":[{"id":1763122179649,"input":"5\n3 1 7 4 5\n","output":""},{"id":1763122290094,"input":"7\n2 6 1 8 4 3 3\n","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/value/algorithm/contest/代码源/37/C.cpp","group":"local","local":true}
