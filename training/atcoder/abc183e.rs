@@ -1,7 +1,5 @@
-// WA
 const MOD: usize = 1_000_000_007;
 
-#[allow(clippy::needless_range_loop)]
 fn main() {
     let mut scanner = Scanner::create();
     let h: usize = scanner.cin();

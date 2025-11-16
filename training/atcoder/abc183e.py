@@ -7,63 +7,35 @@ from bisect import bisect_left, bisect_right
 
 input = lambda: sys.stdin.readline().strip()
 
-INF = math.inf
-MOD = 10**9 + 7
-
-
-def I():
-    return input()
-
-
-def II():
-    return int(input())
-
-
-def MI():
-    return map(int, input().split())
-
-
-def LI():
-    return list(input().split())
-
-
-def LII():
-    return list(map(int, input().split()))
-
-
-def GMI():
-    return map(lambda x: int(x) - 1, input().split())
-
-
-def LGMI():
-    return list(map(lambda x: int(x) - 1, input().split()))
-
-
-def debug(*args):
-    print("\033[92m", *args, "\033[0m", file=sys.stderr)
-
-
-def lowbit(x):
-    return x & -x
-
-
-def solve():
-    n, m = MI()
-
-    s = [n + 2, [m + 2, 0]]
-
-    for i in range(1, n + 1):
-        for j in range(1, m + 1):
-            s[i][j] = I()
-
-    print(s)
-
 
 def main():
     Task = 1
     for _ in range(Task):
-        solve()
+        n, m = map(int, input().split())
+        s = [input() for _ in range(n)]
+
+        f = [[0] * (m + 1) for _ in range(n + 1)]
+        a = [[0] * (m + 1) for _ in range(n + 1)]
+        b = [[0] * (m + 1) for _ in range(n + 1)]
+        c = [[0] * (m + 1) for _ in range(n + 1)]
+
+        f[1][1] = 1
+
+        mod = 10**9 + 7
+
+        for i in range(1, n + 1):
+            for j in range(1, m + 1):
+                if i == 1 and j == 1:
+                    continue
+                if s[i - 1][j - 1] == "#":
+                    continue
+                a[i][j] = a[i - 1][j] + f[i - 1][j]
+                b[i][j] = b[i][j - 1] + f[i][j - 1]
+                c[i][j] = c[i - 1][j - 1] + f[i - 1][j - 1]
+                f[i][j] += a[i][j] + b[i][j] + c[i][j]
+                f[i][j] %= mod
+
+        print(f[n][m])
 
 
-if __name__ == "__main__":
-    main()
+main()
