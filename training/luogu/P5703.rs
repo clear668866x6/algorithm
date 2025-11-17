@@ -1,26 +1,6 @@
-#![allow(dead_code, unused_imports, unused_variables, unused_must_use)]
 use std::io::{self, Write, BufWriter, Read};
 use std::collections::*;
 use io_util::FastInput;
-
-fn solve(sc: &mut FastInput, out: &mut BufWriter<io::StdoutLock>) {
-
-}
-
-fn main() {
-    let mut input_string = String::new();
-    io::stdin().read_to_string(&mut input_string).unwrap();
-    
-    let mut sc = FastInput::new(&input_string);
-    
-    let stdout = io::stdout();
-    let mut out = BufWriter::new(stdout.lock());
-    
-    let t = 1;
-    for _ in 0..t {
-        solve(&mut sc, &mut out);
-    }
-}
 
 mod io_util {
     use super::*;
@@ -67,5 +47,25 @@ mod io_util {
         pub fn tuple3<T: std::str::FromStr, U: std::str::FromStr, V: std::str::FromStr>(&mut self) -> (T, U, V) {
             (self.read(), self.read(), self.read())
         }
+    }
+}
+fn solve(sc: &mut FastInput, out: &mut BufWriter<io::StdoutLock>) {
+    let a=sc.i64();
+    let b=sc.i64();
+    println!("{}",a*b);
+}
+
+fn main() {
+    let mut input_string = String::new();
+    io::stdin().read_to_string(&mut input_string).unwrap();
+    
+    let mut sc = FastInput::new(&input_string);
+    
+    let stdout = io::stdout();
+    let mut out = BufWriter::new(stdout.lock());
+    
+    let t = 1;
+    for _ in 0..t {
+        solve(&mut sc, &mut out);
     }
 }
