@@ -1,3 +1,4 @@
+#include <algorithm>
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -32,40 +33,67 @@ using u64 = unsigned long long;
 void solve() {
     int n, x;
     cin >> n >> x;
-    V<array<int, 3>> w(n + 1, {0, 0, 0});
-    map<int, V<int>> mp;
-    map<int, PII> mp2;
+    V<int> l(n + 1, 0), r(n + 1, 0), w(n + 1, 0);
+    map<int, V<array<int, 2>>> mpl, mpr;
+    map<int, V<int>> pre, suf, p1, p2;
+
     FOR(i, 1, n) {
         int a, b, c;
         cin >> a >> b >> c;
-        w[i] = {a, b, c};
-        mp[b - a + 1].eb(i);
+        l[i] = a, r[i] = b, w[i] = c;
+        mpl[b - a + 1].pb({a, i});
+        mpr[b - a + 1].pb({b, i});
     }
 
-    for (auto [x, y] : mp) {
-        int t = 1e18, c = 0;
-        for (auto z : y) {
-            t = min(t, w[z][2]);
+    for (auto &[x, y] : mpl) sort(ALL(y));
+    for (auto &[x, y] : mpr) sort(ALL(y));
+
+    for (auto [x, y] : mpl) {
+        suf[x].resize(sz(y));
+        int mn = 1e18;
+        FORD(i, 0, sz(y) - 1) {
+            mn = min(mn, w[y[i][1]]);
+            suf[x][i] = mn;
         }
-        for (auto z : y) {
-            if (t == z) c++;
+        FOR(i, 0, sz(y) - 1) {
+            p1[x].eb(y[i][0]);
         }
-        mp2[x] = {t, c};
+    }
+
+    for (auto [x, y] : mpr) {
+        pre[x].resize(sz(y));
+        int mn = 1e18;
+        FOR(i, 0, sz(y) - 1) {
+            mn = min(mn, w[y[i][1]]);
+            pre[x][i] = mn;
+            p2[x].eb(y[i][0]);
+        }
     }
 
     int ans = 1e18;
 
     FOR(i, 1, n) {
-        int len = w[i][1] - w[i][0] + 1;
-        if (x - len == len && mp2[x - len].se == 1) {
-            continue;
+        int len = r[i] - l[i] + 1;
+        int t = x - len;
+        if (!p1[t].empty()) {
+            auto it = upper_bound(ALL(p1[t]), r[i]);
+            if (it != p1[t].end()) {
+                int idx = it - p1[t].begin();
+                ans = min(ans, w[i] + suf[t][idx]);
+            }
         }
-        if (mp2[x - len].fi) {
-            ans = min(ans, w[i][2] + mp2[x - len].fi);
+        if (!p2[t].empty()) {
+            auto it2 = lower_bound(ALL(p2[t]), l[i]);
+            if (it2 != p2[t].begin()) {
+                it2--;
+                int idx = it2 - p2[t].begin();
+                ans = min(ans, w[i] + pre[t][idx]);
+            }
         }
     }
 
     if (ans == 1e18) ans = -1;
+
     cout << ans << endl;
 }
 

@@ -36,3 +36,72 @@ struct Tire {
     }
 
 } A;
+
+// 版本2
+
+struct Tire {
+    static constexpr int N = 3100000;
+    vector<int32_t> tr[2];
+    vector<int32_t> cnt;
+    int32_t idx;
+
+    Tire() {
+        idx = 1;
+        tr[0].resize(N, 0);
+        tr[1].resize(N, 0);
+        cnt.resize(N, 0);
+    }
+
+    inline void insert(int x) {
+        int32_t p = 0;
+        FORD(i, 0, 29) {
+            int u = x >> i & 1;
+            cnt[p]++;
+            if (!tr[u][p]) tr[u][p] = idx++;
+            p = tr[u][p];
+        }
+        cnt[p]++;
+    }
+
+    inline void remove(int x) {
+        int32_t p = 0;
+        FORD(i, 0, 29) {
+            int u = x >> i & 1;
+            cnt[p]--;
+            p = tr[u][p];
+        }
+        cnt[p]--;
+    }
+
+    inline int findmx(int x) {
+        int32_t p = 0;
+        int ans = 0;
+        FORD(i, 0, 29) {
+            ans *= 2;
+            int u = x >> i & 1;
+            if (tr[u ^ 1][p] && cnt[tr[u ^ 1][p]]) {
+                p = tr[u ^ 1][p];
+                ans++;
+            } else {
+                p = tr[u][p];
+            }
+        }
+        return ans;
+    }
+
+    inline int findmn(int x) {
+        int32_t p = 0;
+        int ans = 0;
+        FORD(i, 0, 29) {
+            ans *= 2;
+            int u = x >> i & 1;
+            if (tr[u][p] && cnt[tr[u][p]]) {
+                p = tr[u][p];
+            } else {
+                p = tr[u ^ 1][p];
+                ans++;
+            }
+        }
+        return ans;
+    }
+};
