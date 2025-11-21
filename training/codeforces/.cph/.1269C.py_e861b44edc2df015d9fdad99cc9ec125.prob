@@ -1,0 +1,1 @@
+{"name":"Local: 1269C","url":"/home/value/algorithm/training/codeforces/1269C.py","tests":[{"id":1763726742027,"input":"4\n4\nLRUD\n4\nLURD\n5\nRRUDU\n5\nLLDDR\n","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/value/algorithm/training/codeforces/1269C.py","group":"local","local":true}

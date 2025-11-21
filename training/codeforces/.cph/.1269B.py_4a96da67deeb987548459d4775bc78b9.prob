@@ -1,0 +1,1 @@
+{"name":"Local: 1269B","url":"/home/value/algorithm/training/codeforces/1269B.py","tests":[{"id":1763725528573,"input":"6\n1\n10\n19\n9876\n12345\n1000000000\n","output":"1\n11\n21\n10973\n13716\n1111111111\n"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/value/algorithm/training/codeforces/1269B.py","group":"local","local":true}
