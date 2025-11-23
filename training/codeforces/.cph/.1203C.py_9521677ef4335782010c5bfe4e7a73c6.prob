@@ -1,0 +1,1 @@
+{"name":"Local: 1203C","url":"/home/value/algorithm/training/codeforces/1203C.py","tests":[{"id":1763899201526,"input":"5\n1 2 3 4 5\n","output":""},{"id":1763899203696,"input":"6\n6 90 12 18 30 18\n","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/value/algorithm/training/codeforces/1203C.py","group":"local","local":true}

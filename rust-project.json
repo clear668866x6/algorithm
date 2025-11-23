@@ -2,7 +2,7 @@
     "sysroot": "/home/value/.rustup/toolchains/stable-x86_64-unknown-linux-gnu",
     "crates": [
         {
-            "root_module": "/home/value/algorithm/",
+            "root_module": "/home/value/algorithm",
             "edition": "2024",
             "deps": []
         }
