@@ -1,0 +1,1 @@
+{"name":"Local: 1260D","url":"/home/value/algorithm/training/codeforces/1260D.cpp","tests":[{"id":1763984926977,"input":"3\n8 5\n11011010\n7 9\n1111100\n7 11\n1111100\n","output":"01011110\n0101111\n0011111\n"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/value/algorithm/training/codeforces/1260D.cpp","group":"local","local":true}
