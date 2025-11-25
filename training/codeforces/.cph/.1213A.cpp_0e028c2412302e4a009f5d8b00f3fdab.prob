@@ -1,0 +1,1 @@
+{"name":"Local: 1213A","url":"/home/value/algorithm/training/codeforces/1213A.cpp","tests":[{"id":1764075910856,"input":"3\n1 2 3\n","output":""},{"id":1764075948349,"input":"5\n2 2 2 3 3\n","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/value/algorithm/training/codeforces/1213A.cpp","group":"local","local":true}
