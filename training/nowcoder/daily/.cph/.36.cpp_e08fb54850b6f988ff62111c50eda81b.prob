@@ -1,0 +1,1 @@
+{"name":"Local: 36","url":"/home/value/algorithm/training/nowcoder/daily/36.cpp","tests":[{"id":1764336297752,"input":"2\n8 8 0\n1 2 3","output":"0.0277862549\n0.0000000000"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/value/algorithm/training/nowcoder/daily/36.cpp","group":"local","local":true}
