@@ -1,0 +1,20 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+#define int int64_t
+#define endl "\n"
+
+void solve() {}
+
+signed main() {
+    int Task = 1;
+
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    while (Task--) {
+        solve();
+    }
+
+    return 0;
+}

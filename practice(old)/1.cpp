@@ -3,7 +3,12 @@
 using namespace std;
 
 int main() {
-    double x = 0.16456445354856;
+    int n;
+    cin >> n;
+    vector<int> w(n + 1, 0);
+    for (int i = 1; i <= n; i++) {
+        cin >> w[i];
+    }
 
-    cout << fixed << setprecision(6) << x << endl;
+    sort(w.begin(), w.end());
 }
