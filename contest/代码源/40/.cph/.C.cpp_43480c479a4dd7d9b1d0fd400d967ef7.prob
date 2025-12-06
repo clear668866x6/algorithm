@@ -1,0 +1,1 @@
+{"name":"Local: C","url":"/home/value/algorithm/contest/代码源/40/C.cpp","tests":[{"id":1764937812076,"input":"5 2 1\n--\n.B\n--\nAB\n--","output":"..\n..\n*.\n-B\n"},{"id":1764938361848,"input":"4 2 1\nA.\n..\n.B\n-.\n","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/value/algorithm/contest/代码源/40/C.cpp","group":"local","local":true}
