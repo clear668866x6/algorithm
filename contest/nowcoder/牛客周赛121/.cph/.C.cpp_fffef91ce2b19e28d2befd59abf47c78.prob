@@ -1,0 +1,1 @@
+{"name":"Local: C","url":"/home/value/algorithm/contest/nowcoder/牛客周赛121/C.cpp","tests":[{"id":1765106274386,"input":"3\nabc","output":""},{"id":1765106278737,"input":"4\nabca","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/value/algorithm/contest/nowcoder/牛客周赛121/C.cpp","group":"local","local":true}
