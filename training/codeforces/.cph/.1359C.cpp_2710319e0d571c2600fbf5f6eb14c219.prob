@@ -1,0 +1,1 @@
+{"name":"Local: 1359C","url":"/home/value/algorithm/training/codeforces/1359C.cpp","tests":[{"id":1765382349745,"input":"3\n30 10 20\n41 15 30\n18 13 18\n","output":"2\n7\n1\n"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/value/algorithm/training/codeforces/1359C.cpp","group":"local","local":true}
