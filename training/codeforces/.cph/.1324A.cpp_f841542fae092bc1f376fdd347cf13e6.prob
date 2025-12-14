@@ -1,0 +1,1 @@
+{"name":"Local: 1324A","url":"/home/value/algorithm/training/codeforces/1324A.cpp","tests":[{"id":1765714053431,"input":"4\n3\n1 1 3\n4\n1 1 2 1\n2\n11 11\n1\n100\n","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/value/algorithm/training/codeforces/1324A.cpp","group":"local","local":true}
