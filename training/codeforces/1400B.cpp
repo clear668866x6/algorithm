@@ -30,54 +30,46 @@ using u64 = unsigned long long;
 #define sz(x) (int)(x).size()
 
 void solve() {
-    int n;
-    cin >> n;
-    string a, b;
-    cin >> a >> b;
-    a = ' ' + a, b = ' ' + b;
-
-    int l = 1, r = n + 1;
-
-    FOR(i, 1, n) {
-        if (a[i] != b[i]) {
-            l = i;
-            break;
-        }
-    }
-
-    FORD(i, 1, n) {
-        if (a[i] != b[i]) {
-            r = i;
-            break;
-        }
-    }
-    string a1, b1;
-
-    FOR(i, l, r) a1 += a[i], b1 += b[i];
+    int p, f, cs, cw, s, w;
+    cin >> p >> f >> cs >> cw >> s >> w;
 
     int ans = 0;
 
-    FOR(c1, 'a', 'z') {
-        FOR(c2, 'a', 'z') {
-            string cc1 = char(c1) + a1;
-            string cc2 = b1 + char(c2);
-            if (cc1 == cc2) {
-                ans++;
+    FOR(c1, 0, min(cs, p / s)) {
+        int c2 = (p - c1 * s) / w;
+        if (c2 >= cw) {
+            c2 = cw;
+            int c3 = f / s;
+            if (c3 + c1 >= cs) {
+                ans = max(ans, cs + c2);
+            } else {
+                ans = max(ans, c3 + c1 + c2);
+            }
+        } else {
+            if (s > w) {
+                int c4 = min(f / w, cw - c2);
+                int t = f - c4 * w;
+                int c3 = t / s;
+                if (c3 + c1 >= cs) {
+                    ans = max(ans, cs + c2 + c4);
+                } else {
+                    ans = max(ans, c1 + c2 + c3 + c4);
+                }
+
+            } else {
+                int c3 = min(f / s, cs - c1);
+                int t = f - c3 * s;
+                int c4 = t / w;
+                if (c2 + c4 >= cw) {
+                    ans = max(ans, cw + c1 + c3);
+                } else {
+                    ans = max(ans, c1 + c2 + c3 + c4);
+                }
             }
         }
     }
 
-    FOR(c1, 'a', 'z') {
-        FOR(c2, 'a', 'z') {
-            string cc1 = char(c1) + b1;
-            string cc2 = a1 + char(c2);
-            if (cc1 == cc2) {
-                ans++;
-            }
-        }
-    }
-
-    cout << ans;
+    cout << ans << endl;
 }
 
 signed main() {
@@ -85,7 +77,7 @@ signed main() {
 
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-
+    cin >> Task;
     while (Task--) {
         solve();
     }

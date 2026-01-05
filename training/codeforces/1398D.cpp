@@ -30,49 +30,35 @@ using u64 = unsigned long long;
 #define sz(x) (int)(x).size()
 
 void solve() {
-    int n;
-    cin >> n;
-    string a, b;
-    cin >> a >> b;
-    a = ' ' + a, b = ' ' + b;
+    int n1, n2, n3;
+    cin >> n1 >> n2 >> n3;
 
-    int l = 1, r = n + 1;
+    V<int> a(n1 + 1, 0), b(n2 + 1, 0), c(n3 + 1, 0);
+    FOR(i, 1, n1) cin >> a[i];
+    FOR(i, 1, n2) cin >> b[i];
+    FOR(i, 1, n3) cin >> c[i];
 
-    FOR(i, 1, n) {
-        if (a[i] != b[i]) {
-            l = i;
-            break;
-        }
-    }
+    sort(a.begin() + 1, a.end(), greater());
+    sort(b.begin() + 1, b.end(), greater());
+    sort(c.begin() + 1, c.end(), greater());
 
-    FORD(i, 1, n) {
-        if (a[i] != b[i]) {
-            r = i;
-            break;
-        }
-    }
-    string a1, b1;
-
-    FOR(i, l, r) a1 += a[i], b1 += b[i];
+    V f(n1 + 1, V<V<int>>(n2 + 1, V<int>(n3 + 1, 0)));
 
     int ans = 0;
 
-    FOR(c1, 'a', 'z') {
-        FOR(c2, 'a', 'z') {
-            string cc1 = char(c1) + a1;
-            string cc2 = b1 + char(c2);
-            if (cc1 == cc2) {
-                ans++;
-            }
-        }
-    }
-
-    FOR(c1, 'a', 'z') {
-        FOR(c2, 'a', 'z') {
-            string cc1 = char(c1) + b1;
-            string cc2 = a1 + char(c2);
-            if (cc1 == cc2) {
-                ans++;
+    FOR(i, 0, n1) {
+        FOR(j, 0, n2) {
+            FOR(k, 0, n3) {
+                if (i && j) {
+                    f[i][j][k] = max(f[i][j][k], f[i - 1][j - 1][k] + a[i] * b[j]);
+                }
+                if (i && k) {
+                    f[i][j][k] = max(f[i][j][k], f[i - 1][j][k - 1] + a[i] * c[k]);
+                }
+                if (j && k) {
+                    f[i][j][k] = max(f[i][j][k], f[i][j - 1][k - 1] + b[j] * c[k]);
+                }
+                ans = max(ans, f[i][j][k]);
             }
         }
     }

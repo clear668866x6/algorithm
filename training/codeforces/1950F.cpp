@@ -30,54 +30,36 @@ using u64 = unsigned long long;
 #define sz(x) (int)(x).size()
 
 void solve() {
-    int n;
-    cin >> n;
-    string a, b;
-    cin >> a >> b;
-    a = ' ' + a, b = ' ' + b;
+    int a, b, c;
+    cin >> a >> b >> c;
 
-    int l = 1, r = n + 1;
+    if (a + 1 == c) {
+        int dep = 0;
+        int cur = 1;
 
-    FOR(i, 1, n) {
-        if (a[i] != b[i]) {
-            l = i;
-            break;
-        }
-    }
+        while (a > 0 || b > 0) {
+            if (a - cur >= 0) {
+                a -= cur;
+                cur *= 2;
+            } else {
+                int del = cur - a;
+                if (del >= b) {
+                    dep++;
+                    break;
+                }
 
-    FORD(i, 1, n) {
-        if (a[i] != b[i]) {
-            r = i;
-            break;
-        }
-    }
-    string a1, b1;
-
-    FOR(i, l, r) a1 += a[i], b1 += b[i];
-
-    int ans = 0;
-
-    FOR(c1, 'a', 'z') {
-        FOR(c2, 'a', 'z') {
-            string cc1 = char(c1) + a1;
-            string cc2 = b1 + char(c2);
-            if (cc1 == cc2) {
-                ans++;
+                cur = (a * 2) + del;
+                b -= del;
+                a = 0;
             }
+            dep++;
         }
-    }
 
-    FOR(c1, 'a', 'z') {
-        FOR(c2, 'a', 'z') {
-            string cc1 = char(c1) + b1;
-            string cc2 = a1 + char(c2);
-            if (cc1 == cc2) {
-                ans++;
-            }
-        }
-    }
+        cout << dep << endl;
 
-    cout << ans;
+    } else {
+        cout << -1 << endl;
+    }
 }
 
 signed main() {
@@ -85,7 +67,7 @@ signed main() {
 
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-
+    cin >> Task;
     while (Task--) {
         solve();
     }

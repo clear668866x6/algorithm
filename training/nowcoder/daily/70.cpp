@@ -32,52 +32,28 @@ using u64 = unsigned long long;
 void solve() {
     int n;
     cin >> n;
-    string a, b;
-    cin >> a >> b;
-    a = ' ' + a, b = ' ' + b;
 
-    int l = 1, r = n + 1;
+    if ((n / 2) & 1) {
+        NO;
+    } else {
+        YES;
 
-    FOR(i, 1, n) {
-        if (a[i] != b[i]) {
-            l = i;
-            break;
+        int kl = 2, kr = 4;
+
+        FOR(i, 1, n / 4) {
+            cout << kl << ' ' << kr << ' ';
+            kl += 6, kr += 6;
         }
-    }
 
-    FORD(i, 1, n) {
-        if (a[i] != b[i]) {
-            r = i;
-            break;
+        kl = 1, kr = 5;
+
+        FOR(i, 1, n / 4) {
+            cout << kl << ' ' << kr << ' ';
+            kl += 6, kr += 6;
         }
+
+        cout << endl;
     }
-    string a1, b1;
-
-    FOR(i, l, r) a1 += a[i], b1 += b[i];
-
-    int ans = 0;
-
-    FOR(c1, 'a', 'z') {
-        FOR(c2, 'a', 'z') {
-            string cc1 = char(c1) + a1;
-            string cc2 = b1 + char(c2);
-            if (cc1 == cc2) {
-                ans++;
-            }
-        }
-    }
-
-    FOR(c1, 'a', 'z') {
-        FOR(c2, 'a', 'z') {
-            string cc1 = char(c1) + b1;
-            string cc2 = a1 + char(c2);
-            if (cc1 == cc2) {
-                ans++;
-            }
-        }
-    }
-
-    cout << ans;
 }
 
 signed main() {
@@ -85,7 +61,7 @@ signed main() {
 
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-
+    cin >> Task;
     while (Task--) {
         solve();
     }

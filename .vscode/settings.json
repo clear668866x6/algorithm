@@ -111,7 +111,25 @@
     "numbers": "cpp"
   },
   "C_Cpp.errorSquiggles": "disabled",
-  "editor.fontFamily": "'MonoLisa-Light', 'monospace', monospace",
+  "editor.fontFamily": "'Maple Mono', Consolas, 'Courier New', monospace",
+  "editor.fontLigatures": true,
+  "editor.cursorSmoothCaretAnimation": "on",
+  "editor.tokenColorCustomizations": {
+    "textMateRules": [
+      {
+        "scope": [
+          "keyword",
+          "storage.type",
+          "storage.modifier",
+          "variable.language",
+          "comment"
+        ],
+        "settings": {
+          "fontStyle": "italic"
+        }
+      }
+    ]
+  },
   "workbench.activityBar.location": "default",
   "editor.cursorBlinking": "expand",
   "editor.fontSize": 16,
@@ -121,8 +139,6 @@
   "C_Cpp.vcFormat.indent.preserveWithinParentheses": true,
   "C_Cpp.vcFormat.space.beforeFunctionOpenParenthesis": "insert",
   "C_Cpp.vcFormat.space.beforeLambdaOpenParenthesis": true,
-  "editor.fontLigatures": true,
-  "editor.cursorSmoothCaretAnimation": "on",
   "C_Cpp.clang_format_style": "file",
   "fonted.font": "'MonoLisa-Light', 'monospace', monospace",
   "cph.general.defaultLanguage": "cpp",
