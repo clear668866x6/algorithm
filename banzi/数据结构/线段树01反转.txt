@@ -1,0 +1,134 @@
+特别注意：01字符串反转的标记是异或啊，怎么可能是赋值，赋值肯定有问题，因为有的可能反转两次。
+
+
+
+#include <bits/stdc++.h>
+using namespace std;
+
+#define int int64_t
+#define endl "\n"
+
+using PII = pair<int, int>;
+using TII = tuple<int, int, int>;
+template<class T> using V = vector<T>;
+using i64 = long long;
+using i128 = __int128;
+using u64 = unsigned long long;
+
+#define FOR(i, a, b) for (int i = (int)(a); i <= (int)(b); i++)
+#define FOR2(i, a, b, c) for (int i = (int)(a); i <= (int)(b); i += c)
+#define FORD(i, b, a) for (int i = (int)(a); i >= (int)(b); i--)
+#define FORD2(i, b, a, c) for (int i = (int)(a); i >= (int)(b); i -= c)
+#define ALL(a) a.begin(), a.end()
+#define RALL(a) a.rbegin(), a.rend()
+#define lowbit(x) ((x) & (-x))
+#define RE return;
+#define Yes cout << "Yes" << endl;
+#define YES cout << "YES" << endl;
+#define No cout << "No" << endl;
+#define NO cout << "NO" << endl;
+#define pb push_back
+#define eb emplace_back
+#define fi first
+#define se second
+#define sz(x) (int)(x).size()
+
+struct SegmentTree {
+    static constexpr int N = 5e5 + 10;
+
+    struct E {
+        int l, r, c0, c1, tag;
+    } tr[N << 2];
+
+    void pushup(int u) {
+        tr[u].c0 = tr[u << 1].c0 + tr[u << 1 | 1].c0;
+        tr[u].c1 = tr[u << 1].c1 + tr[u << 1 | 1].c1;
+    }
+
+    void evel(int u, int tag) {
+        swap(tr[u].c0, tr[u].c1);
+        tr[u].tag ^= tag;
+    }
+
+    void pushdown(int u) {
+        if (tr[u].tag) {
+            evel(u << 1, tr[u].tag);
+            evel(u << 1 | 1, tr[u].tag);
+            tr[u].tag = 0;
+        }
+    }
+
+    void build(int u, int l, int r, string &s) {
+        tr[u] = {l, r};
+        if (l == r) {
+            if (s[l] == '1') {
+                tr[u] = {l, r, 0, 1, 0};
+            } else {
+                tr[u] = {l, r, 1, 0, 0};
+            }
+            RE;
+        }
+
+        int mid = (l + r) / 2;
+        build(u << 1, l, mid, s), build(u << 1 | 1, mid + 1, r, s);
+        pushup(u);
+    }
+
+    void modify(int u, int l, int r) {
+        if (tr[u].l > r || tr[u].r < l) RE;
+        if (tr[u].l >= l && tr[u].r <= r) {
+            evel(u, 1);
+            RE;
+        }
+
+        pushdown(u);
+        modify(u << 1, l, r);
+        modify(u << 1 | 1, l, r);
+        pushup(u);
+    }
+
+    int query(int u, int l, int r) {
+        if (tr[u].l > r || tr[u].r < l) return 0;
+        if (tr[u].l >= l && tr[u].r <= r) {
+            return tr[u].c1;
+        }
+
+        pushdown(u);
+        return query(u << 1, l, r) + query(u << 1 | 1, l, r);
+    }
+
+} A;
+
+void solve() {
+    int n, m;
+    cin >> n >> m;
+    string s;
+    cin >> s;
+    s = ' ' + s;
+
+    A.build(1, 1, n, s);
+
+    while (m--) {
+        int op, l, r;
+        cin >> op >> l >> r;
+        if (op == 1) {
+            A.modify(1, l, r);
+            // cout << A.query(1, 1, 1) << ' ' << A.query(1, 2, 2) << endl;
+        } else {
+            cout << A.query(1, l, r) << endl;
+        }
+    }
+}
+
+signed main() {
+    int Task = 1;
+
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    while (Task--) {
+        solve();
+    }
+
+    return 0;
+}
