@@ -29,55 +29,32 @@ using u64 = unsigned long long;
 #define se second
 #define sz(x) (int)(x).size()
 
-constexpr int mod = 998244353;
-
 void solve() {
-    int n;
-    cin >> n;
-    V<int> w(n + 1, 0);
-    FOR(i, 1, n) cin >> w[i];
+    int n, k;
+    cin >> n >> k;
 
-    map<int, int> mp;
+    if (k == 1) {
+        cout << n << endl;
+    } else if (k >= 62) {
+        cout << 1 << endl;
+    } else {
+        int p = pow(n, 1.0 / k);
+        int p2 = p + 1;
 
-    int l = 1;
-    V<int> s(n + 1, 0), f(n + 2, 0);
+        i128 c1 = 1, c2 = 1;
 
-    f[0] = s[0] = 1;
+        FOR(i, 1, k) c1 *= p;
+        FOR(i, 1, k) c2 *= p2;
 
-    FOR(i, 1, n) {
-        int bad = 0;
-        FOR(v, 0, 32) {
-            int t = w[i] >> v & 1;
-            if (t) {
-                mp[v]++;
-                if (mp[v] == 2) {
-                    bad++;
-                }
-            }
+        i128 del1 = (n > c1) ? n - c1 : c1 - n;
+        i128 del2 = (n > c2) ? n - c2 : c2 - n;
+
+        if (del1 > del2) {
+            cout << p2 << endl;
+        } else {
+            cout << p << endl;
         }
-
-        while (bad > 0) {
-            FOR(v, 0, 32) {
-                int t = w[l] >> v & 1;
-                if (t) {
-                    mp[v]--;
-                    if (mp[v] == 1) {
-                        bad--;
-                    }
-                }
-            }
-            l++;
-        }
-        int cur = s[i - 1];
-        if (l - 2 >= 0) {
-            cur = (cur - s[l - 2] + mod) % mod;
-        }
-        f[i] = cur;
-
-        s[i] = (s[i - 1] + f[i]) % mod;
     }
-
-    cout << f[n] << endl;
 }
 
 signed main() {
