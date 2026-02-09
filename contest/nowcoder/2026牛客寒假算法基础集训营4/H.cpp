@@ -30,8 +30,8 @@ using u64 = unsigned long long;
 #define sz(x) (int)(x).size()
 
 void solve() {
-    int n, m;
-    cin >> n >> m;
+    int n, m, q;
+    cin >> n >> m >> q;
     V<V<int>> w(n + 1, V<int>(m + 1, 0));
     FOR(i, 1, n) {
         FOR(j, 1, m) {
@@ -39,48 +39,50 @@ void solve() {
         }
     }
 
-    array<int, 2> dx = {0, 1}, dy = {1, 0};
+    int ansx = 0, ansy = 0, ans = 0;
+    V<V<int>> s(n + 1, V<int>(m + 1, 0));
 
-    V<V<int>> d1(n + 1, V<int>(m + 1, -1e18)), d2(n + 1, V<int>(m + 1, -1e18));
-
-    auto dijistra = [&](V<V<int>> &d, int sx, int sy) {
-        priority_queue<array<int, 3>> q;
-        d[sx][sy] = 0;
-        q.push({d[sx][sy], sx, sy});
-        V<V<int>> vis(n + 1, V<int>(m + 1, 0));
-        while (!q.empty()) {
-            auto [dd, x, y, state] = q.top();
-            q.pop();
-
-            if (vis[x][y]) continue;
-            vis[x][y] = 1;
-
-            FOR(i, 0, 1) {
-                int a = x + dx[i], b = y + dy[i];
-                if (a < 1 || b < 1 || a > n || b > m) continue;
-                if (d[a][b] < d[x][y] + w[x][y]) {
-                    d[a][b] = d[x][y] + w[x][y];
-                    q.push({d[a][b], a, b});
+    FOR(i, 1, n) {
+        FOR(j, 1, m) {
+            int tot = 0;
+            FOR(c, -2, 2) {
+                FOR(d, -2, 2) {
+                    int a = i + c, b = j + d;
+                    if (a < 1 || b < 1 || a > n || b > m) continue;
+                    int t = abs(i - a) + abs(b - j);
+                    if (t <= 2) {
+                        tot += w[a][b];
+                    }
                 }
+            }
+            s[i][j] = tot;
+            if (s[i][j] > ans) {
+                ans = s[i][j];
+                ansx = i, ansy = j;
+            }
+        }
+    }
 
-                if (state == 0) {
-                    if (d[a][b] < d[x][y] - w[x][y]) {
-                        d[a][b] = d[x][y] - w[x][y];
-                        q.push({d[a][b], a, b});
+    while (q--) {
+        int x, y, z;
+        cin >> x >> y >> z;
+        w[x][y] += z;
+        FOR(c, -2, 2) {
+            FOR(d, -2, 2) {
+                int a = x + c, b = y + d;
+                if (a < 1 || b < 1 || a > n || b > m) continue;
+                int t = abs(x - a) + abs(b - y);
+                if (t <= 2) {
+                    s[a][b] += z;
+                    if (s[a][b] > ans) {
+                        ans = s[a][b];
+                        ansx = a, ansy = b;
                     }
                 }
             }
         }
-    };
-
-    dijistra(d1, 1, 1);
-    dijistra(d2, n, m);
-
-    int ans = 1e18;
-
-    FOR(i)
-
-    cout << ans << endl;
+        cout << ansx << ' ' << ansy << endl;
+    }
 }
 
 signed main() {
@@ -88,7 +90,7 @@ signed main() {
 
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    cin >> Task;
+
     while (Task--) {
         solve();
     }
