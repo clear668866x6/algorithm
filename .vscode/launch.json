@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": false,
-      "cwd": "/home/value/algorithm/training/atcoder",
-      "program": "/home/value/algorithm/training/atcoder/build/Debug/outDebug",
+      "cwd": "/home/value/algorithm/tidan/扫描线",
+      "program": "/home/value/algorithm/tidan/扫描线/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
