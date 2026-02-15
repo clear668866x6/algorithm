@@ -1,0 +1,1 @@
+{"name":"Local: G","url":"/home/value/algorithm/contest/nowcoder/Whalica Cup (Round 2)/G.cpp","tests":[{"id":1771144241459,"input":"3 4\n86 91 70\n3 3 56\n2 3 1\n1 1 76\n1 2 52","output":"70\n91\n86\n0"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/value/algorithm/contest/nowcoder/Whalica Cup (Round 2)/G.cpp","group":"local","local":true}
