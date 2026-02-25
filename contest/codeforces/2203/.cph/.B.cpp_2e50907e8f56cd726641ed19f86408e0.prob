@@ -1,0 +1,1 @@
+{"name":"Local: B","url":"/home/value/algorithm/contest/codeforces/2203/B.cpp","tests":[{"id":1772030711562,"input":"4\n1\n37\n645\n2374236843276813\n","output":""},{"id":1772030904984,"input":"1\n123","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/value/algorithm/contest/codeforces/2203/B.cpp","group":"local","local":true}
