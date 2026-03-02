@@ -1,0 +1,1 @@
+{"name":"Local: 2190B1","url":"/home/value/algorithm/tidan/构造题/problem/2190B1.cpp","tests":[{"id":1772462192053,"input":"3\n2\n()\n8\n(()(()))\n6\n(())()\n","output":""},{"id":1772462266090,"input":"1\n8\n()((()))","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/value/algorithm/tidan/构造题/problem/2190B1.cpp","group":"local","local":true}
