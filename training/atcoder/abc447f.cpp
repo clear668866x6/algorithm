@@ -1,4 +1,3 @@
-#include <algorithm>
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -34,6 +33,7 @@ void solve() {
     int n;
     cin >> n;
     V<V<int>> g(n + 1);
+
     FOR(i, 2, n) {
         int a, b;
         cin >> a >> b;
@@ -42,24 +42,52 @@ void solve() {
     }
 
     V<int> f(n + 1, 0);
+    int ans = 0;
 
     auto dfs = [&](auto &&dfs, int u, int fa) -> void {
         for (auto v : g[u]) {
             if (v == fa) continue;
             dfs(dfs, v, u);
-            if (sz(g[u]) - 1 >= 3) {
+            if (sz(g[v]) - 1 >= 3) {
                 f[u] = max(f[u], f[v] + 1);
-            } else if (sz(g[u]) - 1 == 2) {
-                f[u] = 1;
+            } else if (sz(g[v]) - 1 == 2) {
+                f[u] = max<int>(1, f[u]);
             } else {
-                f[u] = 0;
+                f[u] = max<int>(0, f[u]);
             }
         }
     };
 
     dfs(dfs, 1, 0);
 
-    cout << *max_element(ALL(f)) << endl;
+    auto dfs2 = [&](auto &&dfs2, int u, int fa) -> void {
+        if (sz(g[u]) >= 3) ans = max(ans, f[u] + 1);
+        if (sz(g[u]) == 2) ans = max(ans, (int)1);
+
+        int mx1 = 0, mx2 = 0;
+
+        for (auto v : g[u]) {
+            if (v == fa) continue;
+            int t = 0;
+
+            if (sz(g[v]) >= 4) t = max(t, f[v] + 1);
+            if (sz(g[v]) == 3) t = max(t, (int)1);
+
+            if (mx1 < t) {
+                mx2 = mx1;
+                mx1 = t;
+            } else if (mx2 <= t) {
+                mx2 = t;
+            }
+            dfs2(dfs2, v, u);
+        }
+
+        if (sz(g[u]) >= 4) ans = max(ans, mx1 + mx2 + 1);
+    };
+
+    dfs2(dfs2, 1, 0);
+
+    cout << ans << endl;
 }
 
 signed main() {
