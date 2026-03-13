@@ -29,46 +29,56 @@ using u64 = unsigned long long;
 #define se second
 #define sz(x) (int)(x).size()
 
-void solve() {
-    int l, r;
-    cin >> l >> r;
+struct Juzhen {
 
-    if (l == 0) {
-        cout << r + 1 << endl;
-        RE;
-    }
-
-    int len1 = 0, len2 = 0;
-    int tl = l, tr = r;
-
-    while (tl) len1++, tl /= 2;
-    while (tr) len2++, tr /= 2;
-
-    if (len1 == len2) {
-        cout << 0 << endl;
-        RE;
-    }
-
-    int t = (1ll << len1);
-
-    int L = 0, R = r - t;
-
-    int ans = t - 1;
-    int x = t - 1;
-    FOR(i, 0, 32) {
-        if (x >> i & 1) {
-            int p = x ^ (1ll << i);
-            if (p >= l && p <= r) {
-                int p2 = p >> i << i;
-                ans = min(ans, p2);
+    V<V<int>> mul(V<V<int>> a, V<V<int>> b) {
+        int n = sz(a) - 1;
+        V<V<int>> c(n + 1, V<int>(n + 1, 1e18));
+        FOR(k, 1, n) {
+            FOR(i, 1, n) {
+                FOR(j, 1, n) {
+                    c[i][j] = min(c[i][j], a[i][k] + b[k][j]);
+                }
             }
+        }
+        return c;
+    }
+
+    V<V<int>> qmi(V<V<int>> a, int b) {
+        int n = sz(a) - 1;
+        V<V<int>> ans(n + 1, V<int>(n + 1, 1e18));
+
+        FOR(i, 1, n) ans[i][i] = 0;
+
+        while (b) {
+            if (b & 1) ans = mul(ans, a);
+            a = mul(a, a);
+            b /= 2;
+        }
+
+        return ans;
+    }
+
+} A;
+
+void solve() {
+    int n, k;
+    cin >> n >> k;
+
+    V<V<int>> d(n + 1, V<int>(n + 1, 1e18));
+
+    FOR(i, 1, n) {
+        FOR(j, 1, n) {
+            int x;
+            cin >> x;
+            d[i][j] = min(d[i][j], x);
         }
     }
 
-    if (ans - R <= 1) {
-        cout << r + 1 << endl;
-    } else {
-        cout << (R + 1) << endl;
+    V<V<int>> ans = A.qmi(d, k);
+
+    FOR(s, 1, n) {
+        cout << ans[s][s] << endl;
     }
 }
 
@@ -77,7 +87,7 @@ signed main() {
 
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    cin >> Task;
+
     while (Task--) {
         solve();
     }

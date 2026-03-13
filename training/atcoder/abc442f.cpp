@@ -28,48 +28,42 @@ using u64 = unsigned long long;
 #define fi first
 #define se second
 #define sz(x) (int)(x).size()
+// 对于这种行列都需要满足某种性质的题，可以一步一步的来做，而不是一下子做，先处理行，再处理列。
 
 void solve() {
-    int l, r;
-    cin >> l >> r;
+    int n;
+    cin >> n;
+    V<V<char>> s(n + 1, V<char>(n + 1, 0));
 
-    if (l == 0) {
-        cout << r + 1 << endl;
-        RE;
-    }
-
-    int len1 = 0, len2 = 0;
-    int tl = l, tr = r;
-
-    while (tl) len1++, tl /= 2;
-    while (tr) len2++, tr /= 2;
-
-    if (len1 == len2) {
-        cout << 0 << endl;
-        RE;
-    }
-
-    int t = (1ll << len1);
-
-    int L = 0, R = r - t;
-
-    int ans = t - 1;
-    int x = t - 1;
-    FOR(i, 0, 32) {
-        if (x >> i & 1) {
-            int p = x ^ (1ll << i);
-            if (p >= l && p <= r) {
-                int p2 = p >> i << i;
-                ans = min(ans, p2);
-            }
+    FOR(i, 1, n) {
+        FOR(j, 1, n) {
+            cin >> s[i][j];
         }
     }
 
-    if (ans - R <= 1) {
-        cout << r + 1 << endl;
-    } else {
-        cout << (R + 1) << endl;
+    V<V<int>> f(n + 1, V<int>(n + 1, 1e18)), g(n + 1, V<int>(n + 2, 1e18));
+
+    FOR(i, 0, n) f[0][i] = g[0][i] = 0;
+
+    FOR(i, 1, n) {
+        int t = 0;
+        FOR(j, 0, n) {
+            if (s[i][j] == '.') t++;
+        }
+        f[i][0] = min(f[i][0], g[i - 1][0] + t);
+        FOR(j, 1, n) {
+            if (s[i][j] == '#') t++;
+            if (s[i][j] == '.') t--;
+            f[i][j] = min(f[i][j], g[i - 1][j] + t);
+        }
+        FORD(j, 0, n) g[i][j] = min(g[i][j + 1], f[i][j]);
     }
+
+    int ans = 1e18;
+
+    FOR(i, 0, n) ans = min(ans, f[n][i]);
+
+    cout << ans;
 }
 
 signed main() {
@@ -77,7 +71,7 @@ signed main() {
 
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    cin >> Task;
+
     while (Task--) {
         solve();
     }

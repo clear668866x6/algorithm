@@ -1,4 +1,5 @@
 #include <bits/stdc++.h>
+#include <sstream>
 using namespace std;
 
 #define int int64_t
@@ -30,46 +31,35 @@ using u64 = unsigned long long;
 #define sz(x) (int)(x).size()
 
 void solve() {
-    int l, r;
-    cin >> l >> r;
+    int n;
+    cin >> n;
 
-    if (l == 0) {
-        cout << r + 1 << endl;
-        RE;
+    V<int> mp(1e5 + 10, 0);
+
+    FOR(i, 1, n) {
+        string s1, s2;
+        cin >> s1 >> s2;
+        stringstream ss, ss2;
+        ss << s1;
+        int h1, m1, se1, h2, m2, se2;
+        char c;
+        ss >> h1 >> c >> m1 >> c >> se1;
+        ss2 << s2;
+        ss2 >> h2 >> c >> m2 >> c >> se2;
+
+        int t1 = h1 * 3600 + m1 * 60 + se1;
+        int t2 = h2 * 3600 + m2 * 60 + se2;
+
+        mp[t1]++, mp[t2 + 1]--;
     }
 
-    int len1 = 0, len2 = 0;
-    int tl = l, tr = r;
+    FOR(i, 1, 1e5) mp[i] += mp[i - 1];
 
-    while (tl) len1++, tl /= 2;
-    while (tr) len2++, tr /= 2;
+    int ans = 0;
 
-    if (len1 == len2) {
-        cout << 0 << endl;
-        RE;
-    }
+    FOR(i, 1, 1e5) ans = max(ans, mp[i]);
 
-    int t = (1ll << len1);
-
-    int L = 0, R = r - t;
-
-    int ans = t - 1;
-    int x = t - 1;
-    FOR(i, 0, 32) {
-        if (x >> i & 1) {
-            int p = x ^ (1ll << i);
-            if (p >= l && p <= r) {
-                int p2 = p >> i << i;
-                ans = min(ans, p2);
-            }
-        }
-    }
-
-    if (ans - R <= 1) {
-        cout << r + 1 << endl;
-    } else {
-        cout << (R + 1) << endl;
-    }
+    cout << ans;
 }
 
 signed main() {
@@ -77,7 +67,7 @@ signed main() {
 
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    cin >> Task;
+
     while (Task--) {
         solve();
     }

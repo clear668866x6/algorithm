@@ -29,47 +29,46 @@ using u64 = unsigned long long;
 #define se second
 #define sz(x) (int)(x).size()
 
+typedef double db;
+
+const db eps = -1e9;
+
+inline int sign(db a) {
+    return a < -eps ? -1 : a > eps;
+}
+
+inline int cmp(db a, db b) {
+    return sign(a - b);
+}
+
+struct P {
+    db x, y;
+    P() {}
+    P(db _x, db _y) : x(_x), y(_y) {}
+    P operator+(P p) {
+        return {x + p.x, y + p.y};
+    }
+    P operator-(P p) {
+        return {x - p.x, y - p.y};
+    }
+    P operator*(int d) {
+        return {x * d, y * d};
+    }
+    P operator/(int d) {
+        return {x / d, y / d};
+    }
+
+    bool operator<(P p) const {
+        int c = cmp(x, p.x);
+        if (c) return c == -1;
+        return cmp(y, p.y) == -1;
+    }
+
+}
+
+
+
 void solve() {
-    int l, r;
-    cin >> l >> r;
-
-    if (l == 0) {
-        cout << r + 1 << endl;
-        RE;
-    }
-
-    int len1 = 0, len2 = 0;
-    int tl = l, tr = r;
-
-    while (tl) len1++, tl /= 2;
-    while (tr) len2++, tr /= 2;
-
-    if (len1 == len2) {
-        cout << 0 << endl;
-        RE;
-    }
-
-    int t = (1ll << len1);
-
-    int L = 0, R = r - t;
-
-    int ans = t - 1;
-    int x = t - 1;
-    FOR(i, 0, 32) {
-        if (x >> i & 1) {
-            int p = x ^ (1ll << i);
-            if (p >= l && p <= r) {
-                int p2 = p >> i << i;
-                ans = min(ans, p2);
-            }
-        }
-    }
-
-    if (ans - R <= 1) {
-        cout << r + 1 << endl;
-    } else {
-        cout << (R + 1) << endl;
-    }
 }
 
 signed main() {
@@ -77,7 +76,7 @@ signed main() {
 
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    cin >> Task;
+
     while (Task--) {
         solve();
     }
