@@ -23,6 +23,42 @@
         }
     }
 ```
+- 可以用线性筛来预处理一个数质因子的个数，注意i%p[j]!=0说明i没有p[j]的因子，然后如果i有p[j]的因子，此时就得break，因为一个数只能被筛一次。
+```C++
+
+struct Prime {
+    static constexpr int N = 1e6 + 10;
+
+    int p[N], cnt;
+    bool vis[N];
+    int pn[N];
+    set<int> s;
+
+    void init() {
+        int n = N - 10;
+
+        FOR(i, 2, n) {
+            if (!vis[i]) p[cnt++] = i, pn[i] = 1;
+            for (int j = 0; i * p[j] <= n; j++) {
+                vis[i * p[j]] = 1;
+                if (i % p[j] == 0) {
+                    pn[i * p[j]] = pn[i];
+                    break;
+                } else {
+                    pn[i * p[j]] = pn[i] + 1;
+                }
+            }
+        }
+
+        FOR(i, 1, n) {
+            if (pn[i] == 2) {
+                s.insert(i);
+            }
+        }
+    }
+} A;
+```
 
 # 例题
 - abc445e
+- abc400e

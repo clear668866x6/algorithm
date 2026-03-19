@@ -29,7 +29,83 @@ using u64 = unsigned long long;
 #define se second
 #define sz(x) (int)(x).size()
 
-void solve() {}
+constexpr int mod = 998244353;
+
+void solve() {
+    int n, m;
+    cin >> n >> m;
+    V<array<int, 3>> q(m + 1);
+    V<int> L(n + 1, 0), R(n + 1, 1e18);
+
+    FOR(i, 1, m) {
+        auto &[l, r, k] = q[i];
+        cin >> l >> r >> k;
+    }
+
+    sort(q.begin() + 1, q.end(), [&](auto a, auto b) { return a[2] < b[2]; });
+
+    V<int> p(n + 2, 0);
+    iota(ALL(p), 0ll);
+
+    function<int(int)> find = [&](int x) {
+        if (x != p[x]) p[x] = find(p[x]);
+        return p[x];
+    };
+
+    V<int> b(n + 2, n), vis(n + 2, 0);
+
+    FOR(id, 1, m) {
+        auto [l, r, k] = q[id];
+        for (int i = find(l); i <= r; i = find(i)) {
+            b[i] = k;
+            p[i] = find(i + 1);
+        }
+        vis[k] = 1;
+        L[k] = max(L[k], l);
+        R[k] = min(R[k], r);
+    }
+    int ans = 1, c = 0;
+
+    V<V<int>> g(n + 1);
+
+    FOR(i, 1, n) {
+        g[b[i]].eb(i);
+    }
+
+    FORD(i, 1, n) {
+        int t = sz(g[i]);
+        if (vis[i]) {
+            if (L[i] > R[i]) {
+                cout << 0 << endl;
+                RE;
+            }
+            int cnt = 0;
+
+            for (auto x : g[i]) {
+                if (x >= L[i] && x <= R[i]) cnt++;
+            }
+
+            if (!cnt) {
+                cout << 0 << endl;
+                RE;
+            }
+
+            ans *= cnt;
+            ans %= mod;
+            c += (t - 1);
+        } else {
+            c += t;
+            if (c <= 0) {
+                cout << 0 << endl;
+                RE;
+            }
+            ans *= c;
+            c--;
+            ans %= mod;
+        }
+    }
+    cout << ans << endl;
+}
 
 signed main() {
     int Task = 1;
