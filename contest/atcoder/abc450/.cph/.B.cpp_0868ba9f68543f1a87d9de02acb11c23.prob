@@ -1,0 +1,1 @@
+{"name":"Local: B","url":"/home/value/algorithm/contest/atcoder/abc450/B.cpp","tests":[{"id":1774094607755,"input":"3\n45 450\n45\n","output":""},{"id":1774094612074,"input":"4\n25 40 65\n30 55\n25\n","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/value/algorithm/contest/atcoder/abc450/B.cpp","group":"local","local":true}

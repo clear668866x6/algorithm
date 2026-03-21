@@ -1,0 +1,1 @@
+{"name":"Local: D","url":"/home/value/algorithm/contest/atcoder/abc450/D.cpp","tests":[{"id":1774095976441,"input":"3 10\n3 21 9\n","output":""},{"id":1774095980311,"input":"5 6\n4 100 5 10 450\n","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/value/algorithm/contest/atcoder/abc450/D.cpp","group":"local","local":true}
