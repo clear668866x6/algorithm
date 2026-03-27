@@ -1,4 +1,3 @@
-#include <algorithm>
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -31,27 +30,28 @@ using u64 = unsigned long long;
 #define sz(x) (int)(x).size()
 
 void solve() {
-    int n;
-    cin >> n;
-    V<int> w(n + 1, 0);
-    FOR(i, 1, n) cin >> w[i];
+    string s;
+    cin >> s;
 
-    if (n == 1) {
-        cout << 1 << endl;
-        RE;
+    if (sz(s) != 8) {
+        No;
+    } else {
+        if (isupper(s[0]) && isupper(s[1])) {
+            if (s[0] <= 'G' && s[1] <= 'G') {
+                FOR(i, 2, 6) {
+                    if (!isdigit(s[i])) {
+                        No;
+                        RE;
+                    }
+                }
+                if (isdigit(s[7]) || s[7] == 'X') {
+                    Yes;
+                    RE;
+                }
+            }
+        }
+        No;
     }
-
-    int mx = *max_element(ALL(w)), mn = *min_element(w.begin() + 1, w.end());
-
-    int ans = 2;
-
-    bool f1 = false, f2 = false;
-    if (w[1] == mx || w[n] == mx) f1 = 1;
-    if (w[1] == mn || w[n] == mn) f2 = 1;
-
-    ans += (!f1 + !f2);
-
-    cout << ans;
 }
 
 signed main() {

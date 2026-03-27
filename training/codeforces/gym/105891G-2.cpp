@@ -34,23 +34,34 @@ void solve() {
     int n;
     cin >> n;
     V<int> w(n + 1, 0);
-    FOR(i, 1, n) cin >> w[i];
+    map<int, int> mp;
+    FOR(i, 1, n) cin >> w[i], mp[w[i]]++;
 
     if (n == 1) {
         cout << 1 << endl;
         RE;
     }
+    if (mp[w[1]] == n || n == 2) {
+        cout << 2 << endl;
+        RE;
+    }
 
     int mx = *max_element(ALL(w)), mn = *min_element(w.begin() + 1, w.end());
 
-    int ans = 2;
+    int ans = 2, c1 = 0, c2 = 0;
 
-    bool f1 = false, f2 = false;
-    if (w[1] == mx || w[n] == mx) f1 = 1;
-    if (w[1] == mn || w[n] == mn) f2 = 1;
+    FOR(i, 2, n - 1) {
+        if (w[i] == mn) {
+            c1 = 1;
+        } else if (w[i] == mx) {
+            c2 = 1;
+        }
+    }
 
-    ans += (!f1 + !f2);
+    if (w[1] == mn || w[n] == mn) c1 = 0;
+    if (w[1] == mx || w[n] == mx) c2 = 0;
 
+    ans += (c1 + c2);
     cout << ans;
 }
 

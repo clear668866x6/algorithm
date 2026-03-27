@@ -1,4 +1,3 @@
-#include <algorithm>
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -31,25 +30,33 @@ using u64 = unsigned long long;
 #define sz(x) (int)(x).size()
 
 void solve() {
-    int n;
-    cin >> n;
-    V<int> w(n + 1, 0);
-    FOR(i, 1, n) cin >> w[i];
+    int n, m, v;
+    cin >> n >> m >> v;
 
-    if (n == 1) {
-        cout << 1 << endl;
-        RE;
+    V<int> a(n + 1, 0), b(m + 1, 0);
+    FOR(i, 1, n) cin >> a[i];
+    FOR(i, 1, m) cin >> b[i];
+
+    int ans = 0;
+
+    FOR(i, 1, n - 1) {
+        int del = a[i + 1] - a[i];
+        int t1 = i * (n - i);
+        int l = 0, r = (m + 1) / 2 + 1;
+        while (l + 1 < r) {
+            int mid = (l + r) / 2;
+            if ((i128)mid * (m - mid) * t1 >= v)
+                r = mid;
+            else
+                l = mid;
+        }
+
+        if ((i128)r * (m - r) * t1 >= v) {
+            int rd = min(m, m - r + 1);
+            int del2 = b[rd] - b[r];
+            ans += (del * del2);
+        }
     }
-
-    int mx = *max_element(ALL(w)), mn = *min_element(w.begin() + 1, w.end());
-
-    int ans = 2;
-
-    bool f1 = false, f2 = false;
-    if (w[1] == mx || w[n] == mx) f1 = 1;
-    if (w[1] == mn || w[n] == mn) f2 = 1;
-
-    ans += (!f1 + !f2);
 
     cout << ans;
 }

@@ -1,0 +1,1 @@
+{"name":"Local: E","url":"/home/value/algorithm/contest/代码源/54/E.cpp","tests":[{"id":1774615156484,"input":"2 4 2\n1 3\n2 4 6 7\n","output":""},{"id":1774615226973,"input":"3 5 11\n-3 -1 4\n-2 0 1 3 4\n","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/value/algorithm/contest/代码源/54/E.cpp","group":"local","local":true}

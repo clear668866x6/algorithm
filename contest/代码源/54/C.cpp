@@ -1,4 +1,3 @@
-#include <algorithm>
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -33,23 +32,27 @@ using u64 = unsigned long long;
 void solve() {
     int n;
     cin >> n;
-    V<int> w(n + 1, 0);
-    FOR(i, 1, n) cin >> w[i];
+    V<int> w(n * 4 + 1, 0);
+    FOR(i, 1, n * 2) cin >> w[i];
 
-    if (n == 1) {
-        cout << 1 << endl;
-        RE;
+    FOR(i, 1, n * 2) {
+        w[i + n * 2] = w[i];
     }
 
-    int mx = *max_element(ALL(w)), mn = *min_element(w.begin() + 1, w.end());
+    int t1 = 0, t2 = 0, ans = 0;
 
-    int ans = 2;
+    FOR(i, 1, n) t1 += w[i];
+    FOR(i, n + 1, n * 2) t2 += w[i];
 
-    bool f1 = false, f2 = false;
-    if (w[1] == mx || w[n] == mx) f1 = 1;
-    if (w[1] == mn || w[n] == mn) f2 = 1;
+    ans = t1 ^ t2;
 
-    ans += (!f1 + !f2);
+    FOR(i, 1, n * 2) {
+        t1 -= w[i];
+        t1 += w[i + n];
+        t2 -= w[i + n];
+        t2 += w[i + n * 2];
+        ans = max(ans, t1 ^ t2);
+    }
 
     cout << ans;
 }

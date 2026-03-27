@@ -1,4 +1,3 @@
-#include <algorithm>
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -31,26 +30,32 @@ using u64 = unsigned long long;
 #define sz(x) (int)(x).size()
 
 void solve() {
-    int n;
-    cin >> n;
-    V<int> w(n + 1, 0);
-    FOR(i, 1, n) cin >> w[i];
+    int n, m;
+    cin >> n >> m;
+    V<int> a(n + 1, 0), b(n + 1, 0), c(n + 1, 0);
+    multiset<int> s;
+    FOR(i, 1, n) cin >> a[i], s.insert(a[i]);
+    FOR(i, 1, n) cin >> b[i];
 
-    if (n == 1) {
-        cout << 1 << endl;
-        RE;
+    sort(ALL(b));
+
+    FOR(i, 1, n) {
+        auto it = s.upper_bound(b[i]);
+        if (it == s.begin()) {
+            c[i] = *s.rbegin();
+            s.erase(s.find(c[i]));
+        } else {
+            --it;
+            c[i] = *it;
+            s.erase(s.find(c[i]));
+        }
     }
 
-    int mx = *max_element(ALL(w)), mn = *min_element(w.begin() + 1, w.end());
+    int ans = 0;
 
-    int ans = 2;
-
-    bool f1 = false, f2 = false;
-    if (w[1] == mx || w[n] == mx) f1 = 1;
-    if (w[1] == mn || w[n] == mn) f2 = 1;
-
-    ans += (!f1 + !f2);
-
+    FOR(i, 1, n) {
+        ans += (b[i] - c[i] + m) % m;
+    }
     cout << ans;
 }
 
