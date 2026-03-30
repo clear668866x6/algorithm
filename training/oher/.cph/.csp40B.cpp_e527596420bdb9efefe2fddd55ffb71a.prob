@@ -1,0 +1,1 @@
+{"name":"Local: csp40B","url":"/home/value/algorithm/training/oher/csp40B.cpp","tests":[{"id":1774874599797,"input":"1 2\n3 5\n504\n","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/value/algorithm/training/oher/csp40B.cpp","group":"local","local":true}
