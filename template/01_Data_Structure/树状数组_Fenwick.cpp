@@ -30,4 +30,15 @@ template<typename T> struct Fenwick {
         if (l > r) return 0;
         return query(r) - query(l - 1);
     }
+
+    T find(int k) {
+        int pos = 0;
+        for (int i = 32; i >= 0; i--) {
+            if (pos + (1 << i) < n && tr[pos + (1 << i)] <= k) {
+                pos += (1 << i);
+                k -= tr[pos];
+            }
+        }
+        return pos + 1;
+    }
 };

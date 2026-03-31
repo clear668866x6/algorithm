@@ -53,7 +53,7 @@ void solve() {
                     }
                     tmp += s[j];
                 }
-                if (f2) break;
+                if (f2) continue;
                 bool f3 = false;
                 for (auto j : p) {
                     if (tmp == j) {
