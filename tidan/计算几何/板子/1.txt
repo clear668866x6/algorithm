@@ -75,7 +75,7 @@ struct P {
         return sign(y) == 1 || (sign(y) == 0 && sign(x) >= 0);
     }
 };
-
+//cross 是三点共线，如果共线值为0
 #define cross(p1, p2, p3) ((p2.x - p1.x) * (p3.y - p1.y) - (p3.x - p1.x) * (p2.y - p1.y))
 #define crossOp(p1, p2, p3) sign(cross(p1, p2, p3))
 
