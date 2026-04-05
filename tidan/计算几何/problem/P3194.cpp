@@ -1,6 +1,13 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+using i64 = long long;
+using u64 = unsigned long long;
+using i128 = __int128;
+
+#include <bits/stdc++.h>
+using namespace std;
+
 typedef double db;
 
 const db eps = 1e-9;
@@ -15,8 +22,10 @@ inline int cmp(db a, db b) {
 }
 struct P {
     db x, y;
+    int idx;
     P() {}
     P(db _x, db _y) : x(_x), y(_y) {}
+    P(db _x, db _y, int _idx) : x(_x), y(_y), idx(_idx) {}
 
     // 向量基础运算
     P operator+(P p) {
@@ -387,4 +396,32 @@ pair<P, db> min_circle(vector<P> ps) {
                 }
         }
     return {o, r};
+}
+
+void solve() {
+    int n;
+    cin >> n;
+
+    vector<P> w(n);
+    for (int i = 0; i < n; i++) {
+        db a, b;
+        cin >> a >> b;
+        w[i] = {a, b, i + 1};
+    }
+
+    vector<P> p = convexHull(w);
+
+    for (auto [a, b, c] : p) cout << c << ' ';
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int t = 1;
+    while (t--) {
+        solve();
+    }
+
+    return 0;
 }

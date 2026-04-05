@@ -1,6 +1,13 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+using i64 = long long;
+using u64 = unsigned long long;
+using i128 = __int128;
+
+#include <bits/stdc++.h>
+using namespace std;
+
 typedef double db;
 
 const db eps = 1e-9;
@@ -387,4 +394,41 @@ pair<P, db> min_circle(vector<P> ps) {
                 }
         }
     return {o, r};
+}
+
+void solve() {
+    int n;
+    cin >> n;
+
+    vector<P> w(n);
+
+    for (int i = 0; i < n; i++) {
+        db a, b;
+        cin >> a >> b;
+        w[i] = {a, b};
+    }
+
+    vector<P> p = convexHull(w);
+
+    db ans = 0;
+
+    for (int i = 1; i < p.size(); i++) {
+        ans += dist(p[i - 1], p[i]);
+    }
+
+    ans += dist(p.back(), p[0]);
+
+    cout << fixed << setprecision(2) << ans;
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int t = 1;
+    while (t--) {
+        solve();
+    }
+
+    return 0;
 }

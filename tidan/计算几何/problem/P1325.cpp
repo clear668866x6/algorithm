@@ -1,3 +1,9 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+using i64 = long long;
+using u64 = unsigned long long;
+using i128 = __int128;
 
 typedef double db;
 
@@ -144,4 +150,57 @@ void polarSort(vector<P> &ps) {
         if (qa != qb) return qa < qb;
         return sign(a.det(b)) > 0;
     });
+}
+
+void solve() {
+    int n, d;
+    cin >> n >> d;
+
+    vector<P> w;
+    bool f = false;
+
+    for (int i = 1; i <= n; i++) {
+        int x, y;
+        cin >> x >> y;
+        db a = x - sqrt(d * d - y * y), b = x + sqrt(d * d - y * y);
+        if (y > d) {
+            f = 1;
+        }
+        w.push_back({a, b});
+    }
+
+    if (f) {
+        cout << -1;
+        return;
+    }
+
+    sort(w.begin(), w.end(), [&](P a, P b) {
+        if (abs(a.y - b.y) > eps) return a.y < b.y;
+        return a.x < b.x;
+    });
+
+    int ans = 1;
+
+    int r = 0;
+
+    for (int i = 1; i < n; i++) {
+        if (w[i].x > w[r].y + eps) {
+            r = i;
+            ans++;
+        }
+    }
+
+    cout << ans;
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int t = 1;
+    while (t--) {
+        solve();
+    }
+
+    return 0;
 }

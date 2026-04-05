@@ -1,13 +1,20 @@
+#include <bits/stdc++.h>
+using namespace std;
 
-typedef double db;
+using i64 = long long;
+using u64 = unsigned long long;
+using i128 = __int128;
 
-const db eps = 1e-9;
+typedef int db;
+
+const db eps = -1e9;
 
 inline int sign(db a) {
     // return a < -eps ? -1 : a > eps;
     if (!a) return 0;
     return a < 0 ? -1 : 1;
 }
+
 inline int cmp(db a, db b) {
     return sign(a - b);
 }
@@ -66,9 +73,6 @@ struct P {
     }
     P unit() {
         return *this / abs();
-    }
-    P rot(db an) {
-        return {x * cos(an) - y * sin(an), x * sin(an) + y * cos(an)};
     }
 
     // 象限判断
@@ -144,4 +148,65 @@ void polarSort(vector<P> &ps) {
         if (qa != qb) return qa < qb;
         return sign(a.det(b)) > 0;
     });
+}
+
+void solve() {
+    string s;
+    vector<array<int, 2>> p;
+    int a, b;
+    for (int i = 1; i <= 4; i++) {
+        cin >> s;
+        char c;
+        int x, y;
+        stringstream ss;
+        ss << s;
+        ss >> c >> x >> c >> y >> c;
+        if (i != 4) {
+            p.push_back({x, y});
+        } else {
+            a = x, b = y;
+        }
+    }
+
+    for (int i = 0; i < 3; i++) {
+        if (p[i][0] == a && p[i][1] == b) {
+            cout << 4;
+            return;
+        }
+    }
+
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 3; j++) {
+            if (i == j) continue;
+            P pa({p[i][0], p[i][1]}), pb({p[j][0], p[j][1]}), pc({a, b});
+            if (!cross(pa, pb, pc) && isMiddle(pa, pc, pb)) {
+                cout << 3;
+                return;
+            }
+        }
+    }
+
+    P p0({p[0][0], p[0][1]}), p1({p[1][0], p[1][1]}), p2({p[2][0], p[2][1]}), p3({a, b});
+
+    int c1 = crossOp(p0, p1, p3);
+    int c2 = crossOp(p1, p2, p3);
+    int c3 = crossOp(p2, p0, p3);
+
+    if ((c1 > 0 && c2 > 0 && c3 > 0) || (c1 < 0 && c2 < 0 && c3 < 0)) {
+        cout << 1;
+    } else {
+        cout << 2;
+    }
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int t = 1;
+    while (t--) {
+        solve();
+    }
+
+    return 0;
 }
