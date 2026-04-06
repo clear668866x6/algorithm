@@ -409,9 +409,41 @@ void solve() {
         w[i] = {a, b, i + 1};
     }
 
-    vector<P> p = convexHull(w);
+    sort(w.begin(), w.end(), [&](P a, P b) {
+        if (cmp(a.x, b.x) != 0) return cmp(a.x, b.x) < 0;
+        return cmp(a.y, b.y) > 0;
+    });
 
-    for (auto [a, b, c] : p) cout << c << ' ';
+    vector<P> v;
+
+    for (int i = 0; i < n; i++) {
+        if (!i || cmp(w[i - 1].x, w[i].x) != 0) {
+            v.push_back(w[i]);
+        }
+    }
+
+    vector<P> p = convexHull(v);
+
+    int mid = 0;
+    for (int i = 1; i < p.size(); i++) {
+        if (cmp(p[i].x, p[mid].x) > 0) {
+            mid = i;
+        }
+    }
+
+    vector<int> ans;
+
+    for (int i = mid; i < p.size(); i++) {
+        ans.push_back(p[i].idx);
+    }
+
+    if (mid != 0) {
+        ans.push_back(p[0].idx);
+    }
+
+    sort(ans.begin(), ans.end());
+
+    for (auto x : ans) cout << x << ' ';
 }
 
 int main() {
