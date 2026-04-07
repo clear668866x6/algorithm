@@ -12,15 +12,26 @@ void solve() {
     if (x <= y) {
         cout << (n + m) * y << '\n';
     } else {
-        if (!y) {
-            cout << max(n * y, (n - 1) * y + x) << '\n';
-            return;
-        }
-        int t = n / y;
-        if (t <= n) {
-            cout << x + (n - t + m) * y << '\n';
+        if (n > 0) {
+            if (m > 0) {
+                if (x > y * (n + 1)) {
+                    cout << x + n * y << '\n';
+                } else {
+                    cout << max(x + n * y, x + (n - (x - 1) / y + m) * y) << '\n';
+                }
+            } else {
+                cout << max(n * y, x + (n - 1) * y) << '\n';
+            }
         } else {
-            cout << max(x + (n - 1) * y, (n + m) * y) << '\n';
+            if (x > y) {
+                if (m > 0) {
+                    cout << x << '\n';
+                } else {
+                    cout << "0\n";
+                }
+            } else {
+                cout << y * m << '\n';
+            }
         }
     }
 }
