@@ -1,4 +1,3 @@
-#include <algorithm>
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -21,22 +20,29 @@ void solve() {
         }
     }
 
-    vector f((1 << n), vector(n + 1, 1e9));
+    vector<vector<i64>> f((1 << n), vector<i64>(n + 1, 1e18));
 
-    f[0][0] = 0;
-    for (int state = 0; state < (1 << n); state++) {
-        for (int i = 0; i < n; i++) {
-            int t1 = __builtin_popcount(state & ((1 << i) - 1)) + 1;
-            for (int j = 0; j < n; j++) {
-                int t2 = __builtin_popcount(state & ((1 << j) - 1)) + 1;
-                int del = abs(t1 - t2);
-                f[state | (1 << i)][i] =
-                    min(f[state | (1 << i)][i], f[state][j] + cost[s[i] - 'a' + 1][s[j] - 'a' + 1] + t + del * t);
+    for (int i = 0; i < n; i++) {
+        f[1 << i][i] = cost[1][s[i] - 'a' + 1] + t;
+    }
+
+    for (int state = 1; state < (1 << n); state++) {
+        for (int j = 0; j < n; j++) {
+            if (!(state >> j & 1) || f[state][j] == 1e18) continue;
+            i64 t2 = __builtin_popcount(state & ((1 << j) - 1)) + 1;
+            for (int i = 0; i < n; i++) {
+                if (state >> i & 1) continue;
+                i64 t1 = __builtin_popcount(state & ((1 << i) - 1));
+                int nw = state | (1 << i);
+                i64 del = abs(t1 - t2);
+                f[nw][i] = min(f[nw][i], f[state][j] + cost[s[j] - 'a' + 1][s[i] - 'a' + 1] + t + (i64)del * t);
             }
         }
     }
 
-    cout << *min_element(f[(1 << n) - 1].begin(), f[(1 << n) - 1].end());
+    i64 mn = 1e18;
+    for (int i = 0; i < n; i++) mn = min(mn, f[(1 << n) - 1][i]);
+    cout << mn << '\n';
 }
 
 int main() {
