@@ -1,0 +1,1 @@
+{"name":"Local: L3-038","url":"/home/value/algorithm/training/oher/L3-038.cpp","tests":[{"id":1776268982835,"input":"3\n5 1 3\n10110\n10 3 5\n1001001010\n2 1 2\n10\n","output":"3 2 2 2 3\n10 7 6 7 6 6 6 6 7 10\n1 1"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/value/algorithm/training/oher/L3-038.cpp","group":"local","local":true}
