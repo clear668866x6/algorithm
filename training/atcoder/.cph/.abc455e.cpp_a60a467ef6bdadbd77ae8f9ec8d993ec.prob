@@ -1,0 +1,1 @@
+{"name":"Local: abc455e","url":"/home/value/algorithm/training/atcoder/abc455e.cpp","tests":[{"id":1777302280831,"input":"6\nAABBCC\n","output":""},{"id":1777302666067,"input":"10\nACABCAABAB\n","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/value/algorithm/training/atcoder/abc455e.cpp","group":"local","local":true}

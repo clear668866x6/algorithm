@@ -1,0 +1,1 @@
+{"name":"Local: D","url":"/home/value/algorithm/contest/nowcoder/牛客周赛141/D.cpp","tests":[{"id":1777202328787,"input":"2\n3\n2 2 4\n3\n1 2 8","output":""},{"id":1777202344632,"input":"1\n3\n1 2 8","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/value/algorithm/contest/nowcoder/牛客周赛141/D.cpp","group":"local","local":true}
