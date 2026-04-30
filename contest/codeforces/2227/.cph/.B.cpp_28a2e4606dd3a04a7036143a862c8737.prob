@@ -1,0 +1,1 @@
+{"name":"Local: B","url":"/home/value/algorithm/contest/codeforces/2227/B.cpp","tests":[{"id":1777560058367,"input":"6\n2\n()\n2\n)(\n3\n(((\n6\n())(()\n4\n(()(\n5\n)()()\n","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/value/algorithm/contest/codeforces/2227/B.cpp","group":"local","local":true}
