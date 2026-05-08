@@ -1,0 +1,1 @@
+{"name":"Local: F","url":"/home/value/algorithm/contest/nowcoder/牛客小白月赛132/F.cpp","tests":[{"id":1778244041856,"input":"2\n4 5\n3 7 2 7\n1 2\n1 3\n2 4\n5 7\n1 8 2 6 3\n1 2\n1 3\n2 4\n2 5","output":"7\n12"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/value/algorithm/contest/nowcoder/牛客小白月赛132/F.cpp","group":"local","local":true}
