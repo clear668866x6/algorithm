@@ -1,0 +1,1 @@
+{"name":"Local: B","url":"/home/value/algorithm/contest/atcoder/abc458/B.cpp","tests":[{"id":1778932982774,"input":"4 5\n","output":"2 3 3 3 2\n3 4 4 4 3\n3 4 4 4 3\n2 3 3 3 2\n"},{"id":1778932990791,"input":"1 1\n","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/value/algorithm/contest/atcoder/abc458/B.cpp","group":"local","local":true}

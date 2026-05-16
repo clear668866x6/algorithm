@@ -1,0 +1,1 @@
+{"name":"Local: A","url":"/home/value/algorithm/contest/atcoder/abc458/A.cpp","tests":[{"id":1778932879785,"input":"chemotherapy\n3\n","output":""},{"id":1778932884315,"input":"thermometer\n4\n","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/value/algorithm/contest/atcoder/abc458/A.cpp","group":"local","local":true}
