@@ -12,36 +12,38 @@ void solve() {
     for (int i = 1; i <= n; i++) cin >> a[i];
     for (int i = 1; i <= n; i++) cin >> b[i];
 
-    vector<i64> d(n + 1, 0);
-    priority_queue<array<i64, 2>> q;
+    vector<i64> d(n + 1, 1e18);
+    d[1] = 0;
+    priority_queue<array<i64, 2>, vector<array<i64, 2>>, greater<array<i64, 2>>> q;
     q.push({0, 1});
     vector<int> vis(n + 1, 0);
-    set<int> s;
-    for (int i = 0; i <= n; i++) s.insert(i);
 
     while (!q.empty()) {
         auto [dd, ver] = q.top();
         q.pop();
 
-        if (ver == 0) continue;
         if (vis[ver]) continue;
         vis[ver] = 1;
-        s.erase(s.find(ver));
 
-        auto it = prev(s.upper_bound(b[ver]));
-        int v = *it;
-        d[v] = d[ver];
-        q.push({d[v], v});
+        if (ver > 1 && d[ver - 1] > d[ver]) {
+            d[ver - 1] = d[ver];
+            q.push({d[ver - 1], ver - 1});
+        }
 
-        it = prev(s.lower_bound(ver));
-        v = *it;
-        if (d[v] < d[ver] + a[ver]) {
-            d[v] = d[ver] + a[ver];
-            q.push({d[v], v});
+        if (d[b[ver]] > d[ver] + a[ver]) {
+            d[b[ver]] = d[ver] + a[ver];
+            q.push({d[b[ver]], b[ver]});
         }
     }
 
-    cout << max(d[0], a[1]) << '\n';
+    i64 sum = 0, ans = 0;
+    for (int i = 1; i <= n; i++) {
+        sum += a[i];
+        if (d[i] != 1e18) {
+            ans = max(ans, sum - d[i]);
+        }
+    }
+    cout << ans << '\n';
 }
 
 int main() {
