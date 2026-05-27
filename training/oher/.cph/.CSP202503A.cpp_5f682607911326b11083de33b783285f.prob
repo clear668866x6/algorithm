@@ -1,0 +1,1 @@
+{"name":"Local: CSP202503A","url":"/home/value/algorithm/training/oher/CSP202503A.cpp","tests":[{"id":1779890413389,"input":"1 2 0 5\n","output":""},{"id":1779890473921,"input":"-20 -20 1 1000\n","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/value/algorithm/training/oher/CSP202503A.cpp","group":"local","local":true}
