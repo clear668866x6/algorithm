@@ -1,0 +1,1 @@
+{"name":"Local: C","url":"/home/value/algorithm/contest/nowcoder/牛客小白月赛134/C.cpp","tests":[{"id":1782476350556,"input":"2\n3\n10 5 15\n4\n1 2 3 2","output":""},{"id":1782476357818,"input":"1\n4\n4 2 3 4","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/value/algorithm/contest/nowcoder/牛客小白月赛134/C.cpp","group":"local","local":true}
