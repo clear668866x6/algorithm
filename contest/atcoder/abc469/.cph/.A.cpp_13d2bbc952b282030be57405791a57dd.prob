@@ -1,0 +1,1 @@
+{"name":"Local: A","url":"/home/value/algorithm/contest/atcoder/abc469/A.cpp","tests":[{"id":1785585301167,"input":"5 2\n","output":""},{"id":1785585652259,"input":"99 50\n","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/value/algorithm/contest/atcoder/abc469/A.cpp","group":"local","local":true}
